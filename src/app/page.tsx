@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
@@ -10,6 +10,18 @@ import Footer from '@/components/layout/Footer'
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  // Add this new useEffect for performance
+useEffect(() => {
+  // Reduce motion for low-end devices
+  const isLowEndDevice = navigator.hardwareConcurrency <= 4 || 
+    /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  
+  if (isLowEndDevice) {
+    document.documentElement.style.setProperty('--motion-scale', '0.5')
+  }
+}, [])
+
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
