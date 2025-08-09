@@ -5,32 +5,34 @@ import { Award, Calendar, ExternalLink, CheckCircle, Star } from 'lucide-react'
 
 const certificates = [
   {
-    title: 'AWS Certified Solutions Architect',
-    issuer: 'Amazon Web Services',
-    date: '2024',
-    credentialId: 'AWS-SAA-2024-001',
-    description: 'Comprehensive certification covering cloud architecture, security, and deployment strategies on AWS platform.',
-    skills: ['AWS', 'Cloud Architecture', 'Security', 'DevOps'],
-    verified: true,
-    featured: true
-  },
-  {
-    title: 'React Developer Certification',
-    issuer: 'Meta (Facebook)',
-    date: '2023',
-    credentialId: 'META-REACT-2023-456',
-    description: 'Advanced React development including hooks, state management, performance optimization, and modern patterns.',
-    skills: ['React', 'JavaScript', 'JSX', 'State Management'],
-    verified: true,
-    featured: true
-  },
-  {
-    title: 'Full Stack Web Development',
+    title: 'Back End Development and APIs ',
     issuer: 'FreeCodeCamp',
-    date: '2023',
-    credentialId: 'FCC-FSWD-2023-789',
-    description: 'Comprehensive full-stack development covering frontend, backend, databases, and deployment strategies.',
-    skills: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'MongoDB'],
+    date: '2025',
+    credentialId: 'shivang-jnv-bedaa',
+    description: 'Comprehensive certification demonstrating proficiency in Node.js, Express.js, MongoDB, and RESTful API design through practical project implementations.',
+    skills: ['Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'Authentication', 'Database Design', 'Server Development', 'API Testing']
+,
+    verified: true,
+    featured: true
+  },
+  {
+    title: 'J. P. Morgan - Software Enginering Job Simulation',
+    issuer: 'Forage',
+    date: '2025',
+    credentialId: 'KJKGrfmkDx2LsddLi',
+    description: 'A hands-on virtual experience learning JPMorgan Chase\'s programming skills and tools through real software engineering tasks.',
+    skills: ['Spring', 'Java', 'Kafka', 'Maven', 'REST API', 'SQL'],
+    verified: true,
+    featured: true
+  },
+  {
+    title: 'AWS Solutions	Architecture Job Simulation',
+    issuer: 'Forage',
+    date: '2025',
+    credentialId: 'rLWQeT4Miej7bMzK4',
+    description: 'AWS Solutions Architecture job simulation on Forage, designing scalable hosting architectures using Elastic Beanstalk, load balancing, and multi-service AWS implementations for high-growth clients.',
+    skills: ['AWS Architecture Design', 'Elastic Beanstalk', 'Load Balancing', 'Auto Scaling', 'Multi-AZ Deployment', 'Cost Optimization', 'Technical Communication', 'Cloud Solutions']
+,
     verified: true,
     featured: false
   },
@@ -45,22 +47,23 @@ const certificates = [
     featured: false
   },
   {
-    title: 'Google Analytics Certified',
-    issuer: 'Google',
-    date: '2023',
-    credentialId: 'GOOGLE-GA-2023-345',
-    description: 'Expertise in web analytics, conversion tracking, and data-driven decision making using Google Analytics.',
-    skills: ['Analytics', 'SEO', 'Conversion Tracking', 'Data Analysis'],
+    title: 'Foundations of Prompt Engineering',
+    issuer: 'AWS',
+    date: '2025',
+    credentialId: '',
+    description: 'AWS certification, demonstrating expertise in generative AI interactions, LLM optimization, and advanced prompting techniques.',
+    skills: ['Prompt Engineering', 'Generative AI', 'LLMs', 'Chain-of-Thought', 'AI Optimization', 'Context Design'],
     verified: true,
     featured: false
   },
   {
-    title: 'MongoDB Database Administrator',
-    issuer: 'MongoDB Inc.',
-    date: '2023',
-    credentialId: 'MONGO-DBA-2023-678',
-    description: 'Database administration, performance optimization, and advanced querying techniques for MongoDB.',
-    skills: ['MongoDB', 'Database Design', 'Performance Optimization', 'NoSQL'],
+    title: 'Accenture UK - Developer and Technology Job Simulation',
+    issuer: 'Forage',
+    date: '2025',
+    credentialId: 'gt88MFfnM85g7R4bY',
+    description: 'comprehensive software development lifecycle simulation covering SDLC methodologies, algorithmic thinking, code debugging, and software testing practices through hands-on projects and technical analysis.',
+    skills: ['SDLC', 'Agile', 'Waterfall', 'Software Testing', 'Algorithmic Thinking', 'Code Debugging', 'Pseudocoding', 'Flow Diagramming', 'DevOps', 'Software QA']
+,
     verified: true,
     featured: false
   }

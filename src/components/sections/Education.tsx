@@ -5,22 +5,22 @@ import { GraduationCap, Calendar, Award, BookOpen } from 'lucide-react'
 
 const education = [
   {
-    period: '2020 - 2024',
+    period: '2025',
     degree: 'Bachelor of Technology',
     field: 'Computer Science and Engineering',
-    institution: 'Your University Name',
-    location: 'Your City, India',
-    grade: 'CGPA: 8.5/10',
+    institution: 'Dr. A. P. J. Abdul Kalam Technical University',
+    location: 'Lucknow, India',
+    grade: 'CGPA: 7.6/10',
     description: 'Comprehensive study of computer science fundamentals, software engineering principles, data structures, algorithms, and modern development practices. Specialized in web technologies and software architecture.'
   },
   {
-    period: '2018 - 2020',
+    period: '2019',
     degree: 'Class 12 (Higher Secondary)',
     field: 'Science Stream',
-    institution: 'Your School Name',
-    location: 'Your City, India',
-    grade: 'Percentage: 85%',
-    description: 'Strong foundation in mathematics, physics, chemistry, and computer science. Focused on analytical thinking and problem-solving skills that prepared for engineering studies.'
+    institution: 'Jawahar Navodaya Vidyalaya',
+    location: 'Shahjahanpur, India',
+    grade: 'Percentage: 89.2%',
+    description: 'Strong foundation in mathematics, physics and chemistry. Focused on analytical thinking and problem-solving skills that prepared for engineering studies.'
   }
 ]
 

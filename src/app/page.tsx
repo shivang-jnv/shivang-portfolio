@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
 import { trackPerformanceMetrics } from '@/utils/Performance';
 import Education from '@/components/sections/Education'
-import Skills from '@/components/sections/Skills'
+// import Skills from '@/components/sections/Skills'
 import Certificates from '@/components/sections/Certificates'
 
 
@@ -190,9 +190,9 @@ const mouseFollowerStyle = useMemo(() => ({
               transition={{ duration: 1, delay: 1 }}
             >
               {[
-                { icon: Github, href: '#', label: 'GitHub' },
-                { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { icon: Mail, href: '#', label: 'Email' }
+                { icon: Github, href: 'https://github.com/shivang-jnv', label: 'GitHub' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/shivang-kanaujia-973a6a175/', label: 'LinkedIn' },
+                { icon: Mail, href: 'mailto:sknvspn@gmail.com', label: 'Email' }
               ].map((social, index) => (
                 <motion.a
                   key={social.label}

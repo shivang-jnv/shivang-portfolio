@@ -1,13 +1,13 @@
 'use client'
 import { useState, useEffect, memo, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X, Home, User, Briefcase, Mail, GraduationCap  } from 'lucide-react'
+import { Menu, X, User, Briefcase, Mail, GraduationCap, Award  } from 'lucide-react'
 
 const navItems = [
-  { href: '#home', label: 'Home', icon: Home },
   { href: '#about', label: 'About', icon: User },
-  { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#education', label: 'Education', icon: GraduationCap },
+  { href: '#certificates', label: 'Certificates', icon: Award },
+  { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#contact', label: 'Contact', icon: Mail },
 ]
 
@@ -38,12 +38,14 @@ const Navbar = memo(function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <motion.div 
-            className="text-2xl font-bold"
+          <motion.button
+            onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+            className="text-2xl font-bold cursor-pointer"
             whileHover={{ scale: 1.05 }}
           >
             <span className="text-gradient">SK</span>
-          </motion.div>
+          </motion.button>
+
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">

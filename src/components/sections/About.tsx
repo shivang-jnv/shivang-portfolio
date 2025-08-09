@@ -13,23 +13,23 @@ const skills = [
 
 const experiences = [
   {
-    period: '2024 - Present',
-    role: 'Full Stack Developer',
-    company: 'Tech Startup',
-    description: 'Building scalable web applications with modern tech stack. Leading frontend architecture decisions and implementing robust backend solutions.'
+    period: 'Sept 2022 - Nov 2022',
+    role: 'Arduino Coding Intern',
+    company: 'Plantech Innovations Ltd.',
+    description: 'Built & embedded C++ firmware for Arduino UNO to power self-sustaining digital planters, integrating 8+ sensors with 99.5% accuracy. Resolved sync issues and patched library conflicts, ensuring 100% uptime and faster maintenance.'
   },
-  {
-    period: '2023 - 2024',
-    role: 'Frontend Developer',
-    company: 'Digital Agency',
-    description: 'Created responsive, user-friendly interfaces for clients across various industries. Optimized performance and implemented modern design systems.'
-  },
-  {
-    period: '2022 - 2023',
-    role: 'Junior Developer',
-    company: 'Software Company',
-    description: 'Learned full-stack development and contributed to team projects. Gained experience in agile development and collaborative coding practices.'
-  }
+  // {
+  //   period: '2023 - 2024',
+  //   role: 'Frontend Developer',
+  //   company: 'Digital Agency',
+  //   description: 'Created responsive, user-friendly interfaces for clients across various industries. Optimized performance and implemented modern design systems.'
+  // },
+  // {
+  //   period: '2022 - 2023',
+  //   role: 'Junior Developer',
+  //   company: 'Software Company',
+  //   description: 'Learned full-stack development and contributed to team projects. Gained experience in agile development and collaborative coding practices.'
+  // }
 ]
 
 const About = React.memo(() => {
@@ -47,10 +47,8 @@ const About = React.memo(() => {
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             About Me
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            I'm a passionate full-stack developer with a love for creating 
-            digital experiences that make a difference. With expertise across 
-            the entire development stack, I bring ideas to life through code.
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed text-justify">
+            I’m a Full Stack Developer fluent in React, Next.js, Node.js, and TypeScript, crafting applications that are as elegant as they are functional. My work spans microservices, serverless architectures, AWS, Docker, Kubernetes, and finely tuned databases, all woven together with secure, thoughtful design.
           </p>
         </motion.div>
 

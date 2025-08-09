@@ -1,6 +1,6 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Code2, ArrowRight, Tag, Star } from 'lucide-react'
+import { ExternalLink, Github, Code2, ArrowRight, Tag, Star, Award } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState, memo } from 'react'
 
 // Add performance hook
