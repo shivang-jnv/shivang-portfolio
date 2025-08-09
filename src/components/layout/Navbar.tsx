@@ -1,12 +1,13 @@
 'use client'
 import { useState, useEffect, memo, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react'
+import { Menu, X, Home, User, Briefcase, Mail, GraduationCap  } from 'lucide-react'
 
 const navItems = [
   { href: '#home', label: 'Home', icon: Home },
   { href: '#about', label: 'About', icon: User },
   { href: '#projects', label: 'Projects', icon: Briefcase },
+  { href: '#education', label: 'Education', icon: GraduationCap },
   { href: '#contact', label: 'Contact', icon: Mail },
 ]
 

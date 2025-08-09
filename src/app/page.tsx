@@ -6,6 +6,9 @@ import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
 import { trackPerformanceMetrics } from '@/utils/Performance';
+import Education from '@/components/sections/Education'
+import Skills from '@/components/sections/Skills'
+import Certificates from '@/components/sections/Certificates'
 
 
 // Lazy load sections that aren't immediately visible
@@ -231,6 +234,15 @@ const mouseFollowerStyle = useMemo(() => ({
 
       {/* About Section */}
       <About />
+
+      {/* Skills Section
+      <Skills /> */}
+
+      {/* Education Section */}
+      <Education />
+
+      {/* Certificates Section */}
+      <Certificates />
 
       {/* Projects Section */}
       <Projects />

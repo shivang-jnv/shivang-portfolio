@@ -1,14 +1,13 @@
 'use client'
 import React from "react"
 import { motion } from 'framer-motion'
-import { Code, Database, Cloud, Smartphone, Globe, Zap, Download, MapPin } from 'lucide-react'
+import { Code, Database, Cloud, Globe, Zap, Download, MapPin } from 'lucide-react'
 
 const skills = [
-  { name: 'Frontend', icon: Globe, items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'], level: 90 },
-  { name: 'Backend', icon: Code, items: ['Node.js', 'Express', 'Python', 'REST APIs'], level: 85 },
-  { name: 'Database', icon: Database, items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma'], level: 80 },
-  { name: 'DevOps', icon: Cloud, items: ['AWS', 'Docker', 'CI/CD', 'Linux'], level: 75 },
-  { name: 'Mobile', icon: Smartphone, items: ['React Native', 'Flutter', 'iOS', 'Android'], level: 70 },
+  { name: 'Frontend', icon: Globe, items: ['React', 'Next.js', 'TypeScript','JavaScript', , 'HTML', 'CSS' ,'Tailwind CSS'], level: 90 },
+  { name: 'Backend', icon: Code, items: ['Node.js', 'Express', 'C++', 'Kafka', 'REST APIs', 'Microservices', 'SSR', 'OAuth'], level: 85 },
+  { name: 'Database', icon: Database, items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM', 'Query Optimization'], level: 80 },
+  { name: 'DevOps', icon: Cloud, items: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Linux'], level: 75 },
   { name: 'Performance', icon: Zap, items: ['Optimization', 'Caching', 'SEO', 'Analytics'], level: 85 },
 ]
 

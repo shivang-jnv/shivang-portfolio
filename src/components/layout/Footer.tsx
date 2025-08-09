@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Twitter, Mail, MapPin, Phone, Heart, ArrowUp } from 'lucide-react'
+import { Github, Linkedin, Twitter, Mail, MapPin, Heart, ArrowUp } from 'lucide-react'
 import React from 'react'
 
 const socialLinks = [
@@ -15,10 +15,6 @@ const quickLinks = [
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
   { label: 'Resume', href: '#' },
-]
-
-const technologies = [
-  'React', 'Next.js', 'Node.js', 'JavaScript', 'TypeScript', 'PostgreSQL'
 ]
 
 const Footer = React.memo(() => {
