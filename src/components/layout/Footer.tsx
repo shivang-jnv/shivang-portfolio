@@ -1,12 +1,13 @@
 'use client'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Twitter, Mail, MapPin, Phone, Heart, ArrowUp } from 'lucide-react'
+import React from 'react'
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/yourusername', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
-  { icon: Mail, href: 'mailto:your.email@example.com', label: 'Email' },
+  { icon: Github, href: 'https://github.com/shivang-jnv', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/shivang-kanaujia-973a6a175/', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/shivang_jnv', label: 'Twitter' },
+  { icon: Mail, href: 'mailto:sknvspn@gmail.com', label: 'Email' },
 ]
 
 const quickLinks = [
@@ -17,10 +18,10 @@ const quickLinks = [
 ]
 
 const technologies = [
-  'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL'
+  'React', 'Next.js', 'Node.js', 'JavaScript', 'TypeScript', 'PostgreSQL'
 ]
 
-export default function Footer() {
+const Footer = React.memo(() => {
   const currentYear = new Date().getFullYear()
 
   const scrollToTop = () => {
@@ -35,10 +36,10 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.2, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <h3 className="text-2xl font-black mb-3 text-gradient">Your Name</h3>
+            <h3 className="text-2xl font-black mb-3 text-gradient">Shivang Kanaujia</h3>
             <p className="text-gray-400 mb-4 leading-relaxed text-sm">
               Full-stack developer passionate about creating exceptional digital experiences.
             </p>
@@ -51,8 +52,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-2 text-gray-400">
                 <Mail size={14} />
-                <a href="mailto:your.email@example.com" className="hover:text-white transition-colors">
-                  your.email@example.com
+                <a href="mailto:skjnvspn@gmail.com" className="hover:text-white transition-colors">
+                  skjnvspn@gmail.com
                 </a>
               </div>
             </div>
@@ -62,9 +63,10 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.2, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
+
             <h4 className="text-lg font-bold text-white mb-4">Quick Links</h4>
             <div className="grid grid-cols-2 gap-2">
               {quickLinks.map((link) => (
@@ -83,8 +85,8 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true, amount: 0.2, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <h4 className="text-lg font-bold text-white mb-4">Connect</h4>
             
@@ -102,18 +104,6 @@ export default function Footer() {
                 </motion.a>
               ))}
             </div>
-
-            {/* Compact Tech Stack */}
-            <div className="flex flex-wrap gap-1">
-              {technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-1 text-xs bg-gray-800 text-gray-300 rounded border border-gray-700 hover:border-gray-500 transition-colors"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
           </motion.div>
         </div>
 
@@ -128,7 +118,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
             {/* Compact Copyright */}
             <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-3 text-gray-400 text-xs">
-              <span>&copy; {currentYear} Your Name. All rights reserved.</span>
+              <span>&copy; {currentYear} Shivang Kanaujia. All rights reserved.</span>
               <span className="hidden md:inline">•</span>
               <span className="flex items-center space-x-1">
                 <span>Built with</span>
@@ -152,4 +142,6 @@ export default function Footer() {
       </div>
     </footer>
   )
-}
+})
+
+export default Footer;

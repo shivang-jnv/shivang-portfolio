@@ -1,7 +1,27 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Github, Code2, ArrowRight, Calendar, Tag } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, memo } from 'react'
+
+// Add performance hook
+const useReducedMotion = () => {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  
+  useEffect(() => {
+    // Safe check for browser environment
+    if (typeof window === 'undefined') return
+    
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+  
+  return prefersReducedMotion
+}
+
 
 const projects = [
   {
@@ -86,16 +106,41 @@ const projects = [
 
 const categories = ['All', 'Full Stack', 'Frontend', 'Backend', 'Data Visualization', 'AI/ML']
 
-export default function Projects() {
+const Projects = memo(function Projects() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
-  const filteredProjects = activeCategory === 'All' 
+  // Add this performance optimization
+  const prefersReducedMotion = useReducedMotion()
+  const [shouldReduceAnimations, setShouldReduceAnimations] = useState(false)
+
+  useEffect(() => {
+    const checkShouldReduce = () => {
+      setShouldReduceAnimations(prefersReducedMotion || window.innerWidth < 768)
+    }
+    
+    checkShouldReduce()
+    window.addEventListener('resize', checkShouldReduce, { passive: true })
+    return () => window.removeEventListener('resize', checkShouldReduce)
+  }, [prefersReducedMotion])
+
+  // Memoize expensive filtering operations
+const filteredProjects = useMemo(() => {
+  return activeCategory === 'All' 
     ? projects 
     : projects.filter(project => project.category === activeCategory)
+}, [activeCategory])
 
-  const featuredProjects = projects.filter(project => project.featured)
+const featuredProjects = useMemo(() => {
+  return projects.filter(project => project.featured)
+}, [])
+
+// Memoize category change handler
+const handleCategoryChange = useCallback((category: string) => {
+  setActiveCategory(category)
+}, [])
+
 
   return (
     <section id="projects" className="min-h-screen py-20 px-6 relative">
@@ -104,10 +149,11 @@ export default function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center mb-16"
         >
+
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             Featured Work
           </h2>
@@ -121,10 +167,11 @@ export default function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-24"
         >
+
           <h3 className="text-3xl font-bold text-white mb-12 text-center">Spotlight Projects</h3>
           <div className="space-y-16">
             {featuredProjects.map((project, index) => (
@@ -135,32 +182,34 @@ export default function Projects() {
                 }`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: Math.min(index * 0.15, 0.3), ease: [0.25, 0.46, 0.45, 0.94] }}
               >
+
                 {/* Project Visual */}
                 <motion.div
                   className={`relative group ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}
                   whileHover={{ scale: 1.02 }}
-                  onMouseEnter={() => setHoveredProject(project.id)}
-                  onMouseLeave={() => setHoveredProject(null)}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  // style={{ willChange: 'transform' }}  
+                  onHoverStart={() => setHoveredProject(project.id)}
+                  onHoverEnd={() => setHoveredProject(null)}
                 >
+
                   <div className="relative h-80 bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
-                    {/* Background Pattern */}
+                    {/* Background Pattern - Optimized */}
                     <div className="absolute inset-0 opacity-10">
-                      <div className="grid grid-cols-8 grid-rows-8 h-full">
-                        {Array.from({ length: 64 }).map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="border border-gray-600"
-                            animate={{
-                              opacity: hoveredProject === project.id ? [0.1, 0.3, 0.1] : 0.1
-                            }}
-                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.05 }}
-                          />
-                        ))}
-                      </div>
+                      <div 
+                        className={`grid grid-cols-8 grid-rows-8 h-full transition-opacity duration-300 ${
+                          hoveredProject === project.id ? 'opacity-30' : 'opacity-10'
+                        }`}
+                        style={{
+                          backgroundImage: 'linear-gradient(to right, #4b5563 1px, transparent 1px), linear-gradient(to bottom, #4b5563 1px, transparent 1px)',
+                          backgroundSize: '12.5% 12.5%'
+                        }}
+                      />
                     </div>
+
 
                     {/* Project Icon */}
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -280,10 +329,11 @@ export default function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="flex justify-center mb-16"
         >
+
           <div className="flex flex-wrap gap-3 p-3 bg-gray-900 rounded-xl border border-gray-800">
             {categories.map((category) => (
               <motion.button
@@ -315,34 +365,26 @@ export default function Projects() {
             <motion.div
               key={project.id}
               className="group bg-gray-900 rounded-xl border border-gray-800 hover:border-gray-600 transition-all duration-500 overflow-hidden"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
+              initial={{ opacity: 0, transform: 'scale(0.95)' }}
+              animate={{ opacity: 1, transform: 'scale(1)' }}
+              transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3), ease: [0.25, 0.46, 0.45, 0.94] }}
+              whileHover={{ y: -8, transition: { duration: 0.2, ease: "easeOut" } }}
+              style={{ willChange: 'transform' }}
             >
+
               {/* Project Header */}
               <div className="relative h-48 bg-gray-800 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-800" />
                 
-                {/* Animated Grid Pattern */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="grid grid-cols-6 grid-rows-6 h-full">
-                    {Array.from({ length: 36 }).map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="border border-gray-600"
-                        animate={{
-                          opacity: [0.2, 0.5, 0.2]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          delay: i * 0.1
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
+                {/* Animated Grid Pattern - Optimized */}
+                <div 
+                  className="absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-30"
+                  style={{
+                    backgroundImage: 'linear-gradient(to right, #4b5563 1px, transparent 1px), linear-gradient(to bottom, #4b5563 1px, transparent 1px)',
+                    backgroundSize: '16.66% 16.66%'
+                  }}
+                />
+
 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Code2 className="text-gray-600" size={48} />
@@ -414,10 +456,11 @@ export default function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center bg-gray-900 border border-gray-800 rounded-xl p-12"
         >
+
           <h3 className="text-3xl font-bold text-white mb-4">
             Like What You See?
           </h3>
@@ -437,4 +480,6 @@ export default function Projects() {
       </div>
     </section>
   )
-}
+})
+
+export default Projects

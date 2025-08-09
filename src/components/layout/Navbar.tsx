@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react'
 
@@ -10,15 +10,18 @@ const navItems = [
   { href: '#contact', label: 'Contact', icon: Mail },
 ]
 
-export default function Navbar() {
+const Navbar = memo(function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 50)
   }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
 
   return (
     <motion.nav
@@ -38,7 +41,7 @@ export default function Navbar() {
             className="text-2xl font-bold"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="text-gradient">YN</span>
+            <span className="text-gradient">SK</span>
           </motion.div>
 
           {/* Desktop Menu */}
@@ -91,4 +94,6 @@ export default function Navbar() {
       </div>
     </motion.nav>
   )
-}
+})
+
+export default Navbar;

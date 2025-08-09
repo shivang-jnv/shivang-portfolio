@@ -1,36 +1,81 @@
 'use client'
+
 import { motion, useAnimation } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
-import About from '@/components/sections/About'
-import Projects from '@/components/sections/Projects'
-import Contact from '@/components/sections/Contact'
-import Footer from '@/components/layout/Footer'
+import { trackPerformanceMetrics } from '@/utils/Performance';
+
+
+// Lazy load sections that aren't immediately visible
+const About = dynamic(() => import('@/components/sections/About'), {
+  loading: () => <div className="h-screen flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+  </div>,
+  ssr: true // Keep SSR for SEO
+})
+
+const Projects = dynamic(() => import('@/components/sections/Projects'), {
+  loading: () => <div className="h-screen flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+  </div>,
+  ssr: true
+})
+
+const Contact = dynamic(() => import('@/components/sections/Contact'), {
+  loading: () => <div className="h-96 flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+  </div>,
+  ssr: true
+})
+
+const Footer = dynamic(() => import('@/components/layout/Footer'), {
+  loading: () => <div className="h-64 bg-black" />,
+  ssr: true
+})
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  // Add this new useEffect for performance
+  // Added this new useEffect for performance
 useEffect(() => {
+  // Safe check for browser environment
+  if (typeof window === 'undefined') return
+  
   // Reduce motion for low-end devices
-  const isLowEndDevice = navigator.hardwareConcurrency <= 4 || 
+  const isLowEndDevice = (
+    (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || 
     /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  )
   
   if (isLowEndDevice) {
     document.documentElement.style.setProperty('--motion-scale', '0.5')
   }
 }, [])
 
+useEffect(() => {
+  trackPerformanceMetrics();
+}, []);
 
-  useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
 
-    window.addEventListener('mousemove', updateMousePosition)
-    return () => window.removeEventListener('mousemove', updateMousePosition)
-  }, [])
+// Memoize the callback to prevent unnecessary re-renders
+const updateMousePosition = useCallback((e: MouseEvent) => {
+  setMousePosition({ x: e.clientX, y: e.clientY })
+}, [])
+
+// Optimize the effect
+useEffect(() => {
+  window.addEventListener('mousemove', updateMousePosition, { passive: true })
+  return () => window.removeEventListener('mousemove', updateMousePosition)
+}, [updateMousePosition])
+
+// Memoize expensive calculations
+const mouseFollowerStyle = useMemo(() => ({
+  x: mousePosition.x - 12,
+  y: mousePosition.y - 12,
+}), [mousePosition.x, mousePosition.y])
+
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
@@ -43,15 +88,22 @@ useEffect(() => {
       {/* Dot Grid Background */}
       <div className="fixed inset-0 dot-grid pointer-events-none" />
       
-      {/* Mouse Follower */}
+      {/* Mouse Follower - Optimized */}
       <motion.div
-        className="fixed w-6 h-6 border border-gray-400 rounded-full pointer-events-none z-40"
-        animate={{
-          x: mousePosition.x - 12,
-          y: mousePosition.y - 12,
+        className="fixed w-6 h-6 border border-gray-400 rounded-full pointer-events-none z-40 gpu-optimized"
+        animate={mouseFollowerStyle}
+        transition={{ 
+          type: "spring", 
+          damping: 27, 
+          stiffness: 300,
+          mass: 0.8,
+          restSpeed: 0.01
         }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
       />
+
+      
+
+
 
       <main id="home" className="min-h-screen flex items-center justify-center px-6 relative">
         <div className="text-center max-w-6xl">
@@ -72,17 +124,18 @@ useEffect(() => {
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <span className="text-gradient">Your Name</span>
+              <span className="text-gradient">Shivang Kanaujia</span>
             </motion.h1>
             
             <motion.div 
-              className="text-2xl md:text-3xl text-gray-300 font-light mb-4"
+              className="text-2xl md:text-3xl font-light mb-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.4 }}
             >
-              <span className="typing-animation">Full Stack Developer</span>
+              <span className="liquid-metal">Full Stack Developer</span>
             </motion.div>
+
 
             <motion.p 
               className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"

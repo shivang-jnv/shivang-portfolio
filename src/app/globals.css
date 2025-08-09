@@ -16,31 +16,82 @@ body {
   color: transparent;
 }
 
-/* Typing animation */
-.typing-animation {
-  border-right: 2px solid #ffffff;
-  animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
+
+.liquid-metal {
+  background: linear-gradient(45deg, #2d3748, #4a5568, #718096, #a0aec0, #e2e8f0);
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: liquidFlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+@keyframes liquidFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-@keyframes blink {
-  from, to { border-color: transparent; }
-  50% { border-color: #ffffff; }
+
+
+.neural-pulse {
+  position: relative;
+  color: #ffffff;
+  animation: neuralBeat 2s ease-in-out infinite;
 }
+
+.neural-pulse::before,
+.neural-pulse::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  transform: translate(-50%, -50%);
+  animation: neuralScan 3s linear infinite;
+}
+
+.neural-pulse::after {
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(0deg, transparent, #d1d5db, transparent);
+  animation-delay: 1.5s;
+}
+
+@keyframes neuralBeat {
+  0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(209, 213, 219, 0.6); }
+}
+
+@keyframes neuralScan {
+  0% { opacity: 0; transform: translate(-150%, -50%) scaleX(0); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scaleX(1); }
+  100% { opacity: 0; transform: translate(50%, -50%) scaleX(0); }
+}
+
+
+
 
 /* Dot grid background */
 .dot-grid {
   background-image: radial-gradient(circle, white 1px, transparent 1px);
   background-size: 40px 40px;
-  background-position: 0 0, 20px 20px;
+  background-position: 0 0;
   opacity: 0.3;
+  
+  /* ✅ PURE PERFORMANCE GAINS - No functionality change */
+  transform: translateZ(0);           /* Forces GPU layer */
+  will-change: auto;                  /* Prevents unnecessary compositing */
+  contain: layout style paint;        /* Isolates rendering context */
+  
+  /* ✅ MOBILE OPTIMIZATION - Lighter on smaller screens */
+  @media (max-width: 768px) {
+    background-size: 60px 60px;      /* Fewer dots = better performance */
+    opacity: 0.2;                    /* Lighter on mobile */
+  }
 }
 
 /* Custom scrollbar */

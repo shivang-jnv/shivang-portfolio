@@ -1,4 +1,5 @@
 'use client'
+import React from "react"
 import { motion } from 'framer-motion'
 import { Code, Database, Cloud, Smartphone, Globe, Zap, Download, MapPin } from 'lucide-react'
 
@@ -32,17 +33,18 @@ const experiences = [
   }
 ]
 
-export default function About() {
+const About = React.memo(() => {
   return (
     <section id="about" className="min-h-screen py-20 px-6 relative">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
         >
+
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             About Me
           </h2>
@@ -58,10 +60,11 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="h-full"
           >
+
             <h3 className="text-3xl font-bold mb-8 text-white">Technical Skills</h3>
             <div className="space-y-8">
               {skills.map((skill, index) => (
@@ -112,10 +115,11 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="h-full flex flex-col"
           >
+
             <h3 className="text-3xl font-bold mb-8 text-white">Experience</h3>
             <div className="space-y-10 flex-grow">
               {experiences.map((exp, index) => (
@@ -145,9 +149,10 @@ export default function About() {
               className="mt-12 flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
+
               <motion.button 
                 className="flex items-center justify-center space-x-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600 rounded-lg transition-colors group flex-1"
                 whileHover={{ scale: 1.02 }}
@@ -171,4 +176,6 @@ export default function About() {
       </div>
     </section>
   )
-}
+})
+
+export default About

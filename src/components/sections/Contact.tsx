@@ -1,22 +1,22 @@
 'use client'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone, Calendar, Clock, User, Send, Copy, Check } from 'lucide-react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'your.email@example.com',
+    value: 'skjnvspn@gmail.com',
     description: 'Best way to reach me for projects and collaborations',
-    action: () => window.open('mailto:your.email@example.com')
+    action: () => window.open('mailto:skjnvspn@gmail.com')
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '+91 12345 67890',
+    value: '+91 8882514141',
     description: 'Available for calls during business hours (10 AM - 6 PM IST)',
-    action: () => window.open('tel:+911234567890')
+    action: () => window.open('tel:+918882514141')
   },
   {
     icon: MapPin,
@@ -55,12 +55,12 @@ const availability = [
   }
 ]
 
-export default function Contact() {
+const Contact = React.memo(() => {
   const [copiedEmail, setCopiedEmail] = useState(false)
 
   const handleCopyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('your.email@example.com')
+      await navigator.clipboard.writeText('skjnvspn@gmail.com')
       setCopiedEmail(true)
       setTimeout(() => setCopiedEmail(false), 2000)
     } catch (err) {
@@ -74,10 +74,11 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
         >
+
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             Get In Touch
           </h2>
@@ -89,13 +90,14 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="h-full"
-          >
+         <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="h-full"
+        >
+
             <h3 className="text-3xl font-bold mb-8 text-white">Contact Information</h3>
             <div className="space-y-8">
               {contactInfo.map((info, index) => (
@@ -158,10 +160,11 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="h-full flex flex-col"
           >
+
             <h3 className="text-3xl font-bold mb-8 text-white">Availability</h3>
             <div className="space-y-10 flex-grow">
               {availability.map((schedule, index) => (
@@ -194,11 +197,12 @@ export default function Contact() {
               className="mt-12 flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
+
               <motion.a 
-                href="mailto:your.email@example.com"
+                href="mailto:skjnvspn@gmail.com"
                 className="flex items-center justify-center space-x-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600 rounded-lg transition-colors group flex-1"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -222,4 +226,6 @@ export default function Contact() {
       </div>
     </section>
   )
-}
+})
+
+export default Contact
