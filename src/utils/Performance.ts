@@ -1,4 +1,11 @@
 // utils/performance.ts
+
+// Define NetworkInformation interface for TypeScript
+interface NetworkInformation {
+  effectiveType: string;
+  downlink: number;
+}
+
 export const trackPerformanceMetrics = () => {
   if (typeof window === 'undefined') return;
 
@@ -26,9 +33,11 @@ export const trackPerformanceMetrics = () => {
 
   // Track bundle size and network info
   if ('connection' in navigator) {
-    const connection = (navigator as any).connection;
-    console.log(`Network: ${connection.effectiveType}`);
-    console.log(`Downlink: ${connection.downlink}Mbps`);
+    const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
+    if (connection) {
+      console.log(`Network: ${connection.effectiveType}`);
+      console.log(`Downlink: ${connection.downlink}Mbps`);
+    }
   }
 };
 

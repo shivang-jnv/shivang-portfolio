@@ -33,6 +33,7 @@ const experiences = [
 ]
 
 const About = React.memo(() => {
+  About.displayName = 'About'
   return (
     <section id="about" className="min-h-screen py-20 px-6 relative">
       <div className="max-w-6xl mx-auto">

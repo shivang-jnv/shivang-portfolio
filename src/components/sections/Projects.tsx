@@ -1,26 +1,9 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Code2, ArrowRight, Tag, Star, Award } from 'lucide-react'
-import { useCallback, useEffect, useMemo, useState, memo } from 'react'
+import { ExternalLink, Github, Code2, ArrowRight, Tag, Star } from 'lucide-react'
+import { useEffect, useMemo, useState, memo } from 'react'
 
-// Add performance hook
-const useReducedMotion = () => {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-  
-  useEffect(() => {
-    // Safe check for browser environment
-    if (typeof window === 'undefined') return
-    
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
-    
-    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches)
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [])
-  
-  return prefersReducedMotion
-}
+
 
 
 const projects = [
@@ -108,19 +91,7 @@ const Projects = memo(function Projects() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
-  // Add this performance optimization
-  const prefersReducedMotion = useReducedMotion()
-  const [shouldReduceAnimations, setShouldReduceAnimations] = useState(false)
 
-  useEffect(() => {
-    const checkShouldReduce = () => {
-      setShouldReduceAnimations(prefersReducedMotion || window.innerWidth < 768)
-    }
-    
-    checkShouldReduce()
-    window.addEventListener('resize', checkShouldReduce, { passive: true })
-    return () => window.removeEventListener('resize', checkShouldReduce)
-  }, [prefersReducedMotion])
 
   // Memoize expensive filtering operations
   const filteredProjects = useMemo(() => projects, []);
@@ -447,8 +418,8 @@ const featuredProjects = useMemo(() => {
             Like What You See?
           </h3>
           <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-            These projects represent just a glimpse of what's possible. 
-            Let's collaborate and create something extraordinary together.
+            These projects represent just a glimpse of what&apos;s possible. 
+            Let&apos;s collaborate and create something extraordinary together.
           </p>
           <motion.button
             className="px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full font-semibold text-white border border-gray-500 hover:from-gray-700 hover:to-gray-900 transition-all"

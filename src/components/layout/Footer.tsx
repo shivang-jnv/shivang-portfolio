@@ -18,6 +18,7 @@ const quickLinks = [
 ]
 
 const Footer = React.memo(() => {
+  Footer.displayName = 'Footer'
   const currentYear = new Date().getFullYear()
 
   const scrollToTop = () => {

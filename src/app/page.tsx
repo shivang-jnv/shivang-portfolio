@@ -42,11 +42,11 @@ export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [currentSection, setCurrentSection] = useState('#home')
 const [isNavigating, setIsNavigating] = useState(false)
-const [isClient, setIsClient] = useState(false) 
+ 
 
   // Fix hydration - ensure client-side only features
   useEffect(() => {
-    setIsClient(true) 
+    // Client-side only features are now handled differently
   }, [])
 
 useEffect(() => {

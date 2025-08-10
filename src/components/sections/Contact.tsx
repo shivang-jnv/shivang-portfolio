@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Phone, Calendar, Clock, User, Send, Copy, Check } from 'lucide-react'
+import { Mail, MapPin, Phone, Clock, Send, Copy, Check } from 'lucide-react'
 import React, { useState } from 'react'
 
 const contactInfo = [
@@ -56,6 +56,7 @@ const availability = [
 ]
 
 const Contact = React.memo(() => {
+  Contact.displayName = 'Contact'
   const [copiedEmail, setCopiedEmail] = useState(false)
 
   const handleCopyEmail = async () => {
@@ -83,7 +84,7 @@ const Contact = React.memo(() => {
             Get In Touch
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Ready to collaborate on your next project? I'm always excited to work with 
+            Ready to collaborate on your next project? I&apos;m always excited to work with 
             passionate people and help bring innovative ideas to life.
           </p>
         </motion.div>
