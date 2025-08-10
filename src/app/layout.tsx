@@ -12,7 +12,21 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Shivang Kanaujia - Full Stack Developer',
   description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
+  keywords: 'Full Stack Developer, React, Next.js, TypeScript, Web Development',
+  authors: [{ name: 'Shivang Kanaujia' }],
   viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Shivang Kanaujia - Full Stack Developer',
+    description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
+    type: 'website',
+    locale: 'en_US',
+  },
+   twitter: {
+    card: 'summary_large_image',
+    title: 'Shivang Kanaujia - Full Stack Developer',
+    description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
+  }
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
