@@ -25,9 +25,9 @@ const education = [
 ]
 
 const achievements = [
-  'Dean\'s List for Academic Excellence',
-  'Best Project Award - Final Year',
-  'Programming Competition Winner',
+  'Selected in top 80 among 5000+ students in JNVST Entrance Exam',
+  'Organized Web/App Mania tech event with 100+ participants during college fest',
+  'Led a team of 5+ members in group discussion at a college level event and secured #1',
   'Technical Society Member'
 ]
 

@@ -1,7 +1,7 @@
 'use client'
 
-import { motion, useAnimation } from 'framer-motion'
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { motion } from 'framer-motion'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
@@ -40,6 +40,78 @@ const Footer = dynamic(() => import('@/components/layout/Footer'), {
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [currentSection, setCurrentSection] = useState('#home')
+const [isNavigating, setIsNavigating] = useState(false)
+const [isClient, setIsClient] = useState(false) 
+
+  // Fix hydration - ensure client-side only features
+  useEffect(() => {
+    setIsClient(true) 
+  }, [])
+
+useEffect(() => {
+  // Ensure page starts at #home on initial load
+  if (window.location.hash === '' || window.location.hash === '#') {
+    window.scrollTo(0, 0)
+    window.history.replaceState(null, '', '#home')
+    setCurrentSection('#home')
+  }
+
+  // Track scroll and update URL hash
+  const handleScroll = () => {
+    // Skip scroll tracking during manual navigation
+    if (isNavigating) return
+
+    const sections = ['home', 'about', 'education', 'certificates', 'projects', 'contact']
+    const scrollPosition = window.scrollY + 100
+
+    let foundSection = 'home'
+
+    for (const section of sections) {
+      const element = document.getElementById(section)
+      
+      if (element) {
+        const { offsetTop, offsetHeight } = element
+        const sectionBottom = offsetTop + offsetHeight
+        
+        if (scrollPosition >= offsetTop && scrollPosition < sectionBottom) {
+          foundSection = section
+          break
+        }
+      }
+    }
+
+    const newHash = `#${foundSection}`
+    
+    if (newHash !== currentSection) {
+      setCurrentSection(newHash)
+      window.history.replaceState(null, '', newHash)
+    }
+  }
+
+  let ticking = false
+  const throttledScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        handleScroll()
+        ticking = false
+      })
+      ticking = true
+    }
+  }
+
+  const timer = setTimeout(() => {
+    window.addEventListener('scroll', throttledScroll, { passive: true })
+  }, 1000)
+
+  return () => {
+    clearTimeout(timer)
+    window.removeEventListener('scroll', throttledScroll)
+  }
+}, [currentSection, isNavigating]) // Add isNavigating to dependencies
+
+
+  
 
   // Added this new useEffect for performance
 useEffect(() => {
@@ -81,8 +153,21 @@ const mouseFollowerStyle = useMemo(() => ({
 
 
   const scrollToSection = (sectionId: string) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+  setIsNavigating(true) // Use state instead of window property
+  
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+    window.history.replaceState(null, '', `#${sectionId}`)
+    setCurrentSection(`#${sectionId}`)
+    
+    // Clear navigation flag after scroll completes
+    setTimeout(() => {
+      setIsNavigating(false)
+    }, 1000)
   }
+}
+
 
   return (
     <>
