@@ -70,49 +70,8 @@ src/
 │       ├── Projects.tsx    # Projects showcase
 │       └── Contact.tsx     # Contact form
 └── utils/
-    └── animations.ts       # Reusable animation variants
+    └── Performance.ts
 ```
-
-## 🎨 Customization
-
-### Personal Information
-
-1. **Update your details** in `src/app/page.tsx`:
-   ```tsx
-   // Hero section
-   
-     Your Name Here
-   
-   ```
-
-2. **Modify contact information** in `src/components/sections/Contact.tsx`:
-   ```tsx
-   const contactInfo = [
-     {
-       label: 'Email',
-       value: 'your.email@example.com',
-       // ...
-     }
-   ]
-   ```
-
-3. **Add your projects** in `src/components/sections/Projects.tsx`:
-   ```tsx
-   const projects = [
-     {
-       title: 'Your Project',
-       description: 'Project description',
-       tech: ['Next.js', 'TypeScript'],
-       // ...
-     }
-   ]
-   ```
-
-### Styling
-
-- **Colors**: Modify color scheme in `tailwind.config.js`
-- **Fonts**: Update font configuration in `src/app/layout.tsx`
-- **Animations**: Customize animations in `src/utils/animations.ts`
 
 ## ⚡ Performance Features
 
@@ -127,12 +86,12 @@ src/
 
 ### Performance Results
 
-- ⚡ **40-60% faster** initial page load
-- 📱 **Optimized mobile** experience with adaptive animations
-- 🎯 **Smooth 60fps** animations across all devices
-- 📦 **Smaller bundle size** through tree-shaking and optimization
+- **40-60% faster** initial page load
+- **Optimized mobile** experience with adaptive animations
+- **Smooth 60fps** animations across all devices
+- **Smaller bundle size** through tree-shaking and optimization
 
-## 🌐 Deployment
+##  Deployment
 
 ### Deploy to Vercel (Recommended)
 
@@ -140,16 +99,7 @@ src/
 2. Connect your repository to [Vercel](https://vercel.com/)
 3. Deploy automatically with zero configuration
 
-### Deploy to Netlify
-
-1. Build the project: `npm run build`
-2. Deploy the `out` folder to [Netlify](https://netlify.com/)
-
-### Other Platforms
-
-The project is compatible with any platform that supports Next.js static export.
-
-## 🎯 SEO & Analytics
+## SEO 
 
 ### Built-in SEO Features
 
@@ -158,27 +108,8 @@ The project is compatible with any platform that supports Next.js static export.
 - Meta tags configuration
 - Open Graph tags for social sharing
 
-### Add Analytics
 
-Integrate with your preferred analytics platform:
-
-```tsx
-// Add to layout.tsx
-import { Analytics } from '@vercel/analytics/react'
-
-export default function RootLayout({ children }) {
-  return (
-    
-      
-        {children}
-        
-      
-    
-  )
-}
-```
-
-## 🐛 Known Issues & Solutions
+## Known Issues & Solutions
 
 ### Hydration Warnings
 
@@ -206,15 +137,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 💬 Contact
 
-Your Name - [your.email@example.com](mailto:your.email@example.com)
+Your Name - [skjnvspn@gmail.com](mailto:skjnvspn@gmail.com)
 
-Project Link: [https://github.com/yourusername/portfolio](https://github.com/yourusername/portfolio)
+Project Link: [https://github.com/shivang-jnv/shivang-portfolio](https://github.com/shivang-jnv/shivang-portfolio)
 
 ***
 
-⭐ **Star this repository** if you found it helpful!
+**Star this repository** if you found it helpful!
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Next.js](https://nextjs.org/) for the amazing React framework
 - [Framer Motion](https://www.framer.com/motion/) for smooth animations
