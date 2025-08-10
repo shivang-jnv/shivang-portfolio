@@ -141,7 +141,7 @@ const mouseFollowerStyle = useMemo(() => ({
 
 
             <motion.p 
-              className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+              className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed text-left"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}

@@ -143,6 +143,14 @@ const About = React.memo(() => {
 
             {/* Call to Action Buttons - Bottom of Experience Section */}
             <motion.div
+              onClick={() => {
+                const link = document.createElement('a')
+                link.href = '/resume-shivang-updated.pdf'  
+                link.download = 'Shivang_Kanaujia_Resume.pdf'
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+              }}
               className="mt-12 flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -152,7 +160,7 @@ const About = React.memo(() => {
 
               <motion.button 
                 className="flex items-center justify-center space-x-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600 rounded-lg transition-colors group flex-1"
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.0 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <Download size={16} className="group-hover:scale-110 transition-transform" />
@@ -161,7 +169,7 @@ const About = React.memo(() => {
               
               <motion.button 
                 className="flex items-center justify-center space-x-2 px-6 py-3 bg-transparent hover:bg-gray-800 border border-gray-600 hover:border-gray-500 rounded-lg transition-colors group flex-1"
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.0 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <MapPin size={16} className="group-hover:scale-110 transition-transform" />

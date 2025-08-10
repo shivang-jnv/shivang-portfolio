@@ -39,7 +39,7 @@ const certificates = [
   {
     title: 'JavaScript Algorithms and Data Structures',
     issuer: 'FreeCodeCamp',
-    date: '2022',
+    date: '2024',
     credentialId: 'FCC-JSADS-2022-123',
     description: 'Advanced JavaScript programming with focus on algorithms, data structures, and problem-solving techniques.',
     skills: ['JavaScript', 'Algorithms', 'Data Structures', 'Problem Solving'],
@@ -89,77 +89,99 @@ const Certificates = React.memo(() => {
           </p>
         </motion.div>
 
-        {/* Featured Certificates */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-20"
-        >
-          <h3 className="text-3xl font-bold text-white mb-12 text-center">Featured Certifications</h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            {certificates.filter(cert => cert.featured).map((cert, index) => (
-              <motion.div
-                key={cert.credentialId}
-                className="group bg-gray-900 rounded-xl border border-gray-800 hover:border-gray-600 transition-all duration-500 overflow-hidden"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                whileHover={{ y: -8, transition: { duration: 0.2, ease: "easeOut" } }}
+        {/* Featured Certificates - Compact Style */}
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+  className="mb-20"
+>
+  <h3 className="text-3xl font-bold text-white mb-12 text-center">Featured Certifications</h3>
+  <div className="grid md:grid-cols-2 gap-6">
+    {certificates.filter(cert => cert.featured).map((cert, index) => (
+      <motion.div
+        key={cert.credentialId}
+        className="group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg border border-gray-700 hover:border-gray-500 transition-all duration-500 overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: index * 0.2 }}
+        whileHover={{ 
+          // y: -8, 
+          // scale: 1.005,
+          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+          transition: { duration: 0.2, ease: "easeOut" } 
+        }}
+      >
+        <div className="absolute inset-0 opacity-5">
+          <div 
+            className="w-full h-full"
+            style={{
+              backgroundImage: 'linear-gradient(45deg, #4b5563 1px, transparent 1px), linear-gradient(-45deg, #4b5563 1px, transparent 1px)',
+              backgroundSize: '8px 8px'
+            }}
+          />
+        </div>
+
+        <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+          <div className="absolute top-2 right-2 w-20 h-4 bg-gradient-to-r from-gray-600 to-gray-500 transform rotate-45 shadow-sm"></div>
+        </div>
+
+        <div className="relative p-5">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-gray-800 rounded-lg">
+                <Award className="text-gray-300" size={20} />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-white group-hover:text-gradient transition-colors">
+                  {cert.title}
+                </h4>
+                <p className="text-gray-400 text-sm">{cert.issuer}</p>
+              </div>
+            </div>
+            {cert.verified && (
+              <div className="flex items-center space-x-1 text-green-400">
+                <CheckCircle size={14} />
+                <span className="text-xs">Verified</span>
+              </div>
+            )}
+          </div>
+
+          <p className="text-gray-400 leading-relaxed mb-4 text-sm">
+            {cert.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            {cert.skills.map((skill) => (
+              <span
+                key={skill}
+                className="px-2 py-1 text-xs bg-gray-800 text-gray-300 rounded border border-gray-700 hover:border-gray-500 transition-colors"
               >
-                <div className="p-8">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-2 bg-gray-800 rounded-lg">
-                        <Award className="text-gray-300" size={24} />
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-bold text-white group-hover:text-gradient transition-colors">
-                          {cert.title}
-                        </h4>
-                        <p className="text-gray-400">{cert.issuer}</p>
-                      </div>
-                    </div>
-                    {cert.verified && (
-                      <div className="flex items-center space-x-1 text-green-400">
-                        <CheckCircle size={16} />
-                        <span className="text-xs">Verified</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <p className="text-gray-400 leading-relaxed mb-6">
-                    {cert.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {cert.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1 text-xs bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-colors"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between text-sm text-gray-400">
-                    <div className="flex items-center space-x-2">
-                      <Calendar size={14} />
-                      <span>{cert.date}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-xs">ID: {cert.credentialId}</span>
-                      <ExternalLink size={12} className="cursor-pointer hover:text-white transition-colors" />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+                {skill}
+              </span>
             ))}
           </div>
-        </motion.div>
+
+          <div className="flex items-center justify-between text-sm text-gray-400">
+            <div className="flex items-center space-x-2">
+              <Calendar size={12} />
+              <span className="text-xs">{cert.date}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-xs">ID: {cert.credentialId}</span>
+              <ExternalLink size={10} className="cursor-pointer hover:text-white transition-colors" />
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
+      </motion.div>
+    ))}
+  </div>
+</motion.div>
+
 
         {/* All Certificates - Enhanced Appealing Cards */}
 <motion.div
@@ -179,7 +201,7 @@ const Certificates = React.memo(() => {
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3), ease: [0.25, 0.46, 0.45, 0.94] }}
         whileHover={{ 
-          y: -8, 
+          // y: -8, 
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
           transition: { duration: 0.2, ease: "easeOut" } 
         }}
@@ -203,35 +225,35 @@ const Certificates = React.memo(() => {
 
         <div className="relative p-4"> {/* Reduced from p-6 */}
           {/* Header with icon and verification */}
-          <div className="flex items-start justify-between mb-3"> {/* Reduced from mb-4 */}
+          <div className="flex items-start justify-between mb-3"> 
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-gray-700 transition-colors"> {/* Reduced from p-3 */}
-                <Award className="text-gray-300 group-hover:text-white transition-colors" size={18} /> {/* Reduced from size={20} */}
+              <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-gray-700 transition-colors">
+                <Award className="text-gray-300 group-hover:text-white transition-colors" size={18} />
               </div>
               {cert.featured && (
                 <div className="flex items-center space-x-1 text-yellow-400">
-                  <Star size={12} fill="currentColor" /> {/* Reduced from size={14} */}
+                  <Star size={12} fill="currentColor" /> 
                   <span className="text-xs font-medium">Featured</span>
                 </div>
               )}
             </div>
             {cert.verified && (
               <div className="flex items-center space-x-1 px-2 py-1 bg-green-900 bg-opacity-30 rounded-full border border-green-700">
-                <CheckCircle className="text-green-400" size={10} /> {/* Reduced from size={12} */}
+                <CheckCircle className="text-green-400" size={10} />
                 <span className="text-xs text-green-300 font-medium">Verified</span>
               </div>
             )}
           </div>
 
           {/* Certificate info */}
-          <h4 className="text-base font-bold text-white mb-2 group-hover:text-gradient transition-colors leading-tight"> {/* Reduced from text-lg */}
+          <h4 className="text-base font-bold text-white mb-2 group-hover:text-gradient transition-colors leading-tight">
             {cert.title}
           </h4>
           
-          <p className="text-gray-300 font-medium mb-3 text-sm">{cert.issuer}</p> {/* Added text-sm */}
+          <p className="text-gray-300 font-medium mb-3 text-sm">{cert.issuer}</p> 
           
           {/* Skills tags */}
-          <div className="flex flex-wrap gap-1 mb-3"> {/* Reduced gap and margin */}
+          <div className="flex flex-wrap gap-1 mb-3"> 
             {cert.skills.slice(0, 3).map((skill) => (
               <span
                 key={skill}
@@ -248,20 +270,18 @@ const Certificates = React.memo(() => {
           </div>
 
           {/* Footer with date and action */}
-          <div className="flex items-center justify-between pt-3 border-t border-gray-700 group-hover:border-gray-600 transition-colors"> {/* Reduced from pt-4 */}
+          <div className="flex items-center justify-between pt-3 border-t border-gray-700 group-hover:border-gray-600 transition-colors"> 
             <div className="flex items-center space-x-2 text-gray-400">
-              <Calendar size={12} /> {/* Reduced from size={14} */}
-              <span className="text-xs font-medium">{cert.date}</span> {/* Reduced from text-sm */}
+              <Calendar size={12} /> 
+              <span className="text-xs font-medium">{cert.date}</span>
             </div>
             <div className="flex items-center space-x-2 text-gray-400 group-hover:text-white transition-colors cursor-pointer">
               <span className="text-xs font-medium">View Credential</span>
-              <ExternalLink size={12} /> {/* Reduced from size={14} */}
+              <ExternalLink size={12} />
             </div>
           </div>
         </div>
 
-
-        {/* Hover overlay effect */}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
       </motion.div>
     ))}

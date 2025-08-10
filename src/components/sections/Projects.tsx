@@ -26,29 +26,29 @@ const useReducedMotion = () => {
 const projects = [
   {
     id: 1,
-    title: 'E-Commerce Platform',
-    description: 'Full-stack e-commerce solution with payment integration, admin dashboard, and real-time inventory management.',
-    longDescription: 'Built with Next.js, Node.js, PostgreSQL, and Stripe. Features include user authentication, shopping cart, order tracking, and comprehensive admin panel with real-time analytics.',
-    tech: ['Next.js', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS', 'Redis'],
-    liveUrl: 'https://example.com',
-    repoUrl: 'https://github.com/yourusername/ecommerce',
-    year: '2024',
+    title: 'Finance App',
+    description: 'A personal finance management application that allows users to track accounts, categorize transactions, and visualize financial health through interactive charts and dashboards.',
+    longDescription: 'A modern, full-stack personal finance management application built with Next.js, React, Drizzle ORM, Neon serverless Postgres, Clerk authentication, and Hono API framework. Track your accounts, categorize transactions, and visualize your financial health with beautiful charts and dashboards.',
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'Shadcn UI', 'Hono', 'Drizzle ORM', 'PostgreSQL', 'Clerk Auth', 'React Query', 'Zustand', 'Recharts'],
+    liveUrl: 'https://finance-app-sigma-lovat.vercel.app',
+    repoUrl: 'https://github.com/shivang-jnv/Finance-app',
+    year: '2025',
     featured: true,
     category: 'Full Stack',
-    metrics: { users: '1.2K+', performance: '95%', uptime: '99.9%' }
+    metrics: { users: 'NA', performance: '95%', uptime: '99.9%' }
   },
   {
     id: 2,
-    title: 'Task Management App',
-    description: 'Collaborative project management tool with real-time updates, team collaboration, and deadline tracking.',
-    longDescription: 'React-based SPA with Firebase backend. Includes drag-and-drop functionality, real-time notifications, team workspace management, and advanced analytics.',
-    tech: ['React', 'Firebase', 'Material-UI', 'Framer Motion', 'WebSocket'],
-    liveUrl: 'https://example.com',
-    repoUrl: 'https://github.com/yourusername/taskmanager',
+    title: 'Team Chat App',
+    description: 'A modern, full-stack Slack clone.',
+    longDescription: 'Built with Next.js, Convex, and TypeScript. This project demonstrates real-time messaging, channels, direct messages, reactions, file uploads, and workspace management, providing a collaborative chat experience similar to Slack.',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Convex', 'Jotai', 'OAuth', 'Bun', 'PostCSS'],
+    liveUrl: 'https://slack-clone-chi-five.vercel.app',
+    repoUrl: 'https://github.com/shivang-jnv/slack-clone',
     year: '2024',
     featured: true,
-    category: 'Frontend',
-    metrics: { teams: '50+', tasks: '2.5K+', efficiency: '87%' }
+    category: 'Full Stack',
+    metrics: { Channels: '50+', Performance: '95%', uptime: '99.9%' }
   },
   {
     id: 3,
@@ -56,8 +56,8 @@ const projects = [
     description: 'Data visualization dashboard showing weather patterns, forecasts, and historical climate data.',
     longDescription: 'Python Flask backend with React frontend. Integrates multiple weather APIs and provides interactive charts and geographical visualizations with machine learning predictions.',
     tech: ['Python', 'Flask', 'React', 'Chart.js', 'OpenWeather API', 'D3.js'],
-    liveUrl: 'https://example.com',
-    repoUrl: 'https://github.com/yourusername/weather',
+    liveUrl: null,
+    repoUrl: '',
     year: '2023',
     featured: false,
     category: 'Data Visualization',
@@ -70,8 +70,8 @@ const projects = [
     longDescription: 'Node.js and Express backend with MongoDB. Implements JWT authentication, image uploads, comprehensive social features, and rate limiting for optimal performance.',
     tech: ['Node.js', 'Express', 'MongoDB', 'JWT', 'Cloudinary', 'Redis'],
     liveUrl: null,
-    repoUrl: 'https://github.com/yourusername/social-api',
-    year: '2023',
+    repoUrl: '',
+    year: '2024',
     featured: false,
     category: 'Backend',
     metrics: { endpoints: '25+', response: '<100ms', security: 'A+' }
@@ -82,8 +82,8 @@ const projects = [
     description: 'Intelligent chatbot with natural language processing and context-aware responses.',
     longDescription: 'Python-based chatbot using OpenAI API with custom training data. Deployed as a web service with conversation history, user preferences, and multi-language support.',
     tech: ['Python', 'OpenAI API', 'FastAPI', 'SQLite', 'Docker', 'NLP'],
-    liveUrl: 'https://example.com',
-    repoUrl: 'https://github.com/yourusername/ai-chatbot',
+    liveUrl: null,
+    repoUrl: '',
     year: '2024',
     featured: false,
     category: 'AI/ML',
@@ -95,8 +95,8 @@ const projects = [
     description: 'Secure video conferencing platform with screen sharing, chat, and room management features.',
     longDescription: 'Built with React, Node.js, and WebRTC technology. Features include end-to-end encryption, multi-participant rooms, screen sharing, file transfer, and recording capabilities with cloud storage integration.',
     tech: ['React', 'Node.js', 'WebRTC', 'Socket.io', 'AWS S3', 'WebSocket'],
-    liveUrl: 'https://example.com',
-    repoUrl: 'https://github.com/yourusername/video-chat',
+    liveUrl: null,
+    repoUrl: '',
     year: '2023',
     featured: false,
     category: 'Full Stack',
@@ -175,7 +175,7 @@ const featuredProjects = useMemo(() => {
         {/* Project Visual */}
         <motion.div
           className={`relative group ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.0 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           onHoverStart={() => setHoveredProject(project.id)}
           onHoverEnd={() => setHoveredProject(null)}
@@ -224,7 +224,7 @@ const featuredProjects = useMemo(() => {
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.1 }}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.0 }}
                     >
                       <ExternalLink size={16} />
                       <span className="font-medium">Live Demo</span>
@@ -236,7 +236,7 @@ const featuredProjects = useMemo(() => {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.0 }}
                   >
                     <Github size={16} />
                     <span className="font-medium">Source Code</span>
@@ -341,8 +341,8 @@ const featuredProjects = useMemo(() => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3), ease: [0.25, 0.46, 0.45, 0.94] }}
             whileHover={{ 
-              y: -8, 
-              scale: 1.02,
+              // y: -8, 
+              // scale: 1.02,
               transition: { duration: 0.2, ease: "easeOut" } 
             }}
             style={{ willChange: 'transform' }}
@@ -452,7 +452,7 @@ const featuredProjects = useMemo(() => {
           </p>
           <motion.button
             className="px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full font-semibold text-white border border-gray-500 hover:from-gray-700 hover:to-gray-900 transition-all"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.0 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >

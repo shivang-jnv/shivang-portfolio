@@ -67,7 +67,7 @@ const Navbar = memo(function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-white flex items-center justify-center"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -79,13 +79,13 @@ const Navbar = memo(function Navbar() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-4 pb-4 space-y-4"
+            className="md:hidden mt-4 pb-6 space-y-2 bg-gray-900 backdrop-blur-xl border-t border-gray-700/50 rounded-b-xl px-6 shadow-2xl shadow-black/30"
           >
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="block py-2 text-gray-300 hover:text-white transition-colors flex items-center space-x-3"
+                className="py-2 text-gray-300 hover:text-white transition-colors flex items-center space-x-3"
                 onClick={() => setIsOpen(false)}
               >
                 <item.icon size={18} />
