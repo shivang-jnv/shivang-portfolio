@@ -4,12 +4,12 @@ A high-performance, modern portfolio website built with Next.js 14, featuring sm
 
 ## 🚀 Live Demo
 
-[View Portfolio](https://your-portfolio-url.com) *(Replace with your actual URL)*
+[View Portfolio](https://portfolio-shivang.vercel.app/)
 
 ## ✨ Features
 
-- **Modern Tech Stack**: Next.js 14, TypeScript, Tailwind CSS, Framer Motion
-- **Performance Optimized**: Lazy loading, code splitting, GPU acceleration
+- **Modern Tech Stack**: Next.js 15, TypeScript, Tailwind CSS, Framer Motion
+- **Performance Optimized**: Lazy loading, code splitting, Memoization
 - **Smooth Animations**: Custom typing animations, scroll-triggered animations
 - **Responsive Design**: Mobile-first approach with seamless mobile experience
 - **SEO Optimized**: Server-side rendering with proper meta tags
@@ -88,7 +88,6 @@ src/
 
 - **40-60% faster** initial page load
 - **Optimized mobile** experience with adaptive animations
-- **Smooth 60fps** animations across all devices
 - **Smaller bundle size** through tree-shaking and optimization
 
 ##  Deployment
