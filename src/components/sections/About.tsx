@@ -146,7 +146,7 @@ const About = React.memo(() => {
             <motion.div
               onClick={() => {
                 const link = document.createElement('a')
-                link.href = '/resume.pdf'  
+                link.href = '/resume-shivang-updated.pdf'  
                 link.download = 'Shivang_Kanaujia_Resume.pdf'
                 document.body.appendChild(link)
                 link.click()
