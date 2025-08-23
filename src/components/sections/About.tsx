@@ -16,7 +16,7 @@ const experiences = [
     period: 'Sept 2022 - Nov 2022',
     role: 'Arduino Coding Intern',
     company: 'Plantech Innovations Ltd.',
-    description: 'Built & embedded C++ firmware for Arduino UNO to power self-sustaining digital planters, integrating 8+ sensors with 99.5% accuracy. Resolved sync issues and patched library conflicts, ensuring 100% uptime and faster maintenance.'
+    description: 'Developed embedded firmware for sensor integration in C++. Debugged hardware-software compatibility issues, improving reliability. Collaborated with team to deliver functional prototypes.'
   },
   // {
   //   period: '2023 - 2024',
@@ -146,7 +146,7 @@ const About = React.memo(() => {
             <motion.div
               onClick={() => {
                 const link = document.createElement('a')
-                link.href = '/resume-shivang-updated.pdf'  
+                link.href = '/resume.pdf'  
                 link.download = 'Shivang_Kanaujia_Resume.pdf'
                 document.body.appendChild(link)
                 link.click()
