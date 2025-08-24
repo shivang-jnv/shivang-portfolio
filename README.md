@@ -22,7 +22,7 @@ A high-performance, modern portfolio website built with Next.js 15, featuring sm
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Deployment**: [Vercel](https://vercel.com/) *(or your preferred platform)*
+- **Deployment**: [Vercel](https://vercel.com/) 
 
 ## 🏃♂️ Quick Start
 
