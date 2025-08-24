@@ -1,6 +1,6 @@
 # Portfolio Website
 
-A high-performance, modern portfolio website built with Next.js 15, featuring smooth animations, optimized performance, and responsive design.
+A high-performance, modern portfolio website built with Next.js, featuring smooth animations, optimized performance, and responsive design.
 
 ## 🚀 Live Demo
 
@@ -8,7 +8,7 @@ A high-performance, modern portfolio website built with Next.js 15, featuring sm
 
 ## ✨ Features
 
-- **Modern Tech Stack**: Next.js 15, TypeScript, Tailwind CSS, Framer Motion
+- **Modern Tech Stack**: Next.js, TypeScript, Tailwind CSS, Framer Motion
 - **Performance Optimized**: Lazy loading, code splitting, Memoization
 - **Smooth Animations**: Custom typing animations, scroll-triggered animations
 - **Responsive Design**: Mobile-first approach with seamless mobile experience
