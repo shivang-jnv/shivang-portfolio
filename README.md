@@ -1,6 +1,6 @@
 # Portfolio Website
 
-A high-performance, modern portfolio website built with Next.js 14, featuring smooth animations, optimized performance, and responsive design.
+A high-performance, modern portfolio website built with Next.js 15, featuring smooth animations, optimized performance, and responsive design.
 
 ## 🚀 Live Demo
 
