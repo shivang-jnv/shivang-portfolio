@@ -1,6 +1,7 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Github, Code2, ArrowRight, Tag, Star } from 'lucide-react'
+import Image from 'next/image'
 import { useEffect, useMemo, useState, memo } from 'react'
 
 
@@ -18,7 +19,8 @@ const projects = [
     year: '2025',
     featured: true,
     category: 'Full Stack',
-    metrics: { users: 'NA', performance: '95%', uptime: '99.9%' }
+    metrics: { users: 'NA', performance: '95%', uptime: '99.9%' },
+    imageUrl: '/finance-app.png'
   },
   {
     id: 2,
@@ -31,7 +33,9 @@ const projects = [
     year: '2024',
     featured: true,
     category: 'Full Stack',
-    metrics: { Channels: '50+', Performance: '95%', uptime: '99.9%' }
+    metrics: { Channels: '50+', Performance: '95%', uptime: '99.9%' },
+    imageUrl: '/team-chat-platform.png'
+
   },
   {
     id: 3,
@@ -152,15 +156,35 @@ const featuredProjects = useMemo(() => {
           onHoverEnd={() => setHoveredProject(null)}
         >
           <div className="relative h-64 bg-gray-900 rounded-lg border border-gray-800 overflow-hidden">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div 
-                className={`h-full transition-opacity duration-300 ${
-                  hoveredProject === project.id ? 'opacity-30' : 'opacity-10'
-                }`}
+             {/* Your image */}
+            <Image
+              src={project.imageUrl ?? '/spotlight.png'}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority={false}
+            />
+
+            {/* Dim overlay */}
+            <div
+              className={`absolute inset-0 transition-opacity duration-300 ${
+                hoveredProject === project.id ? 'opacity-40' : 'opacity-20'
+              }`}
+              style={{
+                background:
+                  'linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.45))',
+              }}
+            />
+
+            {/* Grid pattern */}
+            <div className="absolute inset-0 pointer-events-none opacity-10">
+              <div
+                className="h-full w-full transition-opacity duration-300"
                 style={{
-                  backgroundImage: 'linear-gradient(to right, #4b5563 1px, transparent 1px), linear-gradient(to bottom, #4b5563 1px, transparent 1px)',
-                  backgroundSize: '12.5% 12.5%'
+                  backgroundImage:
+                    'linear-gradient(to right, rgba(75,85,99,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(75,85,99,0.5) 1px, transparent 1px)',
+                  backgroundSize: '12.5% 12.5%',
+                  opacity: hoveredProject === project.id ? 0.6 : 0.2,
                 }}
               />
             </div>
@@ -318,6 +342,7 @@ const featuredProjects = useMemo(() => {
             }}
             style={{ willChange: 'transform' }}
           >
+            
             {/* Top accent line */}
             <div className="h-1 bg-gradient-to-r from-gray-600 to-gray-500 group-hover:from-gray-500 group-hover:to-gray-400 transition-colors" />
 

@@ -5,6 +5,17 @@ import { Award, Calendar, ExternalLink, CheckCircle, Star } from 'lucide-react'
 
 const certificates = [
   {
+    title: 'OCI 2025 Certified Developer Professional',
+    issuer: 'Oracle',
+    date: '2025',
+    credentialId: '102999301OCID25CP',
+    description: 'Comprehensive certification validating advanced competence in Oracle Cloud Infrastructure architecture, development, and deployment workflows.',
+    skills: ['Cloud-native', 'Microservices', 'Containers', 'Kubernetes', 'Serverless', 'APIs', 'Streaming', 'Queues', 'Events', 'Security', 'Testing', 'Observability']
+,
+    verified: true,
+    featured: true
+  },
+  {
     title: 'Back End Development and APIs ',
     issuer: 'FreeCodeCamp',
     date: '2025',
@@ -16,6 +27,17 @@ const certificates = [
     featured: true
   },
   {
+    title: 'OCI 2025 Certified AI Foundations Associate',
+    issuer: 'Oracle',
+    date: '2025',
+    credentialId: '102999301OCI25AICFA',
+    description: 'Introductory learning path covering core concepts in AI, machine learning, deep learning, and generative AI with direct application on OCI',
+    skills: ['AI', 'Machine Learning', 'Deep Learning', 'Generative AI', 'Modeling', 'Inference', 'Cloud Deployment', 'OCI Services'  ]
+,
+    verified: true,
+    featured: false
+  },
+  {
     title: 'J. P. Morgan - Software Enginering Job Simulation',
     issuer: 'Forage',
     date: '2025',
@@ -23,7 +45,7 @@ const certificates = [
     description: 'A hands-on virtual experience learning JPMorgan Chase\'s programming skills and tools through real software engineering tasks.',
     skills: ['Spring', 'Java', 'Kafka', 'Maven', 'REST API', 'SQL'],
     verified: true,
-    featured: true
+    featured: false
   },
   {
     title: 'AWS Solutions	Architecture Job Simulation',

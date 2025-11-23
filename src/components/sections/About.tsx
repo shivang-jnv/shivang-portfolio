@@ -1,14 +1,15 @@
 'use client'
 import React from "react"
 import { motion } from 'framer-motion'
-import { Code, Database, Cloud, Globe, Zap, Download, MapPin } from 'lucide-react'
+import { Code, Database, Cloud, Globe, Zap, Download, MapPin, Monitor } from 'lucide-react'
 
 const skills = [
-  { name: 'Frontend', icon: Globe, items: ['React', 'Next.js', 'TypeScript','JavaScript', , 'HTML', 'CSS' ,'Tailwind CSS'], level: 90 },
-  { name: 'Backend', icon: Code, items: ['Node.js', 'Express', 'C++', 'Kafka', 'REST APIs', 'Microservices', 'SSR', 'OAuth'], level: 85 },
-  { name: 'Database', icon: Database, items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM', 'Query Optimization'], level: 80 },
-  { name: 'DevOps', icon: Cloud, items: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Linux'], level: 75 },
-  { name: 'Performance', icon: Zap, items: ['Optimization', 'Caching', 'SEO', 'Analytics'], level: 85 },
+  { name: 'Languages', icon: Globe, items: ['JavaScript', 'TypeScript', 'C++','Python', 'Java', 'HTML' ,'CSS'], level: 90 },
+  { name: 'Frontend', icon: Monitor, items: ['React', 'Next.js', 'Redux', 'TailwindCSS' , 'Framer Motion', 'Responsive Design'], level: 90 },
+  { name: 'Backend', icon: Code, items: ['Node.js', 'Express.js', 'GraphQL', 'Kafka', 'REST APIs', 'Microservices', 'OAuth/JWT Authentication'], level: 85 },
+  { name: 'Database', icon: Database, items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM', 'Database Design'], level: 80 },
+  { name: 'DevOps & Tools', icon: Cloud, items: ['Git', 'Docker', 'Kubernetes','AWS', 'Vercel' , 'CI/CD', 'Linux', 'Postman', 'Jest'], level: 75 },
+  { name: 'Development Practices', icon: Zap, items: ['Agile/SDLC', 'Component Architecture',  'Performance Optimization'], level: 85 },
 ]
 
 const experiences = [
