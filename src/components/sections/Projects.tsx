@@ -1,8 +1,7 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Code2, ArrowRight, Tag, Star, ChevronLeft, ChevronRight } from 'lucide-react'
-import Image from 'next/image'
-import { useEffect, useMemo, useState, memo, useRef, useCallback } from 'react'
+import { motion } from 'framer-motion'
+import { ExternalLink, Github, Code2, Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useState, memo, useRef, useCallback } from 'react'
 
 
 
@@ -94,9 +93,7 @@ const projects = [
 const Projects = memo(function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
   const [cardsPerView, setCardsPerView] = useState(3)
-  const [isMobile, setIsMobile] = useState(false)
 
   // Detect screen size and adjust cards per view with debouncing
   useEffect(() => {
@@ -104,7 +101,6 @@ const Projects = memo(function Projects() {
 
     const updateCardsPerView = () => {
       const width = window.innerWidth
-      setIsMobile(width < 768)
       
       if (width < 768) {
         setCardsPerView(1)
@@ -194,7 +190,7 @@ const Projects = memo(function Projects() {
               animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              {projects.map((project, index) => (
+              {projects.map((project) => (
                 <motion.div
                   key={project.id}
                   className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden flex-shrink-0 transition-all duration-300"

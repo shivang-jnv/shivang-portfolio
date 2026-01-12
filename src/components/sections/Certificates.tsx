@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Award, Calendar, ExternalLink, CheckCircle, Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const certificates = [
@@ -221,7 +221,7 @@ const Certificates = React.memo(() => {
               animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              {certificates.map((cert, index) => (
+              {certificates.map((cert) => (
                 <motion.div
                   key={cert.credentialId}
                   className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden flex-shrink-0 transition-all duration-300"

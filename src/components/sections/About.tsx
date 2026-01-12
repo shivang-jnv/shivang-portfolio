@@ -1,7 +1,7 @@
 'use client'
 import React from "react"
 import { motion } from 'framer-motion'
-import { Code, Database, Cloud, Globe, Zap, Download, MapPin, Monitor } from 'lucide-react'
+import { Code, Database, Cloud, Globe, Download, MapPin, Monitor } from 'lucide-react'
 
 const skills = [
   { name: 'Languages', icon: Globe, items: ['JavaScript', 'TypeScript', 'C++'], level: 90 },

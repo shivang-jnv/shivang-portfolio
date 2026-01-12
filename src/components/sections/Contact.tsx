@@ -34,27 +34,6 @@ const contactInfo = [
   }
 ]
 
-const availability = [
-  {
-    period: 'Mon - Fri',
-    status: 'Available',
-    hours: '10:00 AM - 6:00 PM IST',
-    description: 'Best time for meetings and calls'
-  },
-  {
-    period: 'Weekends',
-    status: 'Limited',
-    hours: 'Email only',
-    description: 'I check emails but no scheduled calls'
-  },
-  {
-    period: 'Currently',
-    status: 'Open to Work',
-    hours: 'Accepting new projects',
-    description: 'Available for freelance and full-time opportunities'
-  }
-]
-
 const Contact = React.memo(() => {
   Contact.displayName = 'Contact'
   const [copiedEmail, setCopiedEmail] = useState(false)
