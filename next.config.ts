@@ -2,14 +2,13 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   typescript: {
-    ignoreBuildErrors: false, // skips TS build errors
+    ignoreBuildErrors: false,
   },
-  eslint: {
-    ignoreDuringBuilds: false, // skips ESLint errors
-  },
+  // Turbopack configuration for Next.js 16
+  turbopack: {},
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['framer-motion', 'lucide-react'], // enable when ready
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -19,16 +18,6 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   compress: true,
-  webpack: (config) => {
-    // This will prevent "Module not found" errors from killing your build
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      '@/components/layout/Navbar': false,
-      '@/utils/Performance': false,
-    };
-    config.ignoreWarnings = [{ message: /.+/ }]; // hide warnings
-    return config;
-  },
   async headers() {
     return [
       {
