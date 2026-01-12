@@ -111,3 +111,45 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, #9ca3af, #d1d5db);
 }
+
+/* Hide scrollbar for mobile carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration for animations */
+.text-gradient,
+.liquid-metal,
+.neural-pulse {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize hover effects */
+[class*="hover:"]:hover {
+  will-change: transform, opacity, border-color;
+}
+
+/* Optimize carousel animations */
+[class*="motion"] {
+  will-change: transform;
+  transform: translateZ(0);
+}

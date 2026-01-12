@@ -4,27 +4,30 @@ import { motion } from 'framer-motion'
 import { Code, Database, Cloud, Globe, Zap, Download, MapPin, Monitor } from 'lucide-react'
 
 const skills = [
-  { name: 'Languages', icon: Globe, items: ['JavaScript', 'TypeScript', 'C++','Python', 'Java', 'HTML' ,'CSS'], level: 90 },
-  { name: 'Frontend', icon: Monitor, items: ['React', 'Next.js', 'Redux', 'TailwindCSS' , 'Framer Motion', 'Responsive Design'], level: 90 },
-  { name: 'Backend', icon: Code, items: ['Node.js', 'Express.js', 'GraphQL', 'Kafka', 'REST APIs', 'Microservices', 'OAuth/JWT Authentication'], level: 85 },
+  { name: 'Languages', icon: Globe, items: ['JavaScript', 'TypeScript', 'C++'], level: 90 },
+  { name: 'Frontend', icon: Monitor, items: ['React', 'Next.js', 'TailwindCSS', 'Responsive Design'], level: 90 },
+  { name: 'Backend', icon: Code, items: ['Node.js', 'Express.js', 'GraphQL', 'Kafka', 'REST APIs', 'WebSockets', 'Microservices Architecture', 'OAuth/JWT Authentication'], level: 85 },
   { name: 'Database', icon: Database, items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM', 'Database Design'], level: 80 },
-  { name: 'DevOps & Tools', icon: Cloud, items: ['Git', 'Docker', 'Kubernetes','AWS', 'Vercel' , 'CI/CD', 'Linux', 'Postman', 'Jest'], level: 75 },
-  { name: 'Development Practices', icon: Zap, items: ['Agile/SDLC', 'Component Architecture',  'Performance Optimization'], level: 85 },
+  { name: 'DevOps & Tools', icon: Cloud, items: ['Git', 'Docker', 'Kubernetes','AWS', 'Vercel' , 'CI/CD', 'Linux'], level: 75 },
 ]
 
 const experiences = [
   {
+    period: 'Dec 2025 - Present',
+    role: 'Junior Engineer',
+    company: 'Aalgorix',
+    description: `- Deployed containerized applications to Digital Ocean using Docker, managing cloud infrastructure and SSH-based server administration.
+- Identified and resolved AWS EC2 auto-scaling misconfiguration, reducing unnecessary running instances from 5 to 1 and optimizing resource utilization and saving cost.
+- Contributed to frontend development for AI tutoring platform using React and TailwindCSS, implementing responsive UI components and page layouts.`
+  },
+  {
     period: 'Sept 2022 - Nov 2022',
     role: 'Arduino Coding Intern',
     company: 'Plantech Innovations Ltd.',
-    description: 'Developed embedded firmware for sensor integration in C++. Debugged hardware-software compatibility issues, improving reliability. Collaborated with team to deliver functional prototypes.'
+    description: `- Developed embedded firmware for sensor integration in C++.
+- Debugged hardware-software compatibility issues, improving reliability.
+- Collaborated with team to deliver functional prototypes.`
   },
-  // {
-  //   period: '2023 - 2024',
-  //   role: 'Frontend Developer',
-  //   company: 'Digital Agency',
-  //   description: 'Created responsive, user-friendly interfaces for clients across various industries. Optimized performance and implemented modern design systems.'
-  // },
   // {
   //   period: '2022 - 2023',
   //   role: 'Junior Developer',
@@ -49,7 +52,7 @@ const About = React.memo(() => {
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             About Me
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed text-justify">
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed text-center">
             I’m a Full Stack Developer fluent in React, Next.js, Node.js, and TypeScript, crafting applications that are as elegant as they are functional. My work spans microservices, serverless architectures, AWS, Docker, Kubernetes, and finely tuned databases, all woven together with secure, thoughtful design.
           </p>
         </motion.div>
@@ -137,7 +140,7 @@ const About = React.memo(() => {
                     <p className="text-sm text-gray-400 font-medium">{exp.period}</p>
                     <h4 className="text-xl font-bold text-white">{exp.role}</h4>
                     <p className="text-lg text-gray-300">{exp.company}</p>
-                    <p className="text-gray-400 leading-relaxed">{exp.description}</p>
+                    <p className="text-gray-400 leading-relaxed whitespace-pre-line">{exp.description}</p>
                   </div>
                 </motion.div>
               ))}

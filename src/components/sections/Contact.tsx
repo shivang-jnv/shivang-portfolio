@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone, Clock, Send, Copy, Check } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 
 const contactInfo = [
   {
@@ -59,7 +59,7 @@ const Contact = React.memo(() => {
   Contact.displayName = 'Contact'
   const [copiedEmail, setCopiedEmail] = useState(false)
 
-  const handleCopyEmail = async () => {
+  const handleCopyEmail = useCallback(async () => {
     try {
       await navigator.clipboard.writeText('skjnvspn@gmail.com')
       setCopiedEmail(true)
@@ -67,163 +67,140 @@ const Contact = React.memo(() => {
     } catch (err) {
       console.error('Failed to copy email: ', err)
     }
-  }
+  }, [])
 
   return (
-    <section id="contact" className="min-h-screen py-20 px-6 relative">
-      <div className="max-w-6xl mx-auto">
+    <section id="contact" className="py-16 px-6 relative">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3, margin: "-50px" }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
-
-          <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
-            Get In Touch
+          <h2 className="text-4xl md:text-5xl font-black mb-3 text-gradient">
+            Let&apos;s Connect
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Ready to collaborate on your next project? I&apos;m always excited to work with 
-            passionate people and help bring innovative ideas to life.
+          <p className="text-base text-gray-400 max-w-xl mx-auto mb-6">
+            Have a project in mind? I&apos;m always open to discussing new opportunities.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Contact Information */}
-         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="h-full"
-        >
-
-            <h3 className="text-3xl font-bold mb-8 text-white">Contact Information</h3>
-            <div className="space-y-8">
-              {contactInfo.map((info, index) => (
-                <motion.div
-                  key={info.label}
-                  className="group"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-3">
-                      <info.icon className="text-gray-400 group-hover:text-white transition-colors" size={20} />
-                      <span className="text-lg font-semibold text-white">{info.label}</span>
-                    </div>
-                    <span className="text-sm text-gray-400">{info.value}</span>
-                  </div>
-                  
-                  {/* Description */}
-                  <div className="mb-3">
-                    <p className="text-gray-400 leading-relaxed">{info.description}</p>
-                  </div>
-                  
-                  {/* Action Button */}
-                  {info.action && (
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={info.action}
-                        className="px-4 py-2 text-sm bg-gray-800 text-gray-300 rounded-lg border border-gray-700 hover:border-gray-500 hover:bg-gray-700 transition-colors"
-                      >
-                        Contact via {info.label}
-                      </button>
-                      {info.label === 'Email' && (
-                        <button
-                          onClick={handleCopyEmail}
-                          className="px-4 py-2 text-sm bg-gray-700 text-gray-300 rounded-lg border border-gray-600 hover:border-gray-500 hover:bg-gray-600 transition-colors flex items-center space-x-2"
-                        >
-                          {copiedEmail ? (
-                            <>
-                              <Check size={14} className="text-green-400" />
-                              <span>Copied!</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy size={14} />
-                              <span>Copy</span>
-                            </>
-                          )}
-                        </button>
-                      )}
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Availability Schedule */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="h-full flex flex-col"
-          >
-
-            <h3 className="text-3xl font-bold mb-8 text-white">Availability</h3>
-            <div className="space-y-10 flex-grow">
-              {availability.map((schedule, index) => (
-                <motion.div
-                  key={index}
-                  className="relative pl-8 border-l border-gray-700 hover:border-gray-500 transition-colors"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                >
-                  {/* Timeline Dot */}
-                  <div className={`absolute -left-2 top-0 w-4 h-4 border-2 border-gray-400 rounded-full ${
-                    schedule.status === 'Available' ? 'bg-green-500' : 
-                    schedule.status === 'Open to Work' ? 'bg-blue-500' : 'bg-gray-600'
-                  }`} />
-                  
-                  <div className="space-y-3">
-                    <p className="text-sm text-gray-400 font-medium">{schedule.period}</p>
-                    <h4 className="text-xl font-bold text-white">{schedule.status}</h4>
-                    <p className="text-lg text-gray-300">{schedule.hours}</p>
-                    <p className="text-gray-400 leading-relaxed">{schedule.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Call to Action Buttons - Bottom of Availability Section */}
+        {/* Contact Cards Grid */}
+        <div className="grid lg:grid-cols-2 gap-4 mb-8">
+          {contactInfo.slice(0, 2).map((info, index) => (
             <motion.div
-              className="mt-12 flex flex-col sm:flex-row gap-4"
+              key={info.label}
+              className="group relative bg-black border-2 border-gray-800 rounded-xl p-5 hover:border-gray-600 transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
             >
-
-              <motion.a 
-                href="mailto:skjnvspn@gmail.com"
-                className="flex items-center justify-center space-x-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600 rounded-lg transition-colors group flex-1"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Send size={16} className="group-hover:scale-110 transition-transform" />
-                <span className="font-medium">Send Email</span>
-              </motion.a>
+              {/* Top accent */}
+              <div className="h-0.5 absolute top-0 left-0 right-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent" />
               
-              <motion.a 
-                href="tel:+911234567890"
-                className="flex items-center justify-center space-x-2 px-6 py-3 bg-transparent hover:bg-gray-800 border border-gray-600 hover:border-gray-500 rounded-lg transition-colors group flex-1"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Phone size={16} className="group-hover:scale-110 transition-transform" />
-                <span className="font-medium">Call Me</span>
-              </motion.a>
+              <div className="flex items-start space-x-3 mb-3">
+                <div className="p-2 bg-gray-900 border border-gray-800 rounded-lg group-hover:border-gray-700 transition-colors">
+                  <info.icon className="text-gray-400 group-hover:text-white transition-colors" size={18} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold text-gray-400 mb-1">{info.label}</h3>
+                  <p className="text-base font-bold text-white mb-1 break-all">{info.value}</p>
+                  <p className="text-xs text-gray-500">{info.description}</p>
+                </div>
+              </div>
+
+              {info.action && (
+                <div className="flex gap-2 mt-4">
+                  <button
+                    onClick={info.action}
+                    className="flex-1 px-3 py-2 text-xs font-medium bg-gray-900 text-gray-300 rounded-lg border border-gray-800 hover:border-gray-600 hover:bg-gray-800 transition-colors"
+                  >
+                    Contact
+                  </button>
+                  {info.label === 'Email' && (
+                    <button
+                      onClick={handleCopyEmail}
+                      className="px-3 py-2 text-xs font-medium bg-gray-900 text-gray-300 rounded-lg border border-gray-800 hover:border-gray-600 hover:bg-gray-800 transition-colors flex items-center space-x-1"
+                    >
+                      {copiedEmail ? (
+                        <>
+                          <Check size={12} className="text-green-400" />
+                          <span>Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={12} />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              )}
             </motion.div>
-          </motion.div>
+          ))}
         </div>
+
+        {/* Quick Info Cards */}
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          {contactInfo.slice(2).map((info, index) => (
+            <motion.div
+              key={info.label}
+              className="bg-black border border-gray-800 rounded-lg p-4 hover:border-gray-700 transition-colors"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: (index + 2) * 0.1 }}
+            >
+              <div className="flex items-center space-x-3">
+                <info.icon className="text-gray-500" size={16} />
+                <div>
+                  <p className="text-xs text-gray-500 font-medium">{info.label}</p>
+                  <p className="text-sm text-white font-semibold">{info.value}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <motion.div
+          className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <h3 className="text-xl font-bold text-white mb-2">Ready to Start?</h3>
+          <p className="text-sm text-gray-400 mb-5">Let&apos;s discuss your project and bring your ideas to life.</p>
+          
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.a 
+              href="mailto:skjnvspn@gmail.com"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Send size={16} />
+              <span>Send Email</span>
+            </motion.a>
+            
+            <motion.a 
+              href="tel:+918882514141"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-transparent text-white rounded-lg font-semibold border-2 border-gray-700 hover:border-gray-600 hover:bg-gray-900 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Phone size={16} />
+              <span>Call Me</span>
+            </motion.a>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

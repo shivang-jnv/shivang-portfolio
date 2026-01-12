@@ -1,7 +1,7 @@
 'use client'
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Award, Calendar, ExternalLink, CheckCircle, Star } from 'lucide-react'
+import React, { useState, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Award, Calendar, ExternalLink, CheckCircle, Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const certificates = [
   {
@@ -92,8 +92,51 @@ const certificates = [
 ]
 
 const Certificates = React.memo(() => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [cardsPerView, setCardsPerView] = useState(3)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect screen size and adjust cards per view with debouncing
+  React.useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+
+    const updateCardsPerView = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      
+      if (width < 768) {
+        setCardsPerView(2)
+      } else if (width < 1024) {
+        setCardsPerView(2)
+      } else {
+        setCardsPerView(3)
+      }
+    }
+
+    const debouncedUpdate = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(updateCardsPerView, 150)
+    }
+
+    updateCardsPerView()
+    window.addEventListener('resize', debouncedUpdate, { passive: true })
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', debouncedUpdate)
+    }
+  }, [])
+
+  const scroll = React.useCallback((direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      setCurrentIndex(prev => Math.max(0, prev - 1))
+    } else {
+      setCurrentIndex(prev => Math.min(certificates.length - cardsPerView, prev + 1))
+    }
+  }, [cardsPerView])
+
   return (
-    <section id="certificates" className="min-h-screen py-20 px-6 relative">
+    <section id="certificates" className="min-h-screen py-20 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -111,206 +154,193 @@ const Certificates = React.memo(() => {
           </p>
         </motion.div>
 
-        {/* Featured Certificates - Compact Style */}
-<motion.div
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-  className="mb-20"
->
-  <h3 className="text-3xl font-bold text-white mb-12 text-center">Featured Certifications</h3>
-  <div className="grid md:grid-cols-2 gap-6">
-    {certificates.filter(cert => cert.featured).map((cert, index) => (
-      <motion.div
-        key={cert.credentialId}
-        className="group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg border border-gray-700 hover:border-gray-500 transition-all duration-500 overflow-hidden"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: index * 0.2 }}
-        whileHover={{ 
-          // y: -8, 
-          // scale: 1.005,
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-          transition: { duration: 0.2, ease: "easeOut" } 
-        }}
-      >
-        <div className="absolute inset-0 opacity-5">
-          <div 
-            className="w-full h-full"
-            style={{
-              backgroundImage: 'linear-gradient(45deg, #4b5563 1px, transparent 1px), linear-gradient(-45deg, #4b5563 1px, transparent 1px)',
-              backgroundSize: '8px 8px'
-            }}
-          />
-        </div>
+        {/* Mobile: Vertical Strip Cards / Desktop: Horizontal Carousel */}
+        <div className="relative">
+          {/* Navigation Buttons - Desktop only */}
+          <motion.button
+            onClick={() => scroll('left')}
+            disabled={currentIndex === 0}
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronLeft className="text-gray-300" size={20} />
+          </motion.button>
 
-        <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-          <div className="absolute top-2 right-2 w-20 h-4 bg-gradient-to-r from-gray-600 to-gray-500 transform rotate-45 shadow-sm"></div>
-        </div>
+          <motion.button
+            onClick={() => scroll('right')}
+            disabled={currentIndex >= certificates.length - cardsPerView}
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronRight className="text-gray-300" size={20} />
+          </motion.button>
 
-        <div className="relative p-5">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gray-800 rounded-lg">
-                <Award className="text-gray-300" size={20} />
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-white group-hover:text-gradient transition-colors">
-                  {cert.title}
-                </h4>
-                <p className="text-gray-400 text-sm">{cert.issuer}</p>
-              </div>
-            </div>
-            {cert.verified && (
-              <div className="flex items-center space-x-1 text-green-400">
-                <CheckCircle size={14} />
-                <span className="text-xs">Verified</span>
-              </div>
-            )}
-          </div>
+          {/* Fade Gradients - Desktop only */}
+          <div className="hidden md:block absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black via-black/80 to-transparent z-10 pointer-events-none" />
+          <div className="hidden md:block absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black via-black/80 to-transparent z-10 pointer-events-none" />
 
-          <p className="text-gray-400 leading-relaxed mb-4 text-sm">
-            {cert.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mb-4">
-            {cert.skills.map((skill) => (
-              <span
-                key={skill}
-                className="px-2 py-1 text-xs bg-gray-800 text-gray-300 rounded border border-gray-700 hover:border-gray-500 transition-colors"
+          {/* Mobile: Vertical Strips */}
+          <div className="md:hidden space-y-3 px-4">
+            {certificates.map((cert, index) => (
+              <motion.div
+                key={cert.credentialId}
+                className="group relative bg-black border-2 border-gray-800 rounded-lg overflow-hidden transition-all duration-300 hover:border-gray-600"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                {skill}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex items-center justify-between text-sm text-gray-400">
-            <div className="flex items-center space-x-2">
-              <Calendar size={12} />
-              <span className="text-xs">{cert.date}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-xs">ID: {cert.credentialId}</span>
-              <ExternalLink size={10} className="cursor-pointer hover:text-white transition-colors" />
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
-      </motion.div>
-    ))}
-  </div>
-</motion.div>
-
-
-        {/* All Certificates - Enhanced Appealing Cards */}
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
->
-  <h3 className="text-3xl font-bold text-white mb-12 text-center">All Certifications</h3>
-  <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-    {certificates.map((cert, index) => (
-      <motion.div
-        key={cert.credentialId}
-        className="group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl border border-gray-700 hover:border-gray-500 transition-all duration-500 overflow-hidden"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3), ease: [0.25, 0.46, 0.45, 0.94] }}
-        whileHover={{ 
-          // y: -8, 
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-          transition: { duration: 0.2, ease: "easeOut" } 
-        }}
-        style={{ willChange: 'transform' }}
-      >
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div 
-            className="w-full h-full"
-            style={{
-              backgroundImage: 'linear-gradient(45deg, #4b5563 1px, transparent 1px), linear-gradient(-45deg, #4b5563 1px, transparent 1px)',
-              backgroundSize: '8px 8px'
-            }}
-          />
-        </div>
-
-        {/* Certificate ribbon effect */}
-        <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-          <div className="absolute top-2 right-2 w-20 h-4 bg-gradient-to-r from-gray-600 to-gray-500 transform rotate-45 shadow-sm"></div>
-        </div>
-
-        <div className="relative p-4"> {/* Reduced from p-6 */}
-          {/* Header with icon and verification */}
-          <div className="flex items-start justify-between mb-3"> 
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-gray-700 transition-colors">
-                <Award className="text-gray-300 group-hover:text-white transition-colors" size={18} />
-              </div>
-              {cert.featured && (
-                <div className="flex items-center space-x-1 text-yellow-400">
-                  <Star size={12} fill="currentColor" /> 
-                  <span className="text-xs font-medium">Featured</span>
+                {/* Top accent bar */}
+                <div className="h-0.5 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700" />
+                
+                <div className="flex items-center justify-between p-3">
+                  <div className="flex items-center space-x-3 flex-1 min-w-0">
+                    <Award className="text-gray-400 flex-shrink-0" size={16} />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-bold text-white truncate group-hover:text-gradient transition-colors">
+                        {cert.title}
+                      </h4>
+                      <p className="text-xs text-gray-500">{cert.issuer}</p>
+                    </div>
+                  </div>
+                  {cert.verified && (
+                    <CheckCircle className="text-gray-600 flex-shrink-0 ml-2" size={14} />
+                  )}
                 </div>
-              )}
-            </div>
-            {cert.verified && (
-              <div className="flex items-center space-x-1 px-2 py-1 bg-green-900 bg-opacity-30 rounded-full border border-green-700">
-                <CheckCircle className="text-green-400" size={10} />
-                <span className="text-xs text-green-300 font-medium">Verified</span>
-              </div>
-            )}
-          </div>
-
-          {/* Certificate info */}
-          <h4 className="text-base font-bold text-white mb-2 group-hover:text-gradient transition-colors leading-tight">
-            {cert.title}
-          </h4>
-          
-          <p className="text-gray-300 font-medium mb-3 text-sm">{cert.issuer}</p> 
-          
-          {/* Skills tags */}
-          <div className="flex flex-wrap gap-1 mb-3"> 
-            {cert.skills.slice(0, 3).map((skill) => (
-              <span
-                key={skill}
-                className="px-2 py-1 text-xs bg-gray-800 text-gray-300 rounded-full border border-gray-600 group-hover:border-gray-500 transition-colors"
-              >
-                {skill}
-              </span>
+              </motion.div>
             ))}
-            {cert.skills.length > 3 && (
-              <span className="px-2 py-1 text-xs text-gray-400 border border-gray-600 rounded-full">
-                +{cert.skills.length - 3} more
-              </span>
-            )}
           </div>
 
-          {/* Footer with date and action */}
-          <div className="flex items-center justify-between pt-3 border-t border-gray-700 group-hover:border-gray-600 transition-colors"> 
-            <div className="flex items-center space-x-2 text-gray-400">
-              <Calendar size={12} /> 
-              <span className="text-xs font-medium">{cert.date}</span>
-            </div>
-            <div className="flex items-center space-x-2 text-gray-400 group-hover:text-white transition-colors cursor-pointer">
-              <span className="text-xs font-medium">View Credential</span>
-              <ExternalLink size={12} />
-            </div>
+          {/* Desktop: Horizontal Carousel */}
+          <div className="hidden md:block overflow-hidden px-16">
+            <motion.div
+              ref={scrollContainerRef}
+              className="flex gap-6"
+              animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {certificates.map((cert, index) => (
+                <motion.div
+                  key={cert.credentialId}
+                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden flex-shrink-0 transition-all duration-300"
+                  style={{ 
+                    width: isMobile ? 'calc(50% - 8px)' : `calc(${100 / cardsPerView}% - 16px)`, 
+                    height: isMobile ? '280px' : '280px'
+                  }}
+                  whileHover={{ 
+                    y: -8,
+                    borderColor: '#6b7280',
+                    boxShadow: "0 24px 48px rgba(0, 0, 0, 0.4)",
+                    transition: { duration: 0.3, ease: "easeOut" } 
+                  }}
+                >
+                  {/* Top accent bar */}
+                  <div className="h-1 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 group-hover:from-gray-600 group-hover:via-gray-400 group-hover:to-gray-600 transition-all duration-300" />
+
+                  {/* Subtle grid pattern background */}
+                  <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+                    <div 
+                      className="w-full h-full"
+                      style={{
+                        backgroundImage: 'linear-gradient(0deg, #fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+                        backgroundSize: '20px 20px'
+                      }}
+                    />
+                  </div>
+
+                  <div className={`relative ${isMobile ? 'p-4' : 'p-5'} flex flex-col justify-between h-full`}>
+                    {/* Header - Simplified for mobile */}
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start space-x-2 flex-1 min-w-0">
+                        <div className={`${isMobile ? 'p-1.5' : 'p-2'} bg-gray-900 border border-gray-800 rounded-lg group-hover:border-gray-700 group-hover:bg-gray-800 transition-all duration-300 flex-shrink-0`}>
+                          <Award className="text-gray-400 group-hover:text-white transition-colors duration-300" size={isMobile ? 14 : 18} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          {!isMobile && (
+                            <div className="flex items-center gap-2 mb-1.5">
+                              {cert.featured && (
+                                <div className="flex items-center space-x-1">
+                                  <Star className="text-gray-500 group-hover:text-gray-400 transition-colors" size={10} fill="currentColor" />
+                                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Featured</span>
+                                </div>
+                              )}
+                              {cert.verified && (
+                                <div className="flex items-center space-x-1 px-2 py-0.5 bg-gray-900 border border-gray-800 rounded-full">
+                                  <CheckCircle className="text-gray-400" size={9} />
+                                  <span className="text-xs text-gray-400 font-medium">Verified</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          <h4 className={`${isMobile ? 'text-sm' : 'text-base'} font-bold text-white mb-1 group-hover:text-gradient transition-all duration-300 leading-tight ${isMobile ? 'line-clamp-2' : 'line-clamp-2'}`}>
+                            {cert.title}
+                          </h4>
+                          <p className={`text-gray-400 ${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>{cert.issuer}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Description - Shorter on mobile */}
+                    <p className={`text-gray-400 leading-relaxed ${isMobile ? 'mb-3 text-xs line-clamp-4' : 'mb-2 text-xs line-clamp-2'}`}>
+                      {cert.description}
+                    </p>
+
+                    {/* Skills tags - Hidden on mobile */}
+                    {!isMobile && (
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {cert.skills.slice(0, 4).map((skill) => (
+                          <span
+                            key={skill}
+                            className="px-2 py-0.5 text-xs font-medium bg-gray-900 text-gray-300 border border-gray-800 rounded hover:border-gray-600 hover:bg-gray-800 transition-all duration-200"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                        {cert.skills.length > 4 && (
+                          <span className="px-2 py-0.5 text-xs font-medium text-gray-500 border border-gray-800 rounded">
+                            +{cert.skills.length - 4}
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Footer with date and credential */}
+                    <div className={`flex items-center justify-between ${isMobile ? 'pt-2' : 'pt-2.5'} border-t border-gray-800 group-hover:border-gray-700 transition-colors`}>
+                      <div className="flex items-center space-x-1.5 text-gray-500">
+                        <Calendar size={isMobile ? 10 : 11} />
+                        <span className={`${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>{cert.date}</span>
+                      </div>
+                      <div className="flex items-center space-x-1 text-gray-500 group-hover:text-gray-300 transition-colors cursor-pointer">
+                        <span className={`${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>View</span>
+                        <ExternalLink size={isMobile ? 9 : 10} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Hover overlay effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center items-center space-x-2 mt-8">
+            {Array.from({ length: Math.max(1, certificates.length - 2) }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentIndex === index 
+                    ? 'w-8 bg-gray-500' 
+                    : 'w-2 bg-gray-700 hover:bg-gray-600'
+                }`}
+              />
+            ))}
           </div>
         </div>
-
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
-      </motion.div>
-    ))}
-  </div>
-</motion.div>
-
-
       </div>
     </section>
   )
