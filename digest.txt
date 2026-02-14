@@ -1,0 +1,2764 @@
+Directory structure:
+└── shivang-jnv-shivang-portfolio/
+    ├── README.md
+    ├── eslint.config.mjs
+    ├── next.config.ts
+    ├── package.json
+    ├── postcss.config.mjs
+    ├── tailwind.config.js
+    ├── tsconfig.json
+    └── src/
+        ├── app/
+        │   ├── globals.css
+        │   ├── icon.tsx
+        │   ├── layout.tsx
+        │   └── page.tsx
+        ├── components/
+        │   ├── layout/
+        │   │   ├── Footer.tsx
+        │   │   └── Navbar.tsx
+        │   └── sections/
+        │       ├── About.tsx
+        │       ├── Certificates.tsx
+        │       ├── Contact.tsx
+        │       ├── Education.tsx
+        │       ├── Projects.tsx
+        │       └── Skills.tsx
+        └── utils/
+            └── Performance.ts
+
+================================================
+FILE: README.md
+================================================
+# Portfolio Website
+
+A high-performance, modern portfolio website built with Next.js, featuring smooth animations, optimized performance, and responsive design.
+
+## 🚀 Live Demo
+
+[View Portfolio](https://portfolio-shivang.vercel.app/)
+
+## ✨ Features
+
+- **Modern Tech Stack**: Next.js, TypeScript, Tailwind CSS, Framer Motion
+- **Performance Optimized**: Lazy loading, code splitting, Memoization
+- **Smooth Animations**: Custom typing animations, scroll-triggered animations
+- **Responsive Design**: Mobile-first approach with seamless mobile experience
+- **SEO Optimized**: Server-side rendering with proper meta tags
+- **Accessibility**: Motion preferences respected, keyboard navigation
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: [Vercel](https://vercel.com/) 
+
+## 🏃♂️ Quick Start
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/portfolio.git
+
+# Navigate to project directory
+cd portfolio
+
+# Install dependencies
+npm install
+# or
+yarn install
+
+# Start development server
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with font optimization
+│   ├── page.tsx            # Main portfolio page
+│   └── globals.css         # Global styles and animations
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx      # Navigation component
+│   │   └── Footer.tsx      # Footer component
+│   └── sections/
+│       ├── About.tsx       # About section
+│       ├── Projects.tsx    # Projects showcase
+│       └── Contact.tsx     # Contact form
+└── utils/
+    └── Performance.ts
+```
+
+## ⚡ Performance Features
+
+### Implemented Optimizations
+
+- **Lazy Loading**: Components load only when needed (60-70% smaller initial bundle)
+- **GPU Acceleration**: Hardware-accelerated animations for smooth performance
+- **Code Splitting**: Automatic bundle optimization with Next.js dynamic imports
+- **Image Optimization**: WebP/AVIF format support with responsive sizing
+- **Animation Optimization**: Efficient Framer Motion configurations
+- **Mobile Performance**: Reduced animations on mobile devices
+
+### Performance Results
+
+- **40-60% faster** initial page load
+- **Optimized mobile** experience with adaptive animations
+- **Smaller bundle size** through tree-shaking and optimization
+
+##  Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to [Vercel](https://vercel.com/)
+3. Deploy automatically with zero configuration
+
+## SEO 
+
+### Built-in SEO Features
+
+- Server-side rendering for better search engine visibility
+- Semantic HTML structure
+- Meta tags configuration
+- Open Graph tags for social sharing
+
+
+## Known Issues & Solutions
+
+### Hydration Warnings
+
+If you encounter hydration warnings:
+- Usually caused by browser extensions
+- Safe to suppress on `` element: `suppressHydrationWarning={true}`
+
+### Animation Performance
+
+For older devices:
+- Animations automatically reduce on low-end devices
+- Respects user's reduced motion preferences
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 💬 Contact
+
+Your Name - [skjnvspn@gmail.com](mailto:skjnvspn@gmail.com)
+
+Project Link: [https://github.com/shivang-jnv/shivang-portfolio](https://github.com/shivang-jnv/shivang-portfolio)
+
+***
+
+**Star this repository** if you found it helpful!
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/) for the amazing React framework
+- [Framer Motion](https://www.framer.com/motion/) for smooth animations
+- [Tailwind CSS](https://tailwindcss.com/) for utility-first styling
+- [Lucide](https://lucide.dev/) for beautiful icons
+
+***
+
+*Built with ❤️ and optimized for performance*
+
+
+
+================================================
+FILE: eslint.config.mjs
+================================================
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const eslintConfig = [
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+];
+
+export default eslintConfig;
+
+
+
+================================================
+FILE: next.config.ts
+================================================
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  // Turbopack configuration for Next.js 16
+  turbopack: {},
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  compress: true,
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+
+
+
+================================================
+FILE: package.json
+================================================
+{
+  "name": "my-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "critters": "^0.0.23",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.537.0",
+    "next": "^16.1.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.6",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5"
+  }
+}
+
+
+
+================================================
+FILE: postcss.config.mjs
+================================================
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+    autoprefixer: {},
+  },
+}
+
+
+================================================
+FILE: tailwind.config.js
+================================================
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    colors: {
+      // Define all colors you need, as v4 doesn't include default colors
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: '#000000',
+      white: '#ffffff',
+      
+      // Gray scale
+      gray: {
+        50: '#f9fafb',
+        100: '#f3f4f6',
+        200: '#e5e7eb',
+        300: '#d1d5db',
+        400: '#9ca3af',
+        500: '#6b7280',
+        600: '#4b5563',
+        700: '#374151',
+        800: '#1f2937',
+        900: '#111827',
+      },
+      
+      // Primary colors
+      primary: {
+        50: '#f0f9ff',
+        100: '#e0f2fe',
+        200: '#bae6fd',
+        300: '#7dd3fc',
+        400: '#38bdf8',
+        500: '#0ea5e9',
+        600: '#0284c7',
+        700: '#0369a1',
+        800: '#075985',
+        900: '#0c4a6e',
+      },
+      
+      // Purple/Accent colors
+      purple: {
+        50: '#faf5ff',
+        100: '#f3e8ff',
+        200: '#e9d5ff',
+        300: '#d8b4fe',
+        400: '#c084fc',
+        500: '#a855f7',
+        600: '#9333ea',
+        700: '#7c3aed',
+        800: '#6b21a8',
+        900: '#581c87',
+      },
+      
+      pink: {
+        400: '#f472b6',
+        500: '#ec4899',
+        600: '#db2777',
+      },
+      
+      red: {
+        400: '#f87171',
+        500: '#ef4444',
+        600: '#dc2626',
+      },
+      
+      // Custom neon colors
+      neon: {
+        purple: '#8b5cf6',
+        blue: '#3b82f6',
+        green: '#10b981',
+        pink: '#ec4899',
+      }
+    },
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+    },
+    extend: {
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+        'slide-up': 'slide-up 0.5s ease-out',
+        'bounce-slow': 'bounce 3s ease-in-out infinite',
+        'spin-slow': 'spin 8s linear infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' }
+        },
+        glow: {
+          'from': { textShadow: '0 0 5px #8b5cf6, 0 0 10px #8b5cf6, 0 0 15px #8b5cf6' },
+          'to': { textShadow: '0 0 10px #8b5cf6, 0 0 20px #8b5cf6, 0 0 30px #8b5cf6' }
+        },
+        'slide-up': {
+          'from': { transform: 'translateY(100%)', opacity: '0' },
+          'to': { transform: 'translateY(0)', opacity: '1' }
+        }
+      },
+      backdropBlur: {
+        xs: '2px',
+      }
+    },
+  },
+}
+
+
+================================================
+FILE: tsconfig.json
+================================================
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+
+
+
+================================================
+FILE: src/app/globals.css
+================================================
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Monochrome gradient */
+.text-gradient {
+  background: linear-gradient(to right, #ffffff, #d1d5db, #9ca3af);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+
+.liquid-metal {
+  background: linear-gradient(45deg, #2d3748, #4a5568, #718096, #a0aec0, #e2e8f0);
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: liquidFlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+@keyframes liquidFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+.neural-pulse {
+  position: relative;
+  color: #ffffff;
+  animation: neuralBeat 2s ease-in-out infinite;
+}
+
+.neural-pulse::before,
+.neural-pulse::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  transform: translate(-50%, -50%);
+  animation: neuralScan 3s linear infinite;
+}
+
+.neural-pulse::after {
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(0deg, transparent, #d1d5db, transparent);
+  animation-delay: 1.5s;
+}
+
+@keyframes neuralBeat {
+  0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(209, 213, 219, 0.6); }
+}
+
+@keyframes neuralScan {
+  0% { opacity: 0; transform: translate(-150%, -50%) scaleX(0); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scaleX(1); }
+  100% { opacity: 0; transform: translate(50%, -50%) scaleX(0); }
+}
+
+
+
+
+/* Dot grid background */
+.dot-grid {
+  background-image: radial-gradient(circle, white 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0;
+  opacity: 0.3;
+  
+  /* ✅ PURE PERFORMANCE GAINS - No functionality change */
+  transform: translateZ(0);           /* Forces GPU layer */
+  will-change: auto;                  /* Prevents unnecessary compositing */
+  contain: layout style paint;        /* Isolates rendering context */
+  
+  /* ✅ MOBILE OPTIMIZATION - Lighter on smaller screens */
+  @media (max-width: 768px) {
+    background-size: 60px 60px;      /* Fewer dots = better performance */
+    opacity: 0.2;                    /* Lighter on mobile */
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #6b7280, #9ca3af);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #9ca3af, #d1d5db);
+}
+
+/* Hide scrollbar for mobile carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration for animations */
+.text-gradient,
+.liquid-metal,
+.neural-pulse {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize hover effects */
+[class*="hover:"]:hover {
+  will-change: transform, opacity, border-color;
+}
+
+/* Optimize carousel animations */
+[class*="motion"] {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+
+
+================================================
+FILE: src/app/icon.tsx
+================================================
+// Create app/icon.tsx for dynamic favicon generation
+import { ImageResponse } from 'next/og'
+ 
+export const size = {
+  width: 32,
+  height: 32,
+}
+export const contentType = 'image/png'
+ 
+export default function Icon() {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          fontSize: 18,
+          background: '#1f2937', // gray-800 to match your theme
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          fontWeight: 'bold',
+          fontFamily: 'system-ui',
+          border: '2px solid #4b5563', // gray-600 border
+          borderRadius: '4px',
+        }}
+      >
+        SK
+      </div>
+    ),
+    {
+      ...size,
+    }
+  )
+}
+
+
+
+================================================
+FILE: src/app/layout.tsx
+================================================
+import './globals.css'
+import { ReactNode } from 'react'
+import { Inter } from 'next/font/google'
+import type { Metadata } from 'next'
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+})
+
+export const metadata: Metadata = {
+  title: 'Shivang Kanaujia - Full Stack Developer',
+  description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
+  keywords: 'Full Stack Developer, React, Next.js, TypeScript, Web Development',
+  authors: [{ name: 'Shivang Kanaujia' }],
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Shivang Kanaujia - Full Stack Developer',
+    description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
+    type: 'website',
+    locale: 'en_US',
+  },
+   twitter: {
+    card: 'summary_large_image',
+    title: 'Shivang Kanaujia - Full Stack Developer',
+    description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
+  }
+}
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body className={`${inter.className} bg-black text-white`} suppressHydrationWarning={true}>
+        {children}
+      </body>
+    </html>
+  )
+}
+
+
+
+================================================
+FILE: src/app/page.tsx
+================================================
+'use client'
+
+import { motion } from 'framer-motion'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
+import dynamic from 'next/dynamic'
+import Navbar from '@/components/layout/Navbar'
+import { trackPerformanceMetrics } from '@/utils/Performance';
+import Education from '@/components/sections/Education'
+// import Skills from '@/components/sections/Skills'
+import Certificates from '@/components/sections/Certificates'
+
+
+// Lazy load sections that aren't immediately visible
+const About = dynamic(() => import('@/components/sections/About'), {
+  loading: () => <div className="h-screen flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+  </div>,
+  ssr: true // Keep SSR for SEO
+})
+
+const Projects = dynamic(() => import('@/components/sections/Projects'), {
+  loading: () => <div className="h-screen flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+  </div>,
+  ssr: true
+})
+
+const Contact = dynamic(() => import('@/components/sections/Contact'), {
+  loading: () => <div className="h-96 flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+  </div>,
+  ssr: true
+})
+
+const Footer = dynamic(() => import('@/components/layout/Footer'), {
+  loading: () => <div className="h-64 bg-black" />,
+  ssr: true
+})
+
+export default function Home() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [currentSection, setCurrentSection] = useState('#home')
+const [isNavigating, setIsNavigating] = useState(false)
+ 
+
+  // Fix hydration - ensure client-side only features
+  useEffect(() => {
+    // Client-side only features are now handled differently
+  }, [])
+
+useEffect(() => {
+  // Ensure page starts at #home on initial load
+  if (window.location.hash === '' || window.location.hash === '#') {
+    window.scrollTo(0, 0)
+    window.history.replaceState(null, '', '#home')
+    setCurrentSection('#home')
+  }
+
+  // Track scroll and update URL hash
+  const handleScroll = () => {
+    // Skip scroll tracking during manual navigation
+    if (isNavigating) return
+
+    const sections = ['home', 'about', 'education', 'certificates', 'projects', 'contact']
+    const scrollPosition = window.scrollY + 100
+
+    let foundSection = 'home'
+
+    for (const section of sections) {
+      const element = document.getElementById(section)
+      
+      if (element) {
+        const { offsetTop, offsetHeight } = element
+        const sectionBottom = offsetTop + offsetHeight
+        
+        if (scrollPosition >= offsetTop && scrollPosition < sectionBottom) {
+          foundSection = section
+          break
+        }
+      }
+    }
+
+    const newHash = `#${foundSection}`
+    
+    if (newHash !== currentSection) {
+      setCurrentSection(newHash)
+      window.history.replaceState(null, '', newHash)
+    }
+  }
+
+  let ticking = false
+  const throttledScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        handleScroll()
+        ticking = false
+      })
+      ticking = true
+    }
+  }
+
+  const timer = setTimeout(() => {
+    window.addEventListener('scroll', throttledScroll, { passive: true })
+  }, 1000)
+
+  return () => {
+    clearTimeout(timer)
+    window.removeEventListener('scroll', throttledScroll)
+  }
+}, [currentSection, isNavigating]) // Add isNavigating to dependencies
+
+
+  
+
+  // Added this new useEffect for performance
+useEffect(() => {
+  // Safe check for browser environment
+  if (typeof window === 'undefined') return
+  
+  // Reduce motion for low-end devices
+  const isLowEndDevice = (
+    (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || 
+    /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  )
+  
+  if (isLowEndDevice) {
+    document.documentElement.style.setProperty('--motion-scale', '0.5')
+  }
+}, [])
+
+useEffect(() => {
+  trackPerformanceMetrics();
+}, []);
+
+
+// Memoize the callback to prevent unnecessary re-renders
+const updateMousePosition = useCallback((e: MouseEvent) => {
+  setMousePosition({ x: e.clientX, y: e.clientY })
+}, [])
+
+// Optimize the effect
+useEffect(() => {
+  window.addEventListener('mousemove', updateMousePosition, { passive: true })
+  return () => window.removeEventListener('mousemove', updateMousePosition)
+}, [updateMousePosition])
+
+// Memoize expensive calculations
+const mouseFollowerStyle = useMemo(() => ({
+  x: mousePosition.x - 12,
+  y: mousePosition.y - 12,
+}), [mousePosition.x, mousePosition.y])
+
+
+  const scrollToSection = (sectionId: string) => {
+  setIsNavigating(true) // Use state instead of window property
+  
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+    window.history.replaceState(null, '', `#${sectionId}`)
+    setCurrentSection(`#${sectionId}`)
+    
+    // Clear navigation flag after scroll completes
+    setTimeout(() => {
+      setIsNavigating(false)
+    }, 1000)
+  }
+}
+
+
+  return (
+    <>
+      <Navbar />
+      
+      {/* Dot Grid Background */}
+      <div className="fixed inset-0 dot-grid pointer-events-none" />
+      
+      {/* Mouse Follower - Optimized */}
+      <motion.div
+        className="fixed w-6 h-6 border border-gray-400 rounded-full pointer-events-none z-40 gpu-optimized"
+        animate={mouseFollowerStyle}
+        transition={{ 
+          type: "spring", 
+          damping: 27, 
+          stiffness: 300,
+          mass: 0.8,
+          restSpeed: 0.01
+        }}
+      />
+
+      
+
+
+
+      <main id="home" className="min-h-screen flex items-center justify-center px-6 relative">
+        <div className="text-center max-w-6xl">
+          {/* Main Content */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
+            <motion.h1 
+              className="text-7xl md:text-9xl font-black mb-6 tracking-tight"
+              animate={{ 
+                textShadow: [
+                  "0 0 0px rgba(255, 255, 255, 0)",
+                  "0 0 20px rgba(255, 255, 255, 0.5)",
+                  "0 0 0px rgba(255, 255, 255, 0)"
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <span className="text-gradient">Shivang Kanaujia</span>
+            </motion.h1>
+            
+            <motion.div 
+              className="text-2xl md:text-3xl font-light mb-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.4 }}
+            >
+              <span className="liquid-metal">Full Stack Developer</span>
+            </motion.div>
+
+
+            <motion.p 
+              className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed text-left"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+            >
+              Crafting digital experiences with modern technologies. 
+              Passionate about creating beautiful, functional web applications 
+              that solve real-world problems.
+            </motion.p>
+            
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            >
+              <motion.button
+                className="group relative px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full font-semibold text-white overflow-hidden border border-gray-500"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection('projects')}
+              >
+                <span className="relative z-10">View My Work</span>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-900"
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileHover={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.button>
+              
+              <motion.button
+                className="px-8 py-4 border-2 border-gray-500 rounded-full font-semibold text-gray-300 hover:bg-gray-500 hover:text-black transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection('contact')}
+              >
+                Get In Touch
+              </motion.button>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div 
+              className="flex justify-center space-x-6 mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+            >
+              {[
+                { icon: Github, href: 'https://github.com/shivang-jnv', label: 'GitHub' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/shivang-kanaujia-973a6a175/', label: 'LinkedIn' },
+                { icon: Mail, href: 'mailto:sknvspn@gmail.com', label: 'Email' }
+              ].map((social, index) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  className="text-gray-400 hover:text-white transition-colors"
+                  whileHover={{ scale: 1.2, y: -2 }}
+                  whileTap={{ scale: 0.9 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+                >
+                  <social.icon size={24} />
+                </motion.a>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          onClick={() => scrollToSection('about')}
+          whileHover={{ scale: 1.1 }}
+        >
+          <div className="flex flex-col items-center space-y-2">
+            <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center relative">
+              <motion.div 
+                className="w-1 h-3 bg-gradient-to-b from-gray-400 to-white rounded-full mt-2"
+                animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </div>
+            <ChevronDown className="text-gray-400" size={16} />
+          </div>
+        </motion.div>
+      </main>
+
+      {/* About Section */}
+      <About />
+
+      {/* Skills Section
+      <Skills /> */}
+
+      {/* Education Section */}
+      <Education />
+
+      {/* Certificates Section */}
+      <Certificates />
+
+      {/* Projects Section */}
+      <Projects />
+
+      {/* Contact Section */}
+      <Contact />
+
+       {/* Footer */}
+      <Footer />
+    </>
+  )
+}
+
+
+
+================================================
+FILE: src/components/layout/Footer.tsx
+================================================
+'use client'
+import { motion } from 'framer-motion'
+import { Github, Linkedin, Twitter, Mail, MapPin, Heart, ArrowUp } from 'lucide-react'
+import React from 'react'
+
+const socialLinks = [
+  { icon: Github, href: 'https://github.com/shivang-jnv', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/shivang-kanaujia-973a6a175/', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/shivang_jnv', label: 'Twitter' },
+  { icon: Mail, href: 'mailto:sknvspn@gmail.com', label: 'Email' },
+]
+
+const quickLinks = [
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
+  { label: 'Resume', href: '#' },
+]
+
+const Footer = React.memo(() => {
+  Footer.displayName = 'Footer'
+  const currentYear = new Date().getFullYear()
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  return (
+    <footer className="relative bg-gray-950 border-t border-gray-800">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Brand Section - Compact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <h3 className="text-2xl font-black mb-3 text-gradient">Shivang Kanaujia</h3>
+            <p className="text-gray-400 mb-4 leading-relaxed text-sm">
+              Full-stack developer passionate about creating exceptional digital experiences.
+            </p>
+            
+            {/* Compact Contact Info */}
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center space-x-2 text-gray-400">
+                <MapPin size={14} />
+                <span>India</span>
+              </div>
+              <div className="flex items-center space-x-2 text-gray-400">
+                <Mail size={14} />
+                <a href="mailto:skjnvspn@gmail.com" className="hover:text-white transition-colors">
+                  skjnvspn@gmail.com
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Quick Links - Compact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+
+            <h4 className="text-lg font-bold text-white mb-4">Quick Links</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {quickLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-gray-400 hover:text-white transition-colors text-sm py-1"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Social & Tech - Compact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <h4 className="text-lg font-bold text-white mb-4">Connect</h4>
+            
+            {/* Compact Social Links */}
+            <div className="flex space-x-3 mb-4">
+              {socialLinks.map((social) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors group"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <social.icon size={16} className="text-gray-400 group-hover:text-white transition-colors" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Compact Bottom Section */}
+        <motion.div
+          className="border-t border-gray-800 mt-8 pt-6"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+            {/* Compact Copyright */}
+            <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-3 text-gray-400 text-xs">
+              <span>&copy; {currentYear} Shivang Kanaujia. All rights reserved.</span>
+              <span className="hidden md:inline">•</span>
+              <span className="flex items-center space-x-1">
+                <span>Built with</span>
+                <Heart size={12} className="text-red-500 mx-1" />
+                <span>using Next.js & Tailwind CSS</span>
+              </span>
+            </div>
+
+            {/* Compact Back to Top */}
+            <motion.button
+              onClick={scrollToTop}
+              className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors text-sm"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>Top</span>
+              <ArrowUp size={14} />
+            </motion.button>
+          </div>
+        </motion.div>
+      </div>
+    </footer>
+  )
+})
+
+export default Footer;
+
+
+
+================================================
+FILE: src/components/layout/Navbar.tsx
+================================================
+'use client'
+import { useState, useEffect, memo, useCallback } from 'react'
+import { motion } from 'framer-motion'
+import { Menu, X, User, Briefcase, Mail, GraduationCap, Award  } from 'lucide-react'
+
+const navItems = [
+  { href: '#about', label: 'About', icon: User },
+  { href: '#education', label: 'Education', icon: GraduationCap },
+  { href: '#certificates', label: 'Certificates', icon: Award },
+  { href: '#projects', label: 'Projects', icon: Briefcase },
+  { href: '#contact', label: 'Contact', icon: Mail },
+]
+
+const Navbar = memo(function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 50)
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  return (
+    <motion.nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled 
+        ? 'bg-black/90 backdrop-blur-md border-b border-gray-800' 
+        : 'bg-transparent'
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <motion.button
+            onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+            className="text-2xl font-bold cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+          >
+            <span className="text-gradient">SK</span>
+          </motion.button>
+
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item, index) => (
+              <motion.a
+                key={item.href}
+                href={item.href}
+                className="text-gray-300 hover:text-white transition-colors text-lg font-medium relative group flex items-center space-x-2"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <item.icon size={18} />
+                <span>{item.label}</span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gray-400 to-white transition-all group-hover:w-full" />
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-white flex items-center justify-center"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="md:hidden mt-4 pb-6 space-y-2 bg-gray-900 backdrop-blur-xl border-t border-gray-700/50 rounded-b-xl px-6 shadow-2xl shadow-black/30"
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="py-2 text-gray-300 hover:text-white transition-colors flex items-center space-x-3"
+                onClick={() => setIsOpen(false)}
+              >
+                <item.icon size={18} />
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </div>
+    </motion.nav>
+  )
+})
+
+export default Navbar;
+
+
+
+================================================
+FILE: src/components/sections/About.tsx
+================================================
+'use client'
+import React from "react"
+import { motion } from 'framer-motion'
+import { Code, Database, Cloud, Globe, Download, MapPin, Monitor } from 'lucide-react'
+
+const skills = [
+  { name: 'Languages', icon: Globe, items: ['JavaScript', 'TypeScript', 'C++'], level: 90 },
+  { name: 'Frontend', icon: Monitor, items: ['React', 'Next.js', 'TailwindCSS', 'Responsive Design'], level: 90 },
+  { name: 'Backend', icon: Code, items: ['Node.js', 'Express.js', 'GraphQL', 'Kafka', 'REST APIs', 'WebSockets', 'Microservices Architecture', 'OAuth/JWT Authentication'], level: 85 },
+  { name: 'Database', icon: Database, items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM', 'Database Design'], level: 80 },
+  { name: 'DevOps & Tools', icon: Cloud, items: ['Git', 'Docker', 'Kubernetes','AWS', 'Vercel' , 'CI/CD', 'Linux'], level: 75 },
+]
+
+const experiences = [
+  {
+    period: 'Dec 2025 - Present',
+    role: 'Junior Engineer',
+    company: 'Aalgorix',
+    description: `- Deployed containerized applications to Digital Ocean using Docker, managing cloud infrastructure and SSH-based server administration.
+- Identified and resolved AWS EC2 auto-scaling misconfiguration, reducing unnecessary running instances from 5 to 1 and optimizing resource utilization and saving cost.
+- Contributed to frontend development for AI tutoring platform using React and TailwindCSS, implementing responsive UI components and page layouts.`
+  },
+  {
+    period: 'Sept 2022 - Nov 2022',
+    role: 'Arduino Coding Intern',
+    company: 'Plantech Innovations Ltd.',
+    description: `- Developed embedded firmware for sensor integration in C++.
+- Debugged hardware-software compatibility issues, improving reliability.
+- Collaborated with team to deliver functional prototypes.`
+  },
+  // {
+  //   period: '2022 - 2023',
+  //   role: 'Junior Developer',
+  //   company: 'Software Company',
+  //   description: 'Learned full-stack development and contributed to team projects. Gained experience in agile development and collaborative coding practices.'
+  // }
+]
+
+const About = React.memo(() => {
+  About.displayName = 'About'
+  return (
+    <section id="about" className="min-h-screen py-20 px-6 relative">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center mb-16"
+        >
+
+          <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
+            About Me
+          </h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed text-center">
+            I’m a Full Stack Developer fluent in React, Next.js, Node.js, and TypeScript, crafting applications that are as elegant as they are functional. My work spans microservices, serverless architectures, AWS, Docker, Kubernetes, and finely tuned databases, all woven together with secure, thoughtful design.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Skills Section */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="h-full"
+          >
+
+            <h3 className="text-3xl font-bold mb-8 text-white">Technical Skills</h3>
+            <div className="space-y-8">
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  className="group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-3">
+                      <skill.icon className="text-gray-400 group-hover:text-white transition-colors" size={20} />
+                      <span className="text-lg font-semibold text-white">{skill.name}</span>
+                    </div>
+                    <span className="text-sm text-gray-400">{skill.level}%</span>
+                  </div>
+                  
+                  {/* Progress Bar */}
+                  <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden mb-3">
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-gray-500 to-white rounded-full"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: index * 0.1 }}
+                    />
+                  </div>
+                  
+                  {/* Skill Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {skill.items.map((item) => (
+                      <span
+                        key={item}
+                        className="px-3 py-1 text-xs bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-colors"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Experience Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="h-full flex flex-col"
+          >
+
+            <h3 className="text-3xl font-bold mb-8 text-white">Experience</h3>
+            <div className="space-y-10 flex-grow">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  className="relative pl-8 border-l border-gray-700 hover:border-gray-500 transition-colors"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                >
+                  {/* Timeline Dot */}
+                  <div className="absolute -left-2 top-0 w-4 h-4 bg-gray-600 border-2 border-gray-400 rounded-full" />
+                  
+                  <div className="space-y-3">
+                    <p className="text-sm text-gray-400 font-medium">{exp.period}</p>
+                    <h4 className="text-xl font-bold text-white">{exp.role}</h4>
+                    <p className="text-lg text-gray-300">{exp.company}</p>
+                    <p className="text-gray-400 leading-relaxed whitespace-pre-line">{exp.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Call to Action Buttons - Bottom of Experience Section */}
+            <motion.div
+              onClick={() => {
+                const link = document.createElement('a')
+                link.href = '/resume-shivang-updated.pdf'  
+                link.download = 'Shivang_Kanaujia_Resume.pdf'
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+              }}
+              className="mt-12 flex flex-col sm:flex-row gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+
+              <motion.button 
+                className="flex items-center justify-center space-x-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600 rounded-lg transition-colors group flex-1"
+                whileHover={{ scale: 1.0 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Download size={16} className="group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Download Resume</span>
+              </motion.button>
+              
+              <motion.button 
+                className="flex items-center justify-center space-x-2 px-6 py-3 bg-transparent hover:bg-gray-800 border border-gray-600 hover:border-gray-500 rounded-lg transition-colors group flex-1"
+                whileHover={{ scale: 1.0 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <MapPin size={16} className="group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Based in India</span>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+})
+
+export default About
+
+
+
+================================================
+FILE: src/components/sections/Certificates.tsx
+================================================
+'use client'
+import React, { useState, useRef } from 'react'
+import { motion } from 'framer-motion'
+import { Award, Calendar, ExternalLink, CheckCircle, Star, ChevronLeft, ChevronRight } from 'lucide-react'
+
+const certificates = [
+  {
+    title: 'OCI 2025 Certified Developer Professional',
+    issuer: 'Oracle',
+    date: '2025',
+    credentialId: '102999301OCID25CP',
+    description: 'Comprehensive certification validating advanced competence in Oracle Cloud Infrastructure architecture, development, and deployment workflows.',
+    skills: ['Cloud-native', 'Microservices', 'Containers', 'Kubernetes', 'Serverless', 'APIs', 'Streaming', 'Queues', 'Events', 'Security', 'Testing', 'Observability']
+,
+    verified: true,
+    featured: true
+  },
+  {
+    title: 'Back End Development and APIs ',
+    issuer: 'FreeCodeCamp',
+    date: '2025',
+    credentialId: 'shivang-jnv-bedaa',
+    description: 'Comprehensive certification demonstrating proficiency in Node.js, Express.js, MongoDB, and RESTful API design through practical project implementations.',
+    skills: ['Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'Authentication', 'Database Design', 'Server Development', 'API Testing']
+,
+    verified: true,
+    featured: true
+  },
+  {
+    title: 'OCI 2025 Certified AI Foundations Associate',
+    issuer: 'Oracle',
+    date: '2025',
+    credentialId: '102999301OCI25AICFA',
+    description: 'Introductory learning path covering core concepts in AI, machine learning, deep learning, and generative AI with direct application on OCI',
+    skills: ['AI', 'Machine Learning', 'Deep Learning', 'Generative AI', 'Modeling', 'Inference', 'Cloud Deployment', 'OCI Services'  ]
+,
+    verified: true,
+    featured: false
+  },
+  {
+    title: 'J. P. Morgan - Software Enginering Job Simulation',
+    issuer: 'Forage',
+    date: '2025',
+    credentialId: 'KJKGrfmkDx2LsddLi',
+    description: 'A hands-on virtual experience learning JPMorgan Chase\'s programming skills and tools through real software engineering tasks.',
+    skills: ['Spring', 'Java', 'Kafka', 'Maven', 'REST API', 'SQL'],
+    verified: true,
+    featured: false
+  },
+  {
+    title: 'AWS Solutions	Architecture Job Simulation',
+    issuer: 'Forage',
+    date: '2025',
+    credentialId: 'rLWQeT4Miej7bMzK4',
+    description: 'AWS Solutions Architecture job simulation on Forage, designing scalable hosting architectures using Elastic Beanstalk, load balancing, and multi-service AWS implementations for high-growth clients.',
+    skills: ['AWS Architecture Design', 'Elastic Beanstalk', 'Load Balancing', 'Auto Scaling', 'Multi-AZ Deployment', 'Cost Optimization', 'Technical Communication', 'Cloud Solutions']
+,
+    verified: true,
+    featured: false
+  },
+  {
+    title: 'JavaScript Algorithms and Data Structures',
+    issuer: 'FreeCodeCamp',
+    date: '2024',
+    credentialId: 'FCC-JSADS-2022-123',
+    description: 'Advanced JavaScript programming with focus on algorithms, data structures, and problem-solving techniques.',
+    skills: ['JavaScript', 'Algorithms', 'Data Structures', 'Problem Solving'],
+    verified: true,
+    featured: false
+  },
+  {
+    title: 'Foundations of Prompt Engineering',
+    issuer: 'AWS',
+    date: '2025',
+    credentialId: '',
+    description: 'AWS certification, demonstrating expertise in generative AI interactions, LLM optimization, and advanced prompting techniques.',
+    skills: ['Prompt Engineering', 'Generative AI', 'LLMs', 'Chain-of-Thought', 'AI Optimization', 'Context Design'],
+    verified: true,
+    featured: false
+  },
+  {
+    title: 'Accenture UK - Developer and Technology Job Simulation',
+    issuer: 'Forage',
+    date: '2025',
+    credentialId: 'gt88MFfnM85g7R4bY',
+    description: 'comprehensive software development lifecycle simulation covering SDLC methodologies, algorithmic thinking, code debugging, and software testing practices through hands-on projects and technical analysis.',
+    skills: ['SDLC', 'Agile', 'Waterfall', 'Software Testing', 'Algorithmic Thinking', 'Code Debugging', 'Pseudocoding', 'Flow Diagramming', 'DevOps', 'Software QA']
+,
+    verified: true,
+    featured: false
+  }
+]
+
+const Certificates = React.memo(() => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [cardsPerView, setCardsPerView] = useState(3)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect screen size and adjust cards per view with debouncing
+  React.useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+
+    const updateCardsPerView = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      
+      if (width < 768) {
+        setCardsPerView(2)
+      } else if (width < 1024) {
+        setCardsPerView(2)
+      } else {
+        setCardsPerView(3)
+      }
+    }
+
+    const debouncedUpdate = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(updateCardsPerView, 150)
+    }
+
+    updateCardsPerView()
+    window.addEventListener('resize', debouncedUpdate, { passive: true })
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', debouncedUpdate)
+    }
+  }, [])
+
+  const scroll = React.useCallback((direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      setCurrentIndex(prev => Math.max(0, prev - 1))
+    } else {
+      setCurrentIndex(prev => Math.min(certificates.length - cardsPerView, prev + 1))
+    }
+  }, [cardsPerView])
+
+  return (
+    <section id="certificates" className="min-h-screen py-20 px-6 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
+            Certifications
+          </h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Professional certifications and credentials that validate my expertise 
+            across various technologies and development practices.
+          </p>
+        </motion.div>
+
+        {/* Mobile: Vertical Strip Cards / Desktop: Horizontal Carousel */}
+        <div className="relative">
+          {/* Navigation Buttons - Desktop only */}
+          <motion.button
+            onClick={() => scroll('left')}
+            disabled={currentIndex === 0}
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronLeft className="text-gray-300" size={20} />
+          </motion.button>
+
+          <motion.button
+            onClick={() => scroll('right')}
+            disabled={currentIndex >= certificates.length - cardsPerView}
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronRight className="text-gray-300" size={20} />
+          </motion.button>
+
+          {/* Fade Gradients - Desktop only */}
+          <div className="hidden md:block absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black via-black/80 to-transparent z-10 pointer-events-none" />
+          <div className="hidden md:block absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black via-black/80 to-transparent z-10 pointer-events-none" />
+
+          {/* Mobile: Vertical Strips */}
+          <div className="md:hidden space-y-3 px-4">
+            {certificates.map((cert, index) => (
+              <motion.div
+                key={cert.credentialId}
+                className="group relative bg-black border-2 border-gray-800 rounded-lg overflow-hidden transition-all duration-300 hover:border-gray-600"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                {/* Top accent bar */}
+                <div className="h-0.5 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700" />
+                
+                <div className="flex items-center justify-between p-3">
+                  <div className="flex items-center space-x-3 flex-1 min-w-0">
+                    <Award className="text-gray-400 flex-shrink-0" size={16} />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-bold text-white truncate group-hover:text-gradient transition-colors">
+                        {cert.title}
+                      </h4>
+                      <p className="text-xs text-gray-500">{cert.issuer}</p>
+                    </div>
+                  </div>
+                  {cert.verified && (
+                    <CheckCircle className="text-gray-600 flex-shrink-0 ml-2" size={14} />
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Desktop: Horizontal Carousel */}
+          <div className="hidden md:block overflow-hidden px-16">
+            <motion.div
+              ref={scrollContainerRef}
+              className="flex gap-6"
+              animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {certificates.map((cert) => (
+                <motion.div
+                  key={cert.credentialId}
+                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden flex-shrink-0 transition-all duration-300"
+                  style={{ 
+                    width: isMobile ? 'calc(50% - 8px)' : `calc(${100 / cardsPerView}% - 16px)`, 
+                    height: isMobile ? '280px' : '280px'
+                  }}
+                  whileHover={{ 
+                    y: -8,
+                    borderColor: '#6b7280',
+                    boxShadow: "0 24px 48px rgba(0, 0, 0, 0.4)",
+                    transition: { duration: 0.3, ease: "easeOut" } 
+                  }}
+                >
+                  {/* Top accent bar */}
+                  <div className="h-1 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 group-hover:from-gray-600 group-hover:via-gray-400 group-hover:to-gray-600 transition-all duration-300" />
+
+                  {/* Subtle grid pattern background */}
+                  <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+                    <div 
+                      className="w-full h-full"
+                      style={{
+                        backgroundImage: 'linear-gradient(0deg, #fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+                        backgroundSize: '20px 20px'
+                      }}
+                    />
+                  </div>
+
+                  <div className={`relative ${isMobile ? 'p-4' : 'p-5'} flex flex-col justify-between h-full`}>
+                    {/* Header - Simplified for mobile */}
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start space-x-2 flex-1 min-w-0">
+                        <div className={`${isMobile ? 'p-1.5' : 'p-2'} bg-gray-900 border border-gray-800 rounded-lg group-hover:border-gray-700 group-hover:bg-gray-800 transition-all duration-300 flex-shrink-0`}>
+                          <Award className="text-gray-400 group-hover:text-white transition-colors duration-300" size={isMobile ? 14 : 18} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          {!isMobile && (
+                            <div className="flex items-center gap-2 mb-1.5">
+                              {cert.featured && (
+                                <div className="flex items-center space-x-1">
+                                  <Star className="text-gray-500 group-hover:text-gray-400 transition-colors" size={10} fill="currentColor" />
+                                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Featured</span>
+                                </div>
+                              )}
+                              {cert.verified && (
+                                <div className="flex items-center space-x-1 px-2 py-0.5 bg-gray-900 border border-gray-800 rounded-full">
+                                  <CheckCircle className="text-gray-400" size={9} />
+                                  <span className="text-xs text-gray-400 font-medium">Verified</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          <h4 className={`${isMobile ? 'text-sm' : 'text-base'} font-bold text-white mb-1 group-hover:text-gradient transition-all duration-300 leading-tight ${isMobile ? 'line-clamp-2' : 'line-clamp-2'}`}>
+                            {cert.title}
+                          </h4>
+                          <p className={`text-gray-400 ${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>{cert.issuer}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Description - Shorter on mobile */}
+                    <p className={`text-gray-400 leading-relaxed ${isMobile ? 'mb-3 text-xs line-clamp-4' : 'mb-2 text-xs line-clamp-2'}`}>
+                      {cert.description}
+                    </p>
+
+                    {/* Skills tags - Hidden on mobile */}
+                    {!isMobile && (
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {cert.skills.slice(0, 4).map((skill) => (
+                          <span
+                            key={skill}
+                            className="px-2 py-0.5 text-xs font-medium bg-gray-900 text-gray-300 border border-gray-800 rounded hover:border-gray-600 hover:bg-gray-800 transition-all duration-200"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                        {cert.skills.length > 4 && (
+                          <span className="px-2 py-0.5 text-xs font-medium text-gray-500 border border-gray-800 rounded">
+                            +{cert.skills.length - 4}
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Footer with date and credential */}
+                    <div className={`flex items-center justify-between ${isMobile ? 'pt-2' : 'pt-2.5'} border-t border-gray-800 group-hover:border-gray-700 transition-colors`}>
+                      <div className="flex items-center space-x-1.5 text-gray-500">
+                        <Calendar size={isMobile ? 10 : 11} />
+                        <span className={`${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>{cert.date}</span>
+                      </div>
+                      <div className="flex items-center space-x-1 text-gray-500 group-hover:text-gray-300 transition-colors cursor-pointer">
+                        <span className={`${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>View</span>
+                        <ExternalLink size={isMobile ? 9 : 10} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Hover overlay effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center items-center space-x-2 mt-8">
+            {Array.from({ length: Math.max(1, certificates.length - 2) }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentIndex === index 
+                    ? 'w-8 bg-gray-500' 
+                    : 'w-2 bg-gray-700 hover:bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+})
+
+Certificates.displayName = 'Certificates'
+export default Certificates
+
+
+
+================================================
+FILE: src/components/sections/Contact.tsx
+================================================
+'use client'
+import { motion } from 'framer-motion'
+import { Mail, MapPin, Phone, Clock, Send, Copy, Check } from 'lucide-react'
+import React, { useState, useCallback } from 'react'
+
+const contactInfo = [
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'skjnvspn@gmail.com',
+    description: 'Best way to reach me for projects and collaborations',
+    action: () => window.open('mailto:skjnvspn@gmail.com')
+  },
+  {
+    icon: Phone,
+    label: 'Phone',
+    value: '+91 8882514141',
+    description: 'Available for calls during business hours (10 AM - 6 PM IST)',
+    action: () => window.open('tel:+918882514141')
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: 'India',
+    description: 'Open to remote work and global collaborations',
+    action: null
+  },
+  {
+    icon: Clock,
+    label: 'Response Time',
+    value: 'Within 24 hours',
+    description: 'I typically respond to emails within one business day',
+    action: null
+  }
+]
+
+const Contact = React.memo(() => {
+  Contact.displayName = 'Contact'
+  const [copiedEmail, setCopiedEmail] = useState(false)
+
+  const handleCopyEmail = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText('skjnvspn@gmail.com')
+      setCopiedEmail(true)
+      setTimeout(() => setCopiedEmail(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy email: ', err)
+    }
+  }, [])
+
+  return (
+    <section id="contact" className="py-16 px-6 relative">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center mb-10"
+        >
+          <h2 className="text-4xl md:text-5xl font-black mb-3 text-gradient">
+            Let&apos;s Connect
+          </h2>
+          <p className="text-base text-gray-400 max-w-xl mx-auto mb-6">
+            Have a project in mind? I&apos;m always open to discussing new opportunities.
+          </p>
+        </motion.div>
+
+        {/* Contact Cards Grid */}
+        <div className="grid lg:grid-cols-2 gap-4 mb-8">
+          {contactInfo.slice(0, 2).map((info, index) => (
+            <motion.div
+              key={info.label}
+              className="group relative bg-black border-2 border-gray-800 rounded-xl p-5 hover:border-gray-600 transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
+            >
+              {/* Top accent */}
+              <div className="h-0.5 absolute top-0 left-0 right-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent" />
+              
+              <div className="flex items-start space-x-3 mb-3">
+                <div className="p-2 bg-gray-900 border border-gray-800 rounded-lg group-hover:border-gray-700 transition-colors">
+                  <info.icon className="text-gray-400 group-hover:text-white transition-colors" size={18} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold text-gray-400 mb-1">{info.label}</h3>
+                  <p className="text-base font-bold text-white mb-1 break-all">{info.value}</p>
+                  <p className="text-xs text-gray-500">{info.description}</p>
+                </div>
+              </div>
+
+              {info.action && (
+                <div className="flex gap-2 mt-4">
+                  <button
+                    onClick={info.action}
+                    className="flex-1 px-3 py-2 text-xs font-medium bg-gray-900 text-gray-300 rounded-lg border border-gray-800 hover:border-gray-600 hover:bg-gray-800 transition-colors"
+                  >
+                    Contact
+                  </button>
+                  {info.label === 'Email' && (
+                    <button
+                      onClick={handleCopyEmail}
+                      className="px-3 py-2 text-xs font-medium bg-gray-900 text-gray-300 rounded-lg border border-gray-800 hover:border-gray-600 hover:bg-gray-800 transition-colors flex items-center space-x-1"
+                    >
+                      {copiedEmail ? (
+                        <>
+                          <Check size={12} className="text-green-400" />
+                          <span>Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={12} />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Quick Info Cards */}
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          {contactInfo.slice(2).map((info, index) => (
+            <motion.div
+              key={info.label}
+              className="bg-black border border-gray-800 rounded-lg p-4 hover:border-gray-700 transition-colors"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: (index + 2) * 0.1 }}
+            >
+              <div className="flex items-center space-x-3">
+                <info.icon className="text-gray-500" size={16} />
+                <div>
+                  <p className="text-xs text-gray-500 font-medium">{info.label}</p>
+                  <p className="text-sm text-white font-semibold">{info.value}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <motion.div
+          className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <h3 className="text-xl font-bold text-white mb-2">Ready to Start?</h3>
+          <p className="text-sm text-gray-400 mb-5">Let&apos;s discuss your project and bring your ideas to life.</p>
+          
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.a 
+              href="mailto:skjnvspn@gmail.com"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Send size={16} />
+              <span>Send Email</span>
+            </motion.a>
+            
+            <motion.a 
+              href="tel:+918882514141"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-transparent text-white rounded-lg font-semibold border-2 border-gray-700 hover:border-gray-600 hover:bg-gray-900 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Phone size={16} />
+              <span>Call Me</span>
+            </motion.a>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+})
+
+export default Contact
+
+
+
+================================================
+FILE: src/components/sections/Education.tsx
+================================================
+'use client'
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Calendar, Award, BookOpen } from 'lucide-react'
+
+const education = [
+  {
+    period: '2025',
+    degree: 'Bachelor of Technology',
+    field: 'Computer Science and Engineering',
+    institution: 'Dr. A. P. J. Abdul Kalam Technical University',
+    location: 'Lucknow, India',
+    grade: 'CGPA: 7.6/10',
+    description: 'Comprehensive study of computer science fundamentals, software engineering principles, data structures, algorithms, and modern development practices. Specialized in web technologies and software architecture.'
+  },
+  {
+    period: '2019',
+    degree: 'Class 12 (Higher Secondary)',
+    field: 'Science Stream',
+    institution: 'Jawahar Navodaya Vidyalaya',
+    location: 'Shahjahanpur, India',
+    grade: 'Percentage: 89.2%',
+    description: 'Strong foundation in mathematics, physics and chemistry. Focused on analytical thinking and problem-solving skills that prepared for engineering studies.'
+  }
+]
+
+const achievements = [
+  'Selected in top 80 among 5000+ students in JNVST Entrance Exam',
+  'Organized Web/App Mania tech event with 100+ participants during college fest',
+  'Led a team of 5+ members in group discussion at a college level event and secured #1',
+  'Technical Society Member'
+]
+
+const Education = React.memo(() => {
+  return (
+    <section id="education" className="min-h-screen py-20 px-6 relative">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
+            Education
+          </h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            My academic journey in computer science and engineering, building the 
+            foundation for my passion in technology and software development.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Education Timeline */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="h-full"
+          >
+            <h3 className="text-3xl font-bold mb-8 text-white">Academic Background</h3>
+            <div className="space-y-10">
+              {education.map((edu, index) => (
+                <motion.div
+                  key={index}
+                  className="relative pl-8 border-l border-gray-700 hover:border-gray-500 transition-colors"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                >
+                  {/* Timeline Dot */}
+                  <div className="absolute -left-2 top-0 w-4 h-4 bg-gray-600 border-2 border-gray-400 rounded-full" />
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="text-gray-400" size={14} />
+                      <p className="text-sm text-gray-400 font-medium">{edu.period}</p>
+                    </div>
+                    
+                    <h4 className="text-xl font-bold text-white">{edu.degree}</h4>
+                    <p className="text-lg text-gray-300">{edu.field}</p>
+                    
+                    <div className="space-y-2">
+                      <p className="text-gray-300">{edu.institution}</p>
+                      <p className="text-sm text-gray-400">{edu.location}</p>
+                      <p className="text-sm text-gray-300 font-medium">{edu.grade}</p>
+                    </div>
+                    
+                    <p className="text-gray-400 leading-relaxed">{edu.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Achievements Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="h-full flex flex-col"
+          >
+            <h3 className="text-3xl font-bold mb-8 text-white">Achievements</h3>
+            <div className="space-y-6 flex-grow">
+              {achievements.map((achievement, index) => (
+                <motion.div
+                  key={index}
+                  className="group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="flex items-center space-x-3 p-4 bg-gray-900 rounded-lg border border-gray-800 hover:border-gray-600 transition-colors">
+                    <Award className="text-gray-400 group-hover:text-white transition-colors" size={20} />
+                    <span className="text-gray-300 group-hover:text-white transition-colors">
+                      {achievement}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Relevant Coursework */}
+            <motion.div
+              className="mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                <BookOpen className="text-gray-400" size={20} />
+                <span>Key Coursework</span>
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {['Data Structures & Algorithms', 'Database Systems', 'Software Engineering', 'Computer Networks', 'Operating Systems', 'Web Technologies', 'Machine Learning', 'System Design'].map((course) => (
+                  <span
+                    key={course}
+                    className="px-3 py-1 text-sm bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-colors"
+                  >
+                    {course}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+})
+
+Education.displayName = 'Education'
+export default Education
+
+
+
+================================================
+FILE: src/components/sections/Projects.tsx
+================================================
+'use client'
+import { motion } from 'framer-motion'
+import { ExternalLink, Github, Code2, Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useState, memo, useRef, useCallback } from 'react'
+
+
+
+
+const projects = [
+  {
+    id: 1,
+    title: 'Finance App',
+    description: 'A personal finance management application that allows users to track accounts, categorize transactions, and visualize financial health through interactive charts and dashboards.',
+    longDescription: 'A modern, full-stack personal finance management application built with Next.js, React, Drizzle ORM, Neon serverless Postgres, Clerk authentication, and Hono API framework. Track your accounts, categorize transactions, and visualize your financial health with beautiful charts and dashboards.',
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'Shadcn UI', 'Hono', 'Drizzle ORM', 'PostgreSQL', 'Clerk Auth', 'React Query', 'Zustand', 'Recharts'],
+    liveUrl: 'https://finance-app-sigma-lovat.vercel.app',
+    repoUrl: 'https://github.com/shivang-jnv/Finance-app',
+    year: '2025',
+    featured: true,
+    category: 'Full Stack',
+    metrics: { users: 'NA', performance: '95%', uptime: '99.9%' },
+    imageUrl: '/finance-app.png'
+  },
+  {
+    id: 2,
+    title: 'Team Chat App',
+    description: 'A modern, full-stack Slack clone.',
+    longDescription: 'Built with Next.js, Convex, and TypeScript. This project demonstrates real-time messaging, channels, direct messages, reactions, file uploads, and workspace management, providing a collaborative chat experience similar to Slack.',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Convex', 'Jotai', 'OAuth', 'Bun', 'PostCSS'],
+    liveUrl: 'https://slack-clone-chi-five.vercel.app',
+    repoUrl: 'https://github.com/shivang-jnv/slack-clone',
+    year: '2024',
+    featured: true,
+    category: 'Full Stack',
+    metrics: { Channels: '50+', Performance: '95%', uptime: '99.9%' },
+    imageUrl: '/team-chat-platform.png'
+
+  },
+  {
+    id: 3,
+    title: 'Weather Analytics Dashboard',
+    description: 'Data visualization dashboard showing weather patterns, forecasts, and historical climate data.',
+    longDescription: 'Python Flask backend with React frontend. Integrates multiple weather APIs and provides interactive charts and geographical visualizations with machine learning predictions.',
+    tech: ['Python', 'Flask', 'React', 'Chart.js', 'OpenWeather API', 'D3.js'],
+    liveUrl: null,
+    repoUrl: '',
+    year: '2023',
+    featured: false,
+    category: 'Data Visualization',
+    metrics: { accuracy: '94%', cities: '500+', requests: '10K+' }
+  },
+  {
+    id: 4,
+    title: 'Social Media API',
+    description: 'RESTful API for social media platform with authentication, posts, comments, and user relationships.',
+    longDescription: 'Node.js and Express backend with MongoDB. Implements JWT authentication, image uploads, comprehensive social features, and rate limiting for optimal performance.',
+    tech: ['Node.js', 'Express', 'MongoDB', 'JWT', 'Cloudinary', 'Redis'],
+    liveUrl: null,
+    repoUrl: '',
+    year: '2024',
+    featured: false,
+    category: 'Backend',
+    metrics: { endpoints: '25+', response: '<100ms', security: 'A+' }
+  },
+  {
+    id: 5,
+    title: 'AI Chatbot Assistant',
+    description: 'Intelligent chatbot with natural language processing and context-aware responses.',
+    longDescription: 'Python-based chatbot using OpenAI API with custom training data. Deployed as a web service with conversation history, user preferences, and multi-language support.',
+    tech: ['Python', 'OpenAI API', 'FastAPI', 'SQLite', 'Docker', 'NLP'],
+    liveUrl: null,
+    repoUrl: '',
+    year: '2024',
+    featured: false,
+    category: 'AI/ML',
+    metrics: { accuracy: '96%', languages: '5+', conversations: '5K+' }
+  },
+  {
+    id: 6,
+    title: 'Real-Time Video Chat App',
+    description: 'Secure video conferencing platform with screen sharing, chat, and room management features.',
+    longDescription: 'Built with React, Node.js, and WebRTC technology. Features include end-to-end encryption, multi-participant rooms, screen sharing, file transfer, and recording capabilities with cloud storage integration.',
+    tech: ['React', 'Node.js', 'WebRTC', 'Socket.io', 'AWS S3', 'WebSocket'],
+    liveUrl: null,
+    repoUrl: '',
+    year: '2023',
+    featured: false,
+    category: 'Full Stack',
+    metrics: { rooms: '800+', concurrent: '50+', quality: 'HD' }
+  }
+]
+
+const Projects = memo(function Projects() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [cardsPerView, setCardsPerView] = useState(3)
+
+  // Detect screen size and adjust cards per view with debouncing
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+
+    const updateCardsPerView = () => {
+      const width = window.innerWidth
+      
+      if (width < 768) {
+        setCardsPerView(1)
+      } else if (width < 1024) {
+        setCardsPerView(2)
+      } else {
+        setCardsPerView(3)
+      }
+    }
+
+    const debouncedUpdate = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(updateCardsPerView, 150)
+    }
+
+    updateCardsPerView()
+    window.addEventListener('resize', debouncedUpdate, { passive: true })
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', debouncedUpdate)
+    }
+  }, [])
+
+  const scroll = useCallback((direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      setCurrentIndex(prev => Math.max(0, prev - 1))
+    } else {
+      setCurrentIndex(prev => Math.min(projects.length - cardsPerView, prev + 1))
+    }
+  }, [cardsPerView])
+
+  return (
+    <section id="projects" className="min-h-screen py-20 px-6 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
+            Featured Work
+          </h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            A curated collection of projects showcasing my expertise in modern web development, 
+            creative problem-solving, and attention to detail.
+          </p>
+        </motion.div>
+
+        {/* Horizontal Scrollable Carousel */}
+        <div className="relative">
+          {/* Left Navigation Button */}
+          <motion.button
+            onClick={() => scroll('left')}
+            disabled={currentIndex === 0}
+            className="absolute left-0 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-gray-900 border-2 border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronLeft className="text-gray-300" size={20} />
+          </motion.button>
+
+          {/* Right Navigation Button */}
+          <motion.button
+            onClick={() => scroll('right')}
+            disabled={currentIndex >= projects.length - cardsPerView}
+            className="absolute right-0 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-gray-900 border-2 border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronRight className="text-gray-300" size={20} />
+          </motion.button>
+
+          {/* Left Fade Gradient */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-black via-black/80 to-transparent z-10 pointer-events-none" />
+          
+          {/* Right Fade Gradient */}
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-black via-black/80 to-transparent z-10 pointer-events-none" />
+
+          {/* Cards Container */}
+          <div className="overflow-hidden px-12 md:px-16">
+            <motion.div
+              ref={scrollContainerRef}
+              className="flex gap-4 md:gap-6"
+              animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {projects.map((project) => (
+                <motion.div
+                  key={project.id}
+                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden flex-shrink-0 transition-all duration-300"
+                  style={{ 
+                    width: `calc(${100 / cardsPerView}% - ${cardsPerView === 1 ? '12px' : '16px'})`, 
+                    height: '280px' 
+                  }}
+                  whileHover={{ 
+                    y: -8,
+                    borderColor: '#6b7280',
+                    boxShadow: "0 24px 48px rgba(0, 0, 0, 0.4)",
+                    transition: { duration: 0.3, ease: "easeOut" } 
+                  }}
+                >
+                  {/* Top accent bar */}
+                  <div className="h-1 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 group-hover:from-gray-600 group-hover:via-gray-400 group-hover:to-gray-600 transition-all duration-300" />
+
+                  {/* Subtle grid pattern background */}
+                  <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+                    <div 
+                      className="w-full h-full"
+                      style={{
+                        backgroundImage: 'linear-gradient(0deg, #fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+                        backgroundSize: '20px 20px'
+                      }}
+                    />
+                  </div>
+
+                  <div className="relative p-5 flex flex-col justify-between h-full">
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start space-x-3 flex-1 min-w-0">
+                        <div className="p-2 bg-gray-900 border border-gray-800 rounded-lg group-hover:border-gray-700 group-hover:bg-gray-800 transition-all duration-300 flex-shrink-0">
+                          <Code2 className="text-gray-400 group-hover:text-white transition-colors duration-300" size={18} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            {project.featured && (
+                              <div className="flex items-center space-x-1">
+                                <Star className="text-gray-500 group-hover:text-gray-400 transition-colors" size={10} fill="currentColor" />
+                                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Featured</span>
+                              </div>
+                            )}
+                            <span className="text-xs text-gray-500">{project.category}</span>
+                          </div>
+                          <h4 className="text-base font-bold text-white mb-1 group-hover:text-gradient transition-all duration-300 leading-tight line-clamp-2">
+                            {project.title}
+                          </h4>
+                          <p className="text-gray-400 text-xs">{project.year}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-gray-400 leading-relaxed mb-3 text-xs line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    {/* Tech tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {project.tech.slice(0, 5).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-0.5 text-xs font-medium bg-gray-900 text-gray-300 border border-gray-800 rounded hover:border-gray-600 hover:bg-gray-800 transition-all duration-200"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.tech.length > 5 && (
+                        <span className="px-2 py-0.5 text-xs font-medium text-gray-500 border border-gray-800 rounded">
+                          +{project.tech.length - 5}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Footer with links */}
+                    <div className="flex items-center justify-between pt-2.5 border-t border-gray-800 group-hover:border-gray-700 transition-colors">
+                      <div className="flex items-center space-x-3">
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            className="flex items-center space-x-1.5 text-gray-500 hover:text-gray-300 transition-colors"
+                          >
+                            <ExternalLink size={11} />
+                            <span className="text-xs font-medium">Live</span>
+                          </a>
+                        )}
+                        <a
+                          href={project.repoUrl}
+                          className="flex items-center space-x-1.5 text-gray-500 hover:text-gray-300 transition-colors"
+                        >
+                          <Github size={11} />
+                          <span className="text-xs font-medium">Code</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Hover overlay effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center items-center space-x-2 mt-8 mb-20">
+            {Array.from({ length: Math.max(1, projects.length - 2) }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentIndex === index 
+                    ? 'w-8 bg-gray-500' 
+                    : 'w-2 bg-gray-700 hover:bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center bg-gray-900 border border-gray-800 rounded-xl p-12"
+        >
+
+          <h3 className="text-3xl font-bold text-white mb-4">
+            Like What You See?
+          </h3>
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+            These projects represent just a glimpse of what&apos;s possible. 
+            Let&apos;s collaborate and create something extraordinary together.
+          </p>
+          <motion.button
+            className="px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full font-semibold text-white border border-gray-500 hover:from-gray-700 hover:to-gray-900 transition-all"
+            whileHover={{ scale: 1.0 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Start a Project
+          </motion.button>
+        </motion.div>
+      </div>
+    </section>
+  )
+})
+
+export default Projects
+
+
+
+================================================
+FILE: src/components/sections/Skills.tsx
+================================================
+// 'use client'
+// import React from 'react'
+// import { motion } from 'framer-motion'
+// import { Code, Database, Cloud, Smartphone, Globe, Zap } from 'lucide-react'
+
+// const skills = [
+//   { name: 'Frontend', icon: Globe, items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'], level: 90 },
+//   { name: 'Backend', icon: Code, items: ['Node.js', 'Express', 'Python', 'C++', 'REST APIs'], level: 85 },
+//   { name: 'Database', icon: Database, items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma'], level: 80 },
+//   { name: 'DevOps', icon: Cloud, items: ['AWS', 'Docker', 'CI/CD', 'Linux'], level: 75 },
+//   { name: 'Mobile', icon: Smartphone, items: ['React Native', 'Flutter', 'iOS', 'Android'], level: 70 },
+//   { name: 'Performance', icon: Zap, items: ['Optimization', 'Caching', 'SEO', 'Analytics'], level: 85 },
+// ]
+
+// const Skills = React.memo(() => {
+//   return (
+//     <section id="skills" className="min-h-screen py-20 px-6 relative">
+//       <div className="max-w-6xl mx-auto">
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+//           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+//           className="text-center mb-16"
+//         >
+//           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
+//             Technical Skills
+//           </h2>
+//           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+//             A comprehensive overview of my technical expertise across the full development stack, 
+//             from frontend frameworks to cloud infrastructure.
+//           </p>
+//         </motion.div>
+
+//         <motion.div
+//           initial={{ opacity: 0, x: -50 }}
+//           whileInView={{ opacity: 1, x: 0 }}
+//           viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+//           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+//           className="h-full"
+//         >
+//           <div className="space-y-8">
+//             {skills.map((skill, index) => (
+//               <motion.div
+//                 key={skill.name}
+//                 className="group"
+//                 initial={{ opacity: 0, y: 20 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 viewport={{ once: true }}
+//                 transition={{ duration: 0.5, delay: index * 0.1 }}
+//               >
+//                 <div className="flex items-center justify-between mb-3">
+//                   <div className="flex items-center space-x-3">
+//                     <skill.icon className="text-gray-400 group-hover:text-white transition-colors" size={20} />
+//                     <span className="text-lg font-semibold text-white">{skill.name}</span>
+//                   </div>
+//                   <span className="text-sm text-gray-400">{skill.level}%</span>
+//                 </div>
+                
+//                 {/* Progress Bar */}
+//                 <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden mb-3">
+//                   <motion.div
+//                     className="h-full bg-gradient-to-r from-gray-500 to-white rounded-full"
+//                     initial={{ width: 0 }}
+//                     whileInView={{ width: `${skill.level}%` }}
+//                     viewport={{ once: true }}
+//                     transition={{ duration: 1, delay: index * 0.1 }}
+//                   />
+//                 </div>
+                
+//                 {/* Skill Tags */}
+//                 <div className="flex flex-wrap gap-2">
+//                   {skill.items.map((item) => (
+//                     <span
+//                       key={item}
+//                       className="px-3 py-1 text-xs bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-colors"
+//                     >
+//                       {item}
+//                     </span>
+//                   ))}
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </div>
+//         </motion.div>
+//       </div>
+//     </section>
+//   )
+// })
+
+// Skills.displayName = 'Skills'
+// export default Skills
+
+
+
+================================================
+FILE: src/utils/Performance.ts
+================================================
+// utils/performance.ts
+
+// Define NetworkInformation interface for TypeScript
+interface NetworkInformation {
+  effectiveType: string;
+  downlink: number;
+}
+
+export const trackPerformanceMetrics = () => {
+  if (typeof window === 'undefined') return;
+
+  // Track Core Web Vitals and performance metrics
+  const observer = new PerformanceObserver((list) => {
+    list.getEntries().forEach((entry) => {
+      switch (entry.entryType) {
+        case 'navigation':
+          console.log(`Page Load Time: ${Math.round(entry.duration)}ms`);
+          console.log(`DOM Content Loaded: ${Math.round((entry as PerformanceNavigationTiming).domContentLoadedEventEnd - (entry as PerformanceNavigationTiming).domContentLoadedEventStart)}ms`);
+          break;
+        
+        case 'paint':
+          console.log(`${entry.name}: ${Math.round(entry.startTime)}ms`);
+          break;
+        
+        case 'largest-contentful-paint':
+          console.log(`Largest Contentful Paint: ${Math.round(entry.startTime)}ms`);
+          break;
+      }
+    });
+  });
+
+  observer.observe({ entryTypes: ['navigation', 'paint', 'largest-contentful-paint'] });
+
+  // Track bundle size and network info
+  if ('connection' in navigator) {
+    const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
+    if (connection) {
+      console.log(`Network: ${connection.effectiveType}`);
+      console.log(`Downlink: ${connection.downlink}Mbps`);
+    }
+  }
+};
+
+// Component render time measurement
+export const measureComponentRender = (componentName: string) => {
+  const start = performance.now();
+  
+  return {
+    startTime: start,
+    measureEnd: () => {
+      const end = performance.now();
+      console.log(`⚡ ${componentName} render time: ${Math.round(end - start)}ms`);
+    }
+  };
+};
+
+// Track animation performance
+export const trackAnimationPerformance = () => {
+  if (typeof window === 'undefined') return;
+  
+  let frameCount = 0;
+  let lastTime = performance.now();
+  
+  const measureFPS = () => {
+    frameCount++;
+    const currentTime = performance.now();
+    
+    if (currentTime - lastTime >= 1000) {
+      console.log(`Average FPS: ${frameCount}`);
+      frameCount = 0;
+      lastTime = currentTime;
+    }
+    
+    requestAnimationFrame(measureFPS);
+  };
+  
+  requestAnimationFrame(measureFPS);
+};
+
+

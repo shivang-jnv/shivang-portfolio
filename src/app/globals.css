@@ -89,7 +89,7 @@ body {
   
   /* ✅ MOBILE OPTIMIZATION - Lighter on smaller screens */
   @media (max-width: 768px) {
-    background-size: 60px 60px;      /* Fewer dots = better performance */
+    background-size: 40px 40px;      /* Match desktop density */
     opacity: 0.2;                    /* Lighter on mobile */
   }
 }
@@ -133,6 +133,13 @@ body {
   }
 }
 
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+}
+
 /* GPU acceleration for animations */
 .text-gradient,
 .liquid-metal,
@@ -148,8 +155,34 @@ body {
   will-change: transform, opacity, border-color;
 }
 
-/* Optimize carousel animations */
-[class*="motion"] {
+/* Optimize carousel animations - TARGETED ONLY */
+.gpu-optimized {
   will-change: transform;
   transform: translateZ(0);
+}
+
+/* GPU Acceleration Utilities */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Force layer promotion for fixed elements */
+.fixed-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Focus Visible for Accessibility */
+:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users if supported */
+:focus:not(:focus-visible) {
+  outline: none;
 }

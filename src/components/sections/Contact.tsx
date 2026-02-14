@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Phone, Clock, Send, Copy, Check } from 'lucide-react'
+import { Mail, MapPin, Phone, Clock, Send, Copy, Check, Loader2 } from 'lucide-react'
 import React, { useState, useCallback } from 'react'
 
 const contactInfo = [
@@ -37,7 +37,6 @@ const contactInfo = [
 const Contact = React.memo(() => {
   Contact.displayName = 'Contact'
   const [copiedEmail, setCopiedEmail] = useState(false)
-
   const handleCopyEmail = useCallback(async () => {
     try {
       await navigator.clipboard.writeText('skjnvspn@gmail.com')
@@ -97,7 +96,7 @@ const Contact = React.memo(() => {
                 <div className="flex gap-2 mt-4">
                   <button
                     onClick={info.action}
-                    className="flex-1 px-3 py-2 text-xs font-medium bg-gray-900 text-gray-300 rounded-lg border border-gray-800 hover:border-gray-600 hover:bg-gray-800 transition-colors"
+                    className="flex-1 px-3 py-2 text-xs font-medium bg-gray-900 text-gray-300 rounded-lg border border-gray-800 hover:border-gray-600 hover:bg-gray-800 transition-colors flex items-center justify-center"
                   >
                     Contact
                   </button>

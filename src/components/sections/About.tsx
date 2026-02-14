@@ -1,7 +1,32 @@
 'use client'
 import React from "react"
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+
 import { Code, Database, Cloud, Globe, Download, MapPin, Monitor } from 'lucide-react'
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 20
+    }
+  }
+}
 
 const skills = [
   { name: 'Languages', icon: Globe, items: ['JavaScript', 'TypeScript', 'C++'], level: 90 },
@@ -38,21 +63,29 @@ const experiences = [
 
 const About = React.memo(() => {
   About.displayName = 'About'
+  
+  const headerRef = React.useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ["start end", "end start"]
+  })
+  
+  const headerY = useTransform(scrollYProgress, [0, 1], [0, -50])
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+
   return (
     <section id="about" className="min-h-screen py-20 px-6 relative">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          ref={headerRef}
+          style={{ y: headerY, opacity: headerOpacity }}
           className="text-center mb-16"
         >
 
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             About Me
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed text-center">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed text-center">
             I’m a Full Stack Developer fluent in React, Next.js, Node.js, and TypeScript, crafting applications that are as elegant as they are functional. My work spans microservices, serverless architectures, AWS, Docker, Kubernetes, and finely tuned databases, all woven together with secure, thoughtful design.
           </p>
         </motion.div>
@@ -68,15 +101,18 @@ const About = React.memo(() => {
           >
 
             <h3 className="text-3xl font-bold mb-8 text-white">Technical Skills</h3>
-            <div className="space-y-8">
+            <motion.div 
+              className="space-y-8"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2, margin: "50px" }}
+            >
               {skills.map((skill, index) => (
                 <motion.div
                   key={skill.name}
                   className="group"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  variants={itemVariants}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-3">
@@ -110,7 +146,7 @@ const About = React.memo(() => {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Experience Section */}
@@ -123,15 +159,18 @@ const About = React.memo(() => {
           >
 
             <h3 className="text-3xl font-bold mb-8 text-white">Experience</h3>
-            <div className="space-y-10 flex-grow">
+            <motion.div 
+              className="space-y-10 flex-grow"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               {experiences.map((exp, index) => (
                 <motion.div
                   key={index}
                   className="relative pl-8 border-l border-gray-700 hover:border-gray-500 transition-colors"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  variants={itemVariants}
                 >
                   {/* Timeline Dot */}
                   <div className="absolute -left-2 top-0 w-4 h-4 bg-gray-600 border-2 border-gray-400 rounded-full" />
@@ -144,7 +183,7 @@ const About = React.memo(() => {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Call to Action Buttons - Bottom of Experience Section */}
             <motion.div

@@ -3,6 +3,29 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Award, BookOpen } from 'lucide-react'
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 20
+    }
+  }
+}
+
 const education = [
   {
     period: '2025',
@@ -45,7 +68,7 @@ const Education = React.memo(() => {
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             Education
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             My academic journey in computer science and engineering, building the 
             foundation for my passion in technology and software development.
           </p>
@@ -61,15 +84,18 @@ const Education = React.memo(() => {
             className="h-full"
           >
             <h3 className="text-3xl font-bold mb-8 text-white">Academic Background</h3>
-            <div className="space-y-10">
+            <motion.div 
+              className="space-y-10"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2, margin: "50px" }}
+            >
               {education.map((edu, index) => (
                 <motion.div
                   key={index}
                   className="relative pl-8 border-l border-gray-700 hover:border-gray-500 transition-colors"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  variants={itemVariants}
                 >
                   {/* Timeline Dot */}
                   <div className="absolute -left-2 top-0 w-4 h-4 bg-gray-600 border-2 border-gray-400 rounded-full" />
@@ -93,7 +119,7 @@ const Education = React.memo(() => {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Achievements Section */}
@@ -105,15 +131,19 @@ const Education = React.memo(() => {
             className="h-full flex flex-col"
           >
             <h3 className="text-3xl font-bold mb-8 text-white">Achievements</h3>
-            <div className="space-y-6 flex-grow">
+            <motion.div 
+              className="space-y-6 flex-grow"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               {achievements.map((achievement, index) => (
                 <motion.div
                   key={index}
-                  className="group"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group w-full"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.03 }}
                 >
                   <div className="flex items-center space-x-3 p-4 bg-gray-900 rounded-lg border border-gray-800 hover:border-gray-600 transition-colors">
                     <Award className="text-gray-400 group-hover:text-white transition-colors" size={20} />
@@ -123,7 +153,7 @@ const Education = React.memo(() => {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Relevant Coursework */}
             <motion.div
@@ -137,16 +167,23 @@ const Education = React.memo(() => {
                 <BookOpen className="text-gray-400" size={20} />
                 <span>Key Coursework</span>
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <motion.div 
+                className="flex flex-wrap gap-2"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
                 {['Data Structures & Algorithms', 'Database Systems', 'Software Engineering', 'Computer Networks', 'Operating Systems', 'Web Technologies', 'Machine Learning', 'System Design'].map((course) => (
-                  <span
+                  <motion.span
                     key={course}
+                    variants={itemVariants}
                     className="px-3 py-1 text-sm bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-colors"
                   >
                     {course}
-                  </span>
+                  </motion.span>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>

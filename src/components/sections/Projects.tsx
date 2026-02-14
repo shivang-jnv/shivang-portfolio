@@ -1,7 +1,33 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, Code2, Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ExternalLink, Github, Code2, Star, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import { useEffect, useState, memo, useRef, useCallback } from 'react'
+import { useScroll, useTransform } from 'framer-motion'
+import { useScroll as useLenisScroll } from '../logic/ScrollManager'
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 20
+    }
+  }
+}
+
 
 
 
@@ -9,7 +35,7 @@ import { useEffect, useState, memo, useRef, useCallback } from 'react'
 const projects = [
   {
     id: 1,
-    title: 'Finance App',
+    title: 'Personal Finance App',
     description: 'A personal finance management application that allows users to track accounts, categorize transactions, and visualize financial health through interactive charts and dashboards.',
     longDescription: 'A modern, full-stack personal finance management application built with Next.js, React, Drizzle ORM, Neon serverless Postgres, Clerk authentication, and Hono API framework. Track your accounts, categorize transactions, and visualize your financial health with beautiful charts and dashboards.',
     tech: ['Next.js', 'React', 'Tailwind CSS', 'Shadcn UI', 'Hono', 'Drizzle ORM', 'PostgreSQL', 'Clerk Auth', 'React Query', 'Zustand', 'Recharts'],
@@ -38,7 +64,7 @@ const projects = [
   },
   {
     id: 3,
-    title: 'Weather Analytics Dashboard',
+    title: 'Workflow Automation Platform',
     description: 'Data visualization dashboard showing weather patterns, forecasts, and historical climate data.',
     longDescription: 'Python Flask backend with React frontend. Integrates multiple weather APIs and provides interactive charts and geographical visualizations with machine learning predictions.',
     tech: ['Python', 'Flask', 'React', 'Chart.js', 'OpenWeather API', 'D3.js'],
@@ -94,6 +120,16 @@ const Projects = memo(function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [cardsPerView, setCardsPerView] = useState(3)
+  const { lenis } = useLenisScroll()
+  
+  const headerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ["start end", "end start"]
+  })
+  
+  const headerY = useTransform(scrollYProgress, [0, 1], [0, -50])
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
 
   // Detect screen size and adjust cards per view with debouncing
   useEffect(() => {
@@ -126,9 +162,9 @@ const Projects = memo(function Projects() {
 
   const scroll = useCallback((direction: 'left' | 'right') => {
     if (direction === 'left') {
-      setCurrentIndex(prev => Math.max(0, prev - 1))
+      setCurrentIndex(prev => (prev === 0 ? projects.length - cardsPerView : prev - 1))
     } else {
-      setCurrentIndex(prev => Math.min(projects.length - cardsPerView, prev + 1))
+      setCurrentIndex(prev => (prev >= projects.length - cardsPerView ? 0 : prev + 1))
     }
   }, [cardsPerView])
 
@@ -137,16 +173,14 @@ const Projects = memo(function Projects() {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          ref={headerRef}
+          style={{ y: headerY, opacity: headerOpacity }}
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             Featured Work
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             A curated collection of projects showcasing my expertise in modern web development, 
             creative problem-solving, and attention to detail.
           </p>
@@ -157,8 +191,7 @@ const Projects = memo(function Projects() {
           {/* Left Navigation Button */}
           <motion.button
             onClick={() => scroll('left')}
-            disabled={currentIndex === 0}
-            className="absolute left-0 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-gray-900 border-2 border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            className="absolute left-0 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-gray-900 border-2 border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-gray-600 transition-all duration-300 shadow-xl"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -168,8 +201,7 @@ const Projects = memo(function Projects() {
           {/* Right Navigation Button */}
           <motion.button
             onClick={() => scroll('right')}
-            disabled={currentIndex >= projects.length - cardsPerView}
-            className="absolute right-0 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-gray-900 border-2 border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            className="absolute right-0 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-gray-900 border-2 border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-gray-600 transition-all duration-300 shadow-xl"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -183,26 +215,27 @@ const Projects = memo(function Projects() {
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-black via-black/80 to-transparent z-10 pointer-events-none" />
 
           {/* Cards Container */}
-          <div className="overflow-hidden px-12 md:px-16">
+          <div className="overflow-hidden px-4 md:px-16">
             <motion.div
               ref={scrollContainerRef}
               className="flex gap-4 md:gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1, margin: "100px" }}
               animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               {projects.map((project) => (
                 <motion.div
                   key={project.id}
-                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden flex-shrink-0 transition-all duration-300"
+                  variants={itemVariants}
+                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden h-full transition-all duration-300 gpu-optimized flex-shrink-0 cursor-pointer"
+                  onClick={() => project.liveUrl && window.open(project.liveUrl, '_blank')}
+                  whileHover={{ scale: 1.02 }}
                   style={{ 
                     width: `calc(${100 / cardsPerView}% - ${cardsPerView === 1 ? '12px' : '16px'})`, 
                     height: '280px' 
-                  }}
-                  whileHover={{ 
-                    y: -8,
-                    borderColor: '#6b7280',
-                    boxShadow: "0 24px 48px rgba(0, 0, 0, 0.4)",
-                    transition: { duration: 0.3, ease: "easeOut" } 
                   }}
                 >
                   {/* Top accent bar */}
@@ -266,24 +299,16 @@ const Projects = memo(function Projects() {
                       )}
                     </div>
 
-                    {/* Footer with links */}
-                    <div className="flex items-center justify-between pt-2.5 border-t border-gray-800 group-hover:border-gray-700 transition-colors">
-                      <div className="flex items-center space-x-3">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            className="flex items-center space-x-1.5 text-gray-500 hover:text-gray-300 transition-colors"
-                          >
-                            <ExternalLink size={11} />
-                            <span className="text-xs font-medium">Live</span>
-                          </a>
-                        )}
+                    {/* Footer with code link */}
+                    <div className="flex items-center justify-between pt-2.5 border-t border-gray-800 group-hover:border-gray-700 transition-colors relative z-10">
+                      <div className="flex items-center space-x-3 w-full justify-end">
                         <a
                           href={project.repoUrl}
-                          className="flex items-center space-x-1.5 text-gray-500 hover:text-gray-300 transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex items-center space-x-2 px-3 py-1.5 bg-gray-900 hover:bg-white hover:text-black text-gray-300 rounded-lg transition-all duration-300 border border-gray-800 hover:border-white group/code"
                         >
-                          <Github size={11} />
-                          <span className="text-xs font-medium">Code</span>
+                          <Github size={14} className="group-hover/code:scale-110 transition-transform" />
+                          <span className="text-xs font-bold uppercase tracking-wide">View Code</span>
                         </a>
                       </div>
                     </div>
@@ -297,6 +322,7 @@ const Projects = memo(function Projects() {
           </div>
 
           {/* Pagination Dots */}
+
           <div className="flex justify-center items-center space-x-2 mt-8 mb-20">
             {Array.from({ length: Math.max(1, projects.length - 2) }).map((_, index) => (
               <button
@@ -329,12 +355,22 @@ const Projects = memo(function Projects() {
             Let&apos;s collaborate and create something extraordinary together.
           </p>
           <motion.button
-            className="px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full font-semibold text-white border border-gray-500 hover:from-gray-700 hover:to-gray-900 transition-all"
-            whileHover={{ scale: 1.0 }}
+            className="group px-8 py-4 bg-transparent border-2 border-slate-600 text-white rounded-full font-bold hover:bg-slate-800 hover:border-slate-500 transition-all inline-flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => {
+              const element = document.getElementById('contact')
+              if (element) {
+                if (lenis) {
+                  lenis.scrollTo(element, { offset: -50 })
+                } else {
+                  element.scrollIntoView({ behavior: 'smooth' })
+                }
+              }
+            }}
           >
             Start a Project
+            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
           </motion.button>
         </motion.div>
       </div>

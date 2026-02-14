@@ -3,15 +3,39 @@ import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Award, Calendar, ExternalLink, CheckCircle, Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 20
+    }
+  }
+}
+
 const certificates = [
   {
     title: 'OCI 2025 Certified Developer Professional',
     issuer: 'Oracle',
     date: '2025',
     credentialId: '102999301OCID25CP',
+    credentialUrl: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=102999301OCID25CP',
     description: 'Comprehensive certification validating advanced competence in Oracle Cloud Infrastructure architecture, development, and deployment workflows.',
-    skills: ['Cloud-native', 'Microservices', 'Containers', 'Kubernetes', 'Serverless', 'APIs', 'Streaming', 'Queues', 'Events', 'Security', 'Testing', 'Observability']
-,
+    skills: ['Cloud-native', 'Microservices', 'Containers', 'Kubernetes', 'Serverless', 'APIs', 'Streaming', 'Queues', 'Events', 'Security', 'Testing', 'Observability'],
     verified: true,
     featured: true
   },
@@ -20,9 +44,9 @@ const certificates = [
     issuer: 'FreeCodeCamp',
     date: '2025',
     credentialId: 'shivang-jnv-bedaa',
+    credentialUrl: 'https://www.freecodecamp.org/certification/shivang-jnv/back-end-development-and-apis',
     description: 'Comprehensive certification demonstrating proficiency in Node.js, Express.js, MongoDB, and RESTful API design through practical project implementations.',
-    skills: ['Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'Authentication', 'Database Design', 'Server Development', 'API Testing']
-,
+    skills: ['Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'Authentication', 'Database Design', 'Server Development', 'API Testing'],
     verified: true,
     featured: true
   },
@@ -31,9 +55,9 @@ const certificates = [
     issuer: 'Oracle',
     date: '2025',
     credentialId: '102999301OCI25AICFA',
+    credentialUrl: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=102999301OCI25AICFA',
     description: 'Introductory learning path covering core concepts in AI, machine learning, deep learning, and generative AI with direct application on OCI',
-    skills: ['AI', 'Machine Learning', 'Deep Learning', 'Generative AI', 'Modeling', 'Inference', 'Cloud Deployment', 'OCI Services'  ]
-,
+    skills: ['AI', 'Machine Learning', 'Deep Learning', 'Generative AI', 'Modeling', 'Inference', 'Cloud Deployment', 'OCI Services'],
     verified: true,
     featured: false
   },
@@ -42,6 +66,7 @@ const certificates = [
     issuer: 'Forage',
     date: '2025',
     credentialId: 'KJKGrfmkDx2LsddLi',
+    credentialUrl: 'https://www.theforage.com/certificates/KJKGrfmkDx2LsddLi',
     description: 'A hands-on virtual experience learning JPMorgan Chase\'s programming skills and tools through real software engineering tasks.',
     skills: ['Spring', 'Java', 'Kafka', 'Maven', 'REST API', 'SQL'],
     verified: true,
@@ -52,9 +77,9 @@ const certificates = [
     issuer: 'Forage',
     date: '2025',
     credentialId: 'rLWQeT4Miej7bMzK4',
+    credentialUrl: 'https://www.theforage.com/certificates/rLWQeT4Miej7bMzK4',
     description: 'AWS Solutions Architecture job simulation on Forage, designing scalable hosting architectures using Elastic Beanstalk, load balancing, and multi-service AWS implementations for high-growth clients.',
-    skills: ['AWS Architecture Design', 'Elastic Beanstalk', 'Load Balancing', 'Auto Scaling', 'Multi-AZ Deployment', 'Cost Optimization', 'Technical Communication', 'Cloud Solutions']
-,
+    skills: ['AWS Architecture Design', 'Elastic Beanstalk', 'Load Balancing', 'Auto Scaling', 'Multi-AZ Deployment', 'Cost Optimization', 'Technical Communication', 'Cloud Solutions'],
     verified: true,
     featured: false
   },
@@ -63,6 +88,7 @@ const certificates = [
     issuer: 'FreeCodeCamp',
     date: '2024',
     credentialId: 'FCC-JSADS-2022-123',
+    credentialUrl: 'https://www.freecodecamp.org/certification/shivang-jnv/javascript-algorithms-and-data-structures',
     description: 'Advanced JavaScript programming with focus on algorithms, data structures, and problem-solving techniques.',
     skills: ['JavaScript', 'Algorithms', 'Data Structures', 'Problem Solving'],
     verified: true,
@@ -73,6 +99,7 @@ const certificates = [
     issuer: 'AWS',
     date: '2025',
     credentialId: '',
+    credentialUrl: 'https://aws.amazon.com/certification',
     description: 'AWS certification, demonstrating expertise in generative AI interactions, LLM optimization, and advanced prompting techniques.',
     skills: ['Prompt Engineering', 'Generative AI', 'LLMs', 'Chain-of-Thought', 'AI Optimization', 'Context Design'],
     verified: true,
@@ -83,9 +110,9 @@ const certificates = [
     issuer: 'Forage',
     date: '2025',
     credentialId: 'gt88MFfnM85g7R4bY',
+    credentialUrl: 'https://www.theforage.com/certificates/gt88MFfnM85g7R4bY',
     description: 'comprehensive software development lifecycle simulation covering SDLC methodologies, algorithmic thinking, code debugging, and software testing practices through hands-on projects and technical analysis.',
-    skills: ['SDLC', 'Agile', 'Waterfall', 'Software Testing', 'Algorithmic Thinking', 'Code Debugging', 'Pseudocoding', 'Flow Diagramming', 'DevOps', 'Software QA']
-,
+    skills: ['SDLC', 'Agile', 'Waterfall', 'Software Testing', 'Algorithmic Thinking', 'Code Debugging', 'Pseudocoding', 'Flow Diagramming', 'DevOps', 'Software QA'],
     verified: true,
     featured: false
   }
@@ -129,9 +156,9 @@ const Certificates = React.memo(() => {
 
   const scroll = React.useCallback((direction: 'left' | 'right') => {
     if (direction === 'left') {
-      setCurrentIndex(prev => Math.max(0, prev - 1))
+      setCurrentIndex(prev => (prev === 0 ? certificates.length - cardsPerView : prev - 1))
     } else {
-      setCurrentIndex(prev => Math.min(certificates.length - cardsPerView, prev + 1))
+      setCurrentIndex(prev => (prev >= certificates.length - cardsPerView ? 0 : prev + 1))
     }
   }, [cardsPerView])
 
@@ -148,7 +175,7 @@ const Certificates = React.memo(() => {
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             Certifications
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Professional certifications and credentials that validate my expertise 
             across various technologies and development practices.
           </p>
@@ -159,8 +186,7 @@ const Certificates = React.memo(() => {
           {/* Navigation Buttons - Desktop only */}
           <motion.button
             onClick={() => scroll('left')}
-            disabled={currentIndex === 0}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 transition-all duration-300 shadow-xl"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -169,8 +195,7 @@ const Certificates = React.memo(() => {
 
           <motion.button
             onClick={() => scroll('right')}
-            disabled={currentIndex >= certificates.length - cardsPerView}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-xl"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gray-900 border-2 border-gray-700 rounded-full items-center justify-center hover:bg-gray-800 hover:border-gray-600 transition-all duration-300 shadow-xl"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -183,34 +208,39 @@ const Certificates = React.memo(() => {
 
           {/* Mobile: Vertical Strips */}
           <div className="md:hidden space-y-3 px-4">
-            {certificates.map((cert, index) => (
-              <motion.div
-                key={cert.credentialId}
-                className="group relative bg-black border-2 border-gray-800 rounded-lg overflow-hidden transition-all duration-300 hover:border-gray-600"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-              >
-                {/* Top accent bar */}
-                <div className="h-0.5 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700" />
-                
-                <div className="flex items-center justify-between p-3">
-                  <div className="flex items-center space-x-3 flex-1 min-w-0">
-                    <Award className="text-gray-400 flex-shrink-0" size={16} />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-bold text-white truncate group-hover:text-gradient transition-colors">
-                        {cert.title}
-                      </h4>
-                      <p className="text-xs text-gray-500">{cert.issuer}</p>
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1, margin: "50px" }}
+            >
+              {certificates.map((cert, index) => (
+                <motion.div
+                  key={cert.credentialId}
+                  variants={itemVariants}
+                  className="group relative bg-black border-2 border-gray-800 rounded-lg overflow-hidden transition-all duration-300 hover:border-gray-600 mb-3 cursor-pointer"
+                  onClick={() => cert.credentialUrl && window.open(cert.credentialUrl, '_blank')}
+                >
+                  {/* Top accent bar */}
+                  <div className="h-0.5 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700" />
+                  
+                  <div className="flex items-center justify-between p-3">
+                    <div className="flex items-center space-x-3 flex-1 min-w-0">
+                      <Award className="text-gray-400 flex-shrink-0" size={16} />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-bold text-white truncate group-hover:text-gradient transition-colors">
+                          {cert.title}
+                        </h4>
+                        <p className="text-xs text-gray-500">{cert.issuer}</p>
+                      </div>
                     </div>
+                    {cert.verified && (
+                      <CheckCircle className="text-gray-600 flex-shrink-0 ml-2" size={14} />
+                    )}
                   </div>
-                  {cert.verified && (
-                    <CheckCircle className="text-gray-600 flex-shrink-0 ml-2" size={14} />
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
           {/* Desktop: Horizontal Carousel */}
@@ -218,22 +248,23 @@ const Certificates = React.memo(() => {
             <motion.div
               ref={scrollContainerRef}
               className="flex gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1, margin: "100px" }}
               animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               {certificates.map((cert) => (
                 <motion.div
                   key={cert.credentialId}
-                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden flex-shrink-0 transition-all duration-300"
+                  variants={itemVariants}
+                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden h-full transition-all duration-300 flex-shrink-0 cursor-pointer"
+                  onClick={() => cert.credentialUrl && window.open(cert.credentialUrl, '_blank')}
+                  whileHover={{ scale: 1.02 }}
                   style={{ 
                     width: isMobile ? 'calc(50% - 8px)' : `calc(${100 / cardsPerView}% - 16px)`, 
                     height: isMobile ? '280px' : '280px'
-                  }}
-                  whileHover={{ 
-                    y: -8,
-                    borderColor: '#6b7280',
-                    boxShadow: "0 24px 48px rgba(0, 0, 0, 0.4)",
-                    transition: { duration: 0.3, ease: "easeOut" } 
                   }}
                 >
                   {/* Top accent bar */}
@@ -311,10 +342,6 @@ const Certificates = React.memo(() => {
                       <div className="flex items-center space-x-1.5 text-gray-500">
                         <Calendar size={isMobile ? 10 : 11} />
                         <span className={`${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>{cert.date}</span>
-                      </div>
-                      <div className="flex items-center space-x-1 text-gray-500 group-hover:text-gray-300 transition-colors cursor-pointer">
-                        <span className={`${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>View</span>
-                        <ExternalLink size={isMobile ? 9 : 10} />
                       </div>
                     </div>
                   </div>
