@@ -163,7 +163,7 @@ const Certificates = React.memo(() => {
   }, [cardsPerView])
 
   return (
-    <section id="certificates" className="min-h-screen py-20 px-6 relative overflow-hidden">
+    <section id="certificates" className="min-h-screen pt-20 pb-10 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -354,7 +354,7 @@ const Certificates = React.memo(() => {
           </div>
 
           {/* Pagination Dots */}
-          <div className="flex justify-center items-center space-x-2 mt-8">
+          <div className="hidden md:flex justify-center items-center space-x-2 mt-8">
             {Array.from({ length: Math.max(1, certificates.length - 2) }).map((_, index) => (
               <button
                 key={index}
