@@ -94,9 +94,9 @@ export const Hero = () => {
         >
           {[
             { Icon: Github, href: "https://github.com/shivang-jnv" },
-            { Icon: Linkedin, href: "https://linkedin.com/in/shivang-kanaujia" },
+            { Icon: Linkedin, href: "https://www.linkedin.com/in/shivang-kanaujia-973a6a175/" },
             { Icon: Twitter, href: "https://twitter.com/shivang_jnv" },
-            { Icon: Mail, href: "mailto:shivangkanaujia2002@gmail.com" }
+            { Icon: Mail, href: "mailto:skjnvspn@gmail.com" }
           ].map(({ Icon, href }, index) => (
             <Magnetic key={index}>
               <motion.a

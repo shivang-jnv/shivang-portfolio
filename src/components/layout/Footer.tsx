@@ -7,7 +7,7 @@ const socialLinks = [
   { icon: Github, href: 'https://github.com/shivang-jnv', label: 'GitHub' },
   { icon: Linkedin, href: 'https://www.linkedin.com/in/shivang-kanaujia-973a6a175/', label: 'LinkedIn' },
   { icon: Twitter, href: 'https://x.com/shivang_jnv', label: 'Twitter' },
-  { icon: Mail, href: 'mailto:sknvspn@gmail.com', label: 'Email' },
+  { icon: Mail, href: 'mailto:skjnvspn@gmail.com', label: 'Email' },
 ]
 
 const quickLinks = [
