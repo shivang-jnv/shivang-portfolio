@@ -11,7 +11,7 @@ const socialLinks = [
 ]
 
 const quickLinks = [
-  { label: 'About', href: '#about' },
+  { label: 'Tech Stack', href: '#techstack' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
   { label: 'Resume', href: '#' },

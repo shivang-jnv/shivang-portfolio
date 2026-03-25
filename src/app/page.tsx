@@ -10,13 +10,6 @@ import { ScrollIndicator } from '@/components/ui/ScrollIndicator'
 import { Hero } from '@/components/sections/Hero'
 
 // Lazy load heavy sections
-const About = dynamic(() => import('@/components/sections/About'), {
-  loading: () => <div className="h-screen flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
-  </div>,
-  ssr: true
-})
-
 const Projects = dynamic(() => import('@/components/sections/Projects'), {
   loading: () => <div className="h-screen flex items-center justify-center">
     <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
@@ -57,9 +50,6 @@ export default function Home() {
 
       {/* Projects Section */}
       <Projects />
-
-      {/* About Section */}
-      <About />
 
       {/* Education Section */}
       <Education />

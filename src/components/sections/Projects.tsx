@@ -1,9 +1,8 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Github, Code2, Star, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import { Github, Code2, Star, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useState, memo, useRef, useCallback } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
-import { useScroll as useLenisScroll } from '../logic/ScrollManager'
 import Link from 'next/link'
 
 const containerVariants = {
@@ -127,7 +126,6 @@ const Projects = memo(function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [cardsPerView, setCardsPerView] = useState(3)
-  const { lenis } = useLenisScroll()
   
   const headerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -176,7 +174,7 @@ const Projects = memo(function Projects() {
   }, [cardsPerView])
 
   return (
-    <section id="projects" className="min-h-screen py-20 px-6 relative overflow-hidden">
+    <section id="projects" className="py-20 pb-10 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -352,41 +350,6 @@ const Projects = memo(function Projects() {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center bg-gray-900 border border-gray-800 rounded-xl p-12"
-        >
-
-          <h3 className="text-3xl font-bold text-white mb-4">
-            Like What You See?
-          </h3>
-          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-            These projects represent just a glimpse of what&apos;s possible. 
-            Let&apos;s collaborate and create something extraordinary together.
-          </p>
-          <motion.button
-            className="group px-8 py-4 bg-transparent border-2 border-slate-600 text-white rounded-full font-bold hover:bg-slate-800 hover:border-slate-500 transition-all inline-flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const element = document.getElementById('contact')
-              if (element) {
-                if (lenis) {
-                  lenis.scrollTo(element, { offset: -50 })
-                } else {
-                  element.scrollIntoView({ behavior: 'smooth' })
-                }
-              }
-            }}
-          >
-            Start a Project
-            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   )

@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react'
 
 export const ScrollIndicator = () => {
   const scrollToAbout = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('techstack')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (

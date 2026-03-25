@@ -11,13 +11,15 @@ type TechItem = {
   src?: string
   invert?: boolean
   icon?: React.ReactNode
+  wide?: boolean
 }
 
 /* ── Inline SVGs for icons not in Devicons/SimpleIcons ── */
 const WsIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+  <svg viewBox="0 0 24 24" fill="none"
     stroke="rgba(255,255,255,0.85)" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round">
+    strokeLinecap="round" strokeLinejoin="round"
+    className="block shrink-0 h-[22px] w-[22px]">
     <path d="M5 12h14" />
     <path d="M15 7l5 5-5 5" />
     <path d="M9 7L4 12l5 5" />
@@ -25,9 +27,10 @@ const WsIcon = () => (
 )
 
 const RestIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+  <svg viewBox="0 0 24 24" fill="none"
     stroke="rgba(255,255,255,0.85)" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round">
+    strokeLinecap="round" strokeLinejoin="round"
+    className="block shrink-0 h-[22px] w-[22px]">
     <polyline points="16 18 22 12 16 6" />
     <polyline points="8 6 2 12 8 18" />
   </svg>
@@ -50,7 +53,7 @@ const categories: { label: string; items: TechItem[] }[] = [
       { name: 'Express',    src: `${DEVICONS}/express/express-original.svg`, invert: true },
       { name: 'GraphQL',    src: `${DEVICONS}/graphql/graphql-plain.svg` },
       { name: 'Kafka',      src: `${SIMPLEICONS}/apachekafka/ffffff` },
-      { name: 'REST APIs',  icon: <RestIcon /> },
+      { name: 'REST APIs',  icon: <RestIcon />, wide: true },
       { name: 'WebSockets', icon: <WsIcon /> },
     ],
   },
@@ -113,41 +116,40 @@ export default function TechStack() {
             className={ci !== 0 ? 'mt-10' : ''}
           >
             <motion.div
-              className="flex flex-nowrap items-center gap-3"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               transition={{ staggerChildren: 0.05 }}
+              className="flex flex-col lg:flex-row lg:flex-nowrap lg:items-center gap-3"
             >
               {/* Category label */}
-              <span className="text-sm font-bold uppercase tracking-[0.18em] text-gray-500 w-36 shrink-0">
+              <span className="text-sm font-bold uppercase tracking-[0.18em] text-gray-500 lg:w-36 shrink-0">
                 {cat.label}
               </span>
 
-              {/* Pills */}
-              {cat.items.map((tech) => (
-                <motion.div
-                  key={tech.name}
-                  variants={pillVariants}
-                  className="flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10
-                             hover:border-white/25 hover:bg-white/[0.08] transition-all duration-200 cursor-default"
-                >
-                  {tech.icon ? (
-                    tech.icon
-                  ) : (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={tech.src}
-                      alt={tech.name}
-                      width={22}
-                      height={22}
-                      className="opacity-90"
-                      style={tech.invert ? { filter: 'invert(1)' } : undefined}
-                    />
-                  )}
-                  <span className="text-base text-gray-300">{tech.name}</span>
-                </motion.div>
-              ))}
+              {/* Pills — wrap on mobile, nowrap on lg+ */}
+              <div className="flex flex-wrap lg:flex-nowrap gap-3">
+                {cat.items.map((tech) => (
+                  <motion.div
+                    key={tech.name}
+                    variants={pillVariants}
+                    className={`flex items-center gap-2.5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-white/25 hover:bg-white/[0.08] transition-all duration-200 cursor-default ${tech.wide ? 'px-8' : 'px-5'}`}
+                  >
+                    {tech.icon ? (
+                      tech.icon
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={tech.src}
+                        alt={tech.name}
+                        className="block shrink-0 h-[22px] w-[22px] object-contain opacity-90"
+                        style={tech.invert ? { filter: 'invert(1)' } : undefined}
+                      />
+                    )}
+                    <span className="text-base text-gray-300">{tech.name}</span>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
         ))}

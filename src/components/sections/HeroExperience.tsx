@@ -32,7 +32,7 @@ export default function HeroExperience() {
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.4 }}
-      className="flex flex-col gap-6 max-h-[80vh] overflow-y-auto pr-1 lg:pl-16"
+      className="flex flex-col gap-6 lg:max-h-[80vh] lg:overflow-y-auto pr-1 lg:pl-16"
       style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.08) transparent' }}
     >
       {/* Heading */}
@@ -49,7 +49,7 @@ export default function HeroExperience() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.6 + i * 0.18 }}
-          className="group p-[1px] rounded-2xl transition-all duration-500"
+          className="group p-[1px] rounded-lg transition-all duration-500"
           style={{
             background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.08) 100%)',
           }}
@@ -57,7 +57,7 @@ export default function HeroExperience() {
         >
           {/* Inner card */}
           <div
-            className="relative rounded-2xl p-6 overflow-hidden transition-all duration-500"
+            className="relative rounded-lg p-6 overflow-hidden transition-all duration-500"
             style={{ background: 'linear-gradient(135deg, #0e0e0e 0%, #0a0a0a 100%)' }}
           >
 {/* Accent left bar — white */}
@@ -66,7 +66,7 @@ export default function HeroExperience() {
             {/* Content */}
             <div className="pl-5">
               {/* Top row: role + period */}
-              <div className="flex items-start justify-between gap-3 mb-3">
+              <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                 <div>
                   <h3 className="text-white font-bold text-lg leading-tight tracking-tight">
                     {exp.role}
@@ -106,7 +106,7 @@ export default function HeroExperience() {
 
             {/* Hover glow overlay */}
             <div
-              className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%)' }}
             />
           </div>

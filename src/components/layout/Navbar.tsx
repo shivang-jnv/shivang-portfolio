@@ -1,15 +1,15 @@
 'use client'
 import { useState, useEffect, memo, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X, User, Briefcase, Mail, GraduationCap, Award  } from 'lucide-react'
+import { Menu, X, Layers, Briefcase, Mail, GraduationCap, Award } from 'lucide-react'
 import { Magnetic } from '../ui/Magnetic'
 import { useScroll } from '../logic/ScrollManager'
 
 const navItems = [
-  { href: '#about', label: 'About', icon: User },
+  { href: '#techstack', label: 'Tech Stack', icon: Layers },
+  { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#education', label: 'Education', icon: GraduationCap },
   { href: '#certificates', label: 'Certificates', icon: Award },
-  { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#contact', label: 'Contact', icon: Mail },
 ]
 
