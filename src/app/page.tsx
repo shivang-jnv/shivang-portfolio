@@ -47,7 +47,7 @@ export default function Home() {
       <MouseFollower />
 
       {/* Hero Section */}
-      <main id="home" className="min-h-screen flex items-center justify-center px-6 relative">
+      <main id="home" className="relative">
         <Hero />
         <ScrollIndicator />
       </main>
