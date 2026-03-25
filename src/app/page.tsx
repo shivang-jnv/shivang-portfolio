@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
 import Education from '@/components/sections/Education'
 import Certificates from '@/components/sections/Certificates'
+import TechStack from '@/components/sections/TechStack'
 
 import { MouseFollower } from '@/components/ui/MouseFollower'
 import { ScrollIndicator } from '@/components/ui/ScrollIndicator'
@@ -13,7 +14,7 @@ const About = dynamic(() => import('@/components/sections/About'), {
   loading: () => <div className="h-screen flex items-center justify-center">
     <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
   </div>,
-  ssr: true 
+  ssr: true
 })
 
 const Projects = dynamic(() => import('@/components/sections/Projects'), {
@@ -38,18 +39,24 @@ const Footer = dynamic(() => import('@/components/layout/Footer'), {
 export default function Home() {
   return (
     <>
-
       <Navbar />
-      
+
       {/* Dot Grid Background */}
       <div className="fixed inset-0 dot-grid pointer-events-none" />
-      
+
       <MouseFollower />
 
+      {/* Hero Section */}
       <main id="home" className="min-h-screen flex items-center justify-center px-6 relative">
-          <Hero />
-          <ScrollIndicator />
+        <Hero />
+        <ScrollIndicator />
       </main>
+
+      {/* Tech Stack Section */}
+      <TechStack />
+
+      {/* Projects Section */}
+      <Projects />
 
       {/* About Section */}
       <About />
@@ -60,13 +67,10 @@ export default function Home() {
       {/* Certificates Section */}
       <Certificates />
 
-      {/* Projects Section */}
-      <Projects />
-
       {/* Contact Section */}
       <Contact />
 
-       {/* Footer */}
+      {/* Footer */}
       <Footer />
     </>
   )
