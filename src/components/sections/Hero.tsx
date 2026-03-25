@@ -53,7 +53,7 @@ export const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
-            <span className="liquid-metal">Full Stack Developer</span>
+            <span className="text-white/80">Full Stack Developer</span>
           </motion.div>
 
           {/* Tagline */}

@@ -71,7 +71,7 @@ const projects = [
     title: 'Workflow Automation Platform',
     description: 'Distributed Event-Driven Automation with Kafka, Express, and Next.js',
     longDescription: 'A high-performance, "Zapier-like" automation platform that enables users to trigger multi-step workflows via webhooks. Built with a microservices architecture, it ensures 100% reliability using the Transactional Outbox pattern and an asynchronous Kafka pipeline to process actions like Solana transfers and automated emails.',
-    tech: ['Python', 'Flask', 'React', 'Chart.js', 'OpenWeather API', 'D3.js'],
+    tech: ['Kafka', 'Express.js', 'Next.js', 'Node.js', 'Docker'],
     liveUrl: 'https://github.com/shivang-jnv/zapier',
     repoUrl: 'https://github.com/shivang-jnv/zapier',
     year: '2025',

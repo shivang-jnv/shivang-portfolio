@@ -17,22 +17,24 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Shivang Kanaujia - Full Stack Developer',
-  description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
-  keywords: 'Full Stack Developer, React, Next.js, TypeScript, Web Development',
+  title: 'Shivang Kanaujia — Full Stack Developer',
+  description: 'Full Stack Developer specializing in React, Next.js, Node.js and cloud-native systems.',
+  keywords: 'Full Stack Developer, React, Next.js, TypeScript, Node.js, Web Development',
   authors: [{ name: 'Shivang Kanaujia' }],
   robots: 'index, follow',
   openGraph: {
-    title: 'Shivang Kanaujia - Full Stack Developer',
-    description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
+    title: 'Shivang Kanaujia — Full Stack Developer',
+    description: 'Full Stack Developer specializing in React, Next.js, Node.js and cloud-native systems.',
     type: 'website',
     locale: 'en_US',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Shivang Kanaujia — Full Stack Developer' }],
   },
-   twitter: {
+  twitter: {
     card: 'summary_large_image',
-    title: 'Shivang Kanaujia - Full Stack Developer',
-    description: 'Full Stack Developer passionate about creating beautiful, functional web applications.',
-  }
+    title: 'Shivang Kanaujia — Full Stack Developer',
+    description: 'Full Stack Developer specializing in React, Next.js, Node.js and cloud-native systems.',
+    images: ['/og-image.png'],
+  },
 }
 
 import { ScrollProvider } from '../components/logic/ScrollManager'
