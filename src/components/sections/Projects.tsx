@@ -1,9 +1,10 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, Code2, Star, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import { Github, Code2, Star, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import { useEffect, useState, memo, useRef, useCallback } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
 import { useScroll as useLenisScroll } from '../logic/ScrollManager'
+import Link from 'next/link'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,6 +36,7 @@ const itemVariants = {
 const projects = [
   {
     id: 1,
+    slug: 'personal-finance-app',
     title: 'Personal Finance App',
     description: 'Modern Full-Stack Finance Dashboard with Next.js, Hono, and Drizzle ORM',
     longDescription: 'A high-performance personal finance manager optimized for sub-second latency via Edge-runtime and Serverless Postgres. It features a production-ready dashboard with TanStack Virtual for handling massive datasets, Web Worker-based CSV imports, and Optimistic UI updates. Fully type-safe and responsive, it leverages Drizzle ORM and Recharts for deep financial visualization.',
@@ -49,6 +51,7 @@ const projects = [
   },
   {
     id: 2,
+    slug: 'team-chat-app',
     title: 'Team Chat App',
     description: 'Real-time Collaborative Workspace with Convex, Next.js, and Jotai',
     longDescription: 'A Slack-inspired communication platform built for low-latency, real-time interaction. Leveraging Convex’s reactive database, it features multi-workspace management, dynamic channels, and instant messaging. Engineered with Next.js, TypeScript, and Jotai for surgical state management and a polished, enterprise-grade UI.',
@@ -64,6 +67,7 @@ const projects = [
   },
   {
     id: 3,
+    slug: 'workflow-automation-platform',
     title: 'Workflow Automation Platform',
     description: 'Distributed Event-Driven Automation with Kafka, Express, and Next.js',
     longDescription: 'A high-performance, "Zapier-like" automation platform that enables users to trigger multi-step workflows via webhooks. Built with a microservices architecture, it ensures 100% reliability using the Transactional Outbox pattern and an asynchronous Kafka pipeline to process actions like Solana transfers and automated emails.',
@@ -77,6 +81,7 @@ const projects = [
   },
   {
     id: 4,
+    slug: 'complaint-management-system',
     title: 'Complaint Management System',
     description: 'JWT-Authenticated Complaint Lifecycle Management with Next.js and MongoDB',
     longDescription: 'A robust, full-stack complaint management system built with Next.js and MongoDB. It features secure JWT authentication, role-based access control (Admin, Faculty, Student), and a complete lifecycle management workflow for complaints. The application supports file uploads, detailed audit trails, and responsive UI for seamless user interaction.',
@@ -90,6 +95,7 @@ const projects = [
   },
   {
     id: 5,
+    slug: 'blogging-platform',
     title: 'Blogging Platform',
     description: 'Serverless Blogging platform with Hono, Cloudflare Workers, and Prisma Accelerate',
     longDescription: 'A full-stack blogging platform built for global scale using a serverless architecture. The backend utilizes Hono on Cloudflare Workers for edge-runtime performance , while Prisma with Accelerate manages a pooled PostgreSQL connection for high-concurrency database operations. Featuring a Next.js-style React frontend with Tailwind CSS, it implements secure JWT authentication, a custom common-type library for end-to-end safety, and a responsive writing interface.',
@@ -103,6 +109,7 @@ const projects = [
   },
   {
     id: 6,
+    slug: 'live-cursors-app',
     title: 'Live Cursors App - Websockets ',
     description: 'Real-Time Collaborative Canvas with WebSocket-Driven Live Cursors and Smooth Interpolation',
     longDescription: 'A real-time collaborative canvas where multiple users can interact simultaneously with smooth, interpolated cursor movements. Built with React, Node.js, and WebSocket technology, it ensures low-latency communication and a seamless user experience for collaborative editing and design.',
@@ -178,7 +185,7 @@ const Projects = memo(function Projects() {
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
-            Featured Work
+            Projects
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             A curated collection of projects showcasing my expertise in modern web development, 
@@ -230,13 +237,16 @@ const Projects = memo(function Projects() {
                 <motion.div
                   key={project.id}
                   variants={itemVariants}
-                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden h-full transition-all duration-300 gpu-optimized flex-shrink-0 cursor-pointer"
-                  onClick={() => project.liveUrl && window.open(project.liveUrl, '_blank')}
-                  whileHover={{ scale: 1.02 }}
-                  style={{ 
-                    width: `calc(${100 / cardsPerView}% - ${cardsPerView === 1 ? '12px' : '16px'})`, 
-                    height: '280px' 
+                  className="flex-shrink-0"
+                  style={{
+                    width: `calc(${100 / cardsPerView}% - ${cardsPerView === 1 ? '12px' : '16px'})`,
+                    height: '280px',
                   }}
+                >
+                <Link href={`/projects/${project.slug}`} className="block h-full">
+                <motion.div
+                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden h-full transition-all duration-300 gpu-optimized cursor-pointer"
+                  whileHover={{ scale: 1.02 }}
                 >
                   {/* Top accent bar */}
                   <div className="h-1 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 group-hover:from-gray-600 group-hover:via-gray-400 group-hover:to-gray-600 transition-all duration-300" />
@@ -304,6 +314,8 @@ const Projects = memo(function Projects() {
                       <div className="flex items-center space-x-3 w-full justify-end">
                         <a
                           href={project.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
                           className="flex items-center space-x-2 px-3 py-1.5 bg-gray-900 hover:bg-white hover:text-black text-gray-300 rounded-lg transition-all duration-300 border border-gray-800 hover:border-white group/code"
                         >
@@ -316,6 +328,8 @@ const Projects = memo(function Projects() {
 
                   {/* Hover overlay effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                </motion.div>
+                </Link>
                 </motion.div>
               ))}
             </motion.div>
