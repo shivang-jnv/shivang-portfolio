@@ -11,7 +11,6 @@ type TechItem = {
   src?: string
   invert?: boolean
   icon?: React.ReactNode
-  wide?: boolean
 }
 
 /* ── Inline SVGs for icons not in Devicons/SimpleIcons ── */
@@ -53,7 +52,7 @@ const categories: { label: string; items: TechItem[] }[] = [
       { name: 'Express',    src: `${DEVICONS}/express/express-original.svg`, invert: true },
       { name: 'GraphQL',    src: `${DEVICONS}/graphql/graphql-plain.svg` },
       { name: 'Kafka',      src: `${SIMPLEICONS}/apachekafka/ffffff` },
-      { name: 'REST APIs',  icon: <RestIcon />, wide: true },
+      { name: 'REST APIs',  icon: <RestIcon /> },
       { name: 'WebSockets', icon: <WsIcon /> },
     ],
   },
@@ -133,7 +132,7 @@ export default function TechStack() {
                   <motion.div
                     key={tech.name}
                     variants={pillVariants}
-                    className={`group/pill flex items-center gap-2.5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/[0.10] transition-all duration-200 cursor-default ${tech.wide ? 'px-8' : 'px-5'}`}
+                    className="group/pill flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/[0.10] transition-all duration-200 cursor-default"
                   >
                     {tech.icon ? (
                       tech.icon
@@ -145,7 +144,7 @@ export default function TechStack() {
                         style={tech.invert ? { filter: 'invert(1)' } : undefined}
                       />
                     )}
-                    <span className="text-base text-gray-300">{tech.name}</span>
+                    <span className="text-base text-gray-300 whitespace-nowrap">{tech.name}</span>
                   </motion.div>
                 ))}
               </div>

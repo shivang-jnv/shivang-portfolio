@@ -185,7 +185,7 @@ const Projects = memo(function Projects() {
           <h2 className="text-5xl md:text-7xl font-black mb-6 text-gradient">
             Projects
           </h2>
-          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-md md:text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
             A curated collection of projects showcasing my expertise in modern web development, 
             creative problem-solving, and attention to detail.
           </p>
