@@ -1,173 +1,111 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Clock, Send, Copy, Check } from 'lucide-react'
+import { Copy, Check, Github, Linkedin, Twitter } from 'lucide-react'
 import React, { useState, useCallback } from 'react'
 
-const Contact = React.memo(() => {
-  Contact.displayName = 'Contact'
-  const [copiedEmail, setCopiedEmail] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+const EMAIL = 'skjnvspn@gmail.com'
 
-  const handleCopyEmail = useCallback(async () => {
+const socials = [
+  { Icon: Github,   href: 'https://github.com/shivang-jnv',                        label: 'GitHub'   },
+  { Icon: Linkedin, href: 'https://www.linkedin.com/in/shivang-kanaujia-973a6a175/', label: 'LinkedIn' },
+  { Icon: Twitter,  href: 'https://twitter.com/shivang_jnv',                         label: 'Twitter'  },
+]
+
+const ease = [0.21, 0.47, 0.32, 0.98] as const
+
+const Contact = React.memo(function Contact() {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText('skjnvspn@gmail.com')
-      setCopiedEmail(true)
-      setTimeout(() => setCopiedEmail(false), 2000)
-    } catch (err) {
-      console.error('Failed to copy email:', err)
-    }
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {}
   }, [])
 
-  const inputClass =
-    'w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white text-sm placeholder-gray-600 focus:border-white/25 focus:bg-white/[0.07] outline-none transition-all duration-200'
-
   return (
-    <section id="contact" className="py-20 px-6 relative">
-      <div className="max-w-4xl mx-auto">
+    <section id="contact" className="py-32 px-6 relative">
+      <div className="max-w-2xl mx-auto text-center">
 
-        {/* Header */}
-        <motion.div
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, ease }}
+          className="text-xs uppercase tracking-[0.25em] text-gray-600 font-semibold mb-5"
+        >
+          Contact
+        </motion.p>
+
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3, margin: '-50px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.55, delay: 0.08, ease }}
+          className="text-4xl md:text-5xl font-black tracking-tight text-white mb-5 leading-tight whitespace-nowrap"
         >
-          <p className="text-xs uppercase tracking-[0.25em] text-gray-500 font-semibold mb-3">
-            Get in touch
-          </p>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tight text-gradient mb-4">
-            Let&apos;s Connect
-          </h2>
-          <p className="text-base text-gray-400 max-w-xl mx-auto">
-            Have a project in mind or just want to say hi? My inbox is always open.
-          </p>
+          Let&apos;s work together.
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.15, ease }}
+          className="text-gray-500 text-base mb-12 leading-relaxed"
+        >
+          Open to full-time roles, freelance projects, and interesting conversations.
+        </motion.p>
+
+        {/* Email CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.22, ease }}
+          className="flex items-center justify-center gap-3 mb-14"
+        >
+          <a
+            href={`mailto:${EMAIL}`}
+            className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-black font-bold text-sm hover:bg-gray-100 hover:-translate-y-0.5 transition-all duration-200"
+          >
+            {EMAIL}
+          </a>
+          <button
+            onClick={handleCopy}
+            aria-label="Copy email"
+            className="p-3 rounded-full border border-white/[0.1] bg-white/[0.04] text-gray-400 hover:text-white hover:border-white/25 hover:bg-white/[0.08] transition-all duration-200"
+          >
+            {copied
+              ? <Check size={15} className="text-emerald-400" />
+              : <Copy size={15} />
+            }
+          </button>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-
-          {/* Left — contact info */}
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-4"
-          >
-            {/* Email card */}
-            <div
-              className="p-[1px] rounded-2xl"
-              style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%)' }}
+        {/* Social links */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.3, ease }}
+          className="flex items-center justify-center gap-5"
+        >
+          {socials.map(({ Icon, href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="p-2.5 text-gray-500 hover:text-white transition-colors duration-200"
             >
-              <div className="rounded-2xl p-6" style={{ background: '#0c0c0c' }}>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-2.5 rounded-xl bg-white/[0.06] border border-white/[0.08]">
-                    <Mail size={18} className="text-gray-300" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 font-medium mb-1">Email</p>
-                    <p className="text-white font-semibold text-sm">skjnvspn@gmail.com</p>
-                    <p className="text-xs text-gray-600 mt-1">Best way to reach me for projects and collaborations</p>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <a
-                    href="mailto:skjnvspn@gmail.com"
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold bg-white text-black rounded-lg hover:bg-gray-200 transition-colors"
-                  >
-                    <Send size={12} />
-                    Send Email
-                  </a>
-                  <button
-                    onClick={handleCopyEmail}
-                    className="px-4 py-2.5 text-xs font-medium rounded-lg bg-white/[0.05] border border-white/[0.08] text-gray-400 hover:border-white/20 hover:text-white transition-all flex items-center gap-1.5"
-                  >
-                    {copiedEmail ? <><Check size={12} className="text-green-400" /><span>Copied</span></> : <><Copy size={12} /><span>Copy</span></>}
-                  </button>
-                </div>
-              </div>
-            </div>
+              <Icon size={20} />
+            </a>
+          ))}
+        </motion.div>
 
-            {/* Quick info */}
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { icon: MapPin, label: 'Location', value: 'India' },
-                { icon: Clock, label: 'Response', value: 'Within 24h' },
-              ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 flex items-center gap-3">
-                  <Icon size={15} className="text-gray-500 shrink-0" />
-                  <div>
-                    <p className="text-[11px] text-gray-600 font-medium">{label}</p>
-                    <p className="text-sm text-white font-semibold">{value}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Right — contact form */}
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div
-              className="p-[1px] rounded-2xl"
-              style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%)' }}
-            >
-              <form
-                className="rounded-2xl p-7 space-y-5"
-                style={{ background: '#0c0c0c' }}
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <div>
-                  <label className="block text-xs text-gray-500 font-medium mb-2 uppercase tracking-wider">Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    value={form.name}
-                    onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs text-gray-500 font-medium mb-2 uppercase tracking-wider">Email</label>
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={form.email}
-                    onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs text-gray-500 font-medium mb-2 uppercase tracking-wider">Message</label>
-                  <textarea
-                    rows={5}
-                    placeholder="Tell me about your project..."
-                    value={form.message}
-                    onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))}
-                    className={`${inputClass} resize-none`}
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-gray-200 transition-colors"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Send size={15} />
-                  Send Message
-                </motion.button>
-              </form>
-            </div>
-          </motion.div>
-
-        </div>
       </div>
     </section>
   )

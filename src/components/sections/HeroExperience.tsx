@@ -9,9 +9,11 @@ const experiences = [
     role: 'Junior Engineer',
     company: 'Aalgorix',
     bullets: [
-      'Deployed containerized applications to Digital Ocean using Docker, managing cloud infrastructure and SSH-based server administration.',
-      'Identified and resolved AWS EC2 auto-scaling misconfiguration, reducing unnecessary running instances from 5 to 1 and optimizing resource utilization.',
-      'Contributed to frontend development for AI tutoring platform using React and TailwindCSS, implementing responsive UI components.',
+      'Reduced initial page load time from 11s to 3.26s (70% improvement) by parallelizing sequential session checks and API fetches, and implementing lazy loading, content streaming, and React Suspense.',
+      'Implemented asynchronous job polling system (2s intervals, 60 attempts, status-aware progress updates) replacing a broken synchronous upload flow.',
+      'Implemented PDF vectorization pipeline with ChromaDB and automated RAG metadata generation for curriculum-aligned tutoring.',
+      'Containerized production applications on DigitalOcean and Cloudpe droplets using Docker, Docker Compose, and custom Dockerignore configurations, configuring Nginx reverse proxy and generating SSL certs.',
+      'Developed and deployed white-labeled MVPs of the AI tutoring platform, customized for universities and colleges as a standalone institutional product.',
     ],
   },
   {
@@ -31,7 +33,7 @@ export default function HeroExperience() {
     <motion.div
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
       className="flex flex-col gap-6 lg:max-h-[80vh] lg:overflow-y-auto pr-1 lg:pl-16"
       style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.08) transparent' }}
     >

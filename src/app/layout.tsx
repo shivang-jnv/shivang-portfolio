@@ -41,6 +41,7 @@ import { ScrollProvider } from '../components/logic/ScrollManager'
 import { LazyMotion, domAnimation } from "framer-motion"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { WebVitalsReporter } from '../components/logic/WebVitalsReporter'
+import { Cursor } from '../components/ui/Cursor'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${inter.className} bg-black text-white`} suppressHydrationWarning={true}>
         <LazyMotion features={domAnimation}>
           <ScrollProvider>
+            <Cursor />
             {children}
             <SpeedInsights />
             <WebVitalsReporter />

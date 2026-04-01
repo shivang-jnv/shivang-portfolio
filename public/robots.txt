@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shivang.space/sitemap.xml

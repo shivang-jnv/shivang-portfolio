@@ -1,17 +1,23 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, Github, ExternalLink, Calendar, Layers } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowLeft, Github, ExternalLink, Calendar, Layers, ArrowUpRight } from 'lucide-react'
+import { useRef } from 'react'
 import type { Project } from '@/lib/projects'
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, delay, ease: [0.25, 0.46, 0.45, 0.94] },
+  transition: { duration: 0.5, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
 })
 
 export default function ProjectDetail({ project }: { project: Project }) {
+  const imageRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: imageRef, offset: ['start end', 'end start'] })
+  const imageY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
+
   return (
     <main className="min-h-screen bg-black text-white">
       {/* Dot grid background */}
@@ -54,13 +60,22 @@ export default function ProjectDetail({ project }: { project: Project }) {
         {/* Screenshot */}
         <motion.div {...fade(0.14)} className="mb-12">
           {project.screenshots.length > 0 ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={project.screenshots[0]}
-              alt={project.title}
-              className="w-full rounded-2xl border border-white/[0.08] object-cover"
-              style={{ maxHeight: '480px' }}
-            />
+            <div
+              ref={imageRef}
+              className="relative w-full overflow-hidden rounded-2xl border border-white/[0.08]"
+              style={{ height: '420px' }}
+            >
+              <motion.div className="absolute inset-0" style={{ y: imageY }}>
+                <Image
+                  src={project.screenshots[0]}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 896px"
+                  priority
+                />
+              </motion.div>
+            </div>
           ) : (
             <div
               className="w-full rounded-2xl border border-white/[0.08] flex items-center justify-center"
@@ -130,20 +145,22 @@ export default function ProjectDetail({ project }: { project: Project }) {
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-white text-black font-bold text-sm hover:bg-gray-200 transition-all duration-200"
+            className="group inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-white text-black font-bold text-sm hover:bg-gray-200 hover:-translate-y-0.5 transition-all duration-200"
           >
             <Github size={16} />
             View on GitHub
+            <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </a>
           {project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-transparent border border-white/20 text-white font-bold text-sm hover:bg-white/[0.08] hover:border-white/40 transition-all duration-200"
+              className="group inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-transparent border border-white/20 text-white font-bold text-sm hover:bg-white/[0.08] hover:border-white/40 hover:-translate-y-0.5 transition-all duration-200"
             >
               <ExternalLink size={16} />
               Live Demo
+              <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </a>
           )}
         </motion.div>

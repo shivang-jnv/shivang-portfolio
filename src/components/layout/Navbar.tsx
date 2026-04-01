@@ -16,6 +16,7 @@ const navItems = [
 const Navbar = memo(function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
   const { lenis } = useScroll()
 
   const scrollToSection = (sectionId: string) => {
@@ -31,7 +32,7 @@ const Navbar = memo(function Navbar() {
   }
 
   const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 50)
+    setScrolled(window.scrollY > 80)
   }, [])
 
   useEffect(() => {
@@ -39,12 +40,33 @@ const Navbar = memo(function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
+  // Active section via IntersectionObserver
+  useEffect(() => {
+    const sectionIds = navItems.map((item) => item.href.replace('#', ''))
+    const observers: IntersectionObserver[] = []
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id)
+        },
+        { threshold: 0.25, rootMargin: '-80px 0px -40% 0px' }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    return () => observers.forEach((obs) => obs.disconnect())
+  }, [])
+
   return (
     <motion.nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 fixed-layer ${
-        scrolled 
-        ? 'bg-black/90 backdrop-blur-md border-b border-gray-800' 
-        : 'bg-transparent'
+        scrolled
+          ? 'bg-black/60 backdrop-blur-md border-b border-white/[0.08]'
+          : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -55,30 +77,38 @@ const Navbar = memo(function Navbar() {
           {/* Logo */}
           <motion.button
             onClick={() => scrollToSection('home')}
-            className="text-2xl font-bold cursor-pointer"
+            className="text-2xl font-bold cursor-pointer transition-all duration-200 hover:brightness-125"
             whileHover={{ scale: 1.05 }}
           >
             <span className="text-gradient">SK</span>
           </motion.button>
 
-
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
-            {navItems.map((item, index) => (
-              <Magnetic key={item.href}>
-                <motion.button
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-gray-300 hover:text-white transition-colors text-lg font-medium relative group flex items-center space-x-2"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <item.icon size={18} />
-                  <span>{item.label}</span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gray-400 to-white transition-all group-hover:w-full" />
-                </motion.button>
-              </Magnetic>
-            ))}
+            {navItems.map((item, index) => {
+              const isActive = activeSection === item.href.replace('#', '')
+              return (
+                <Magnetic key={item.href}>
+                  <motion.button
+                    onClick={() => scrollToSection(item.href)}
+                    className={`transition-colors duration-200 text-sm font-medium relative group flex items-center space-x-2 ${
+                      isActive ? 'text-white' : 'text-gray-400 hover:text-white'
+                    }`}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <item.icon size={15} />
+                    <span>{item.label}</span>
+                    <span
+                      className={`absolute -bottom-1 left-0 h-[1.5px] bg-white transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`}
+                    />
+                  </motion.button>
+                </Magnetic>
+              )
+            })}
           </div>
 
           {/* Mobile Menu Button */}
@@ -96,18 +126,23 @@ const Navbar = memo(function Navbar() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-4 pb-6 space-y-2 bg-gray-900 backdrop-blur-xl border-t border-gray-700/50 rounded-b-xl px-6 shadow-2xl shadow-black/30"
+            className="md:hidden mt-4 pb-6 space-y-2 bg-black/90 backdrop-blur-xl border-t border-white/[0.06] rounded-b-xl px-6 shadow-2xl shadow-black/30"
           >
-            {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="w-full py-3 text-gray-300 hover:text-white transition-colors flex items-center space-x-3 text-left touch-manipulation min-h-[44px]"
-              >
-                <item.icon size={18} />
-                <span>{item.label}</span>
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.href.replace('#', '')
+              return (
+                <button
+                  key={item.href}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`w-full py-3 transition-colors flex items-center space-x-3 text-left touch-manipulation min-h-[44px] ${
+                    isActive ? 'text-white' : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <item.icon size={16} />
+                  <span className="text-sm font-medium">{item.label}</span>
+                </button>
+              )
+            })}
           </motion.div>
         )}
       </div>
@@ -115,4 +150,4 @@ const Navbar = memo(function Navbar() {
   )
 })
 
-export default Navbar;
+export default Navbar

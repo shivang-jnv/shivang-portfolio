@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Github, Code2, Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Github, Code2, Star, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react'
 import { useEffect, useState, memo, useRef, useCallback } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
@@ -243,8 +243,8 @@ const Projects = memo(function Projects() {
                 >
                 <Link href={`/projects/${project.slug}`} className="block h-full">
                 <motion.div
-                  className="group relative bg-black border-2 border-gray-800 rounded-xl overflow-hidden h-full transition-all duration-300 gpu-optimized cursor-pointer"
-                  whileHover={{ scale: 1.02 }}
+                  className="group relative bg-black border border-gray-800 rounded-xl overflow-hidden h-full transition-all duration-300 gpu-optimized cursor-pointer hover:border-white/[0.2] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6),inset_0_0_0_1px_rgba(255,255,255,0.06)]"
+                  whileHover={{ scale: 1.02, y: -4 }}
                 >
                   {/* Top accent bar */}
                   <div className="h-1 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 group-hover:from-gray-600 group-hover:via-gray-400 group-hover:to-gray-600 transition-all duration-300" />
@@ -270,7 +270,8 @@ const Projects = memo(function Projects() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1.5">
                             {project.featured && (
-                              <div className="flex items-center space-x-1">
+                              <div className="flex items-center space-x-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                                 <Star className="text-gray-500 group-hover:text-gray-400 transition-colors" size={10} fill="currentColor" />
                                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Featured</span>
                               </div>
@@ -283,6 +284,11 @@ const Projects = memo(function Projects() {
                           <p className="text-gray-400 text-xs">{project.year}</p>
                         </div>
                       </div>
+                      {/* Arrow indicator */}
+                      <ArrowUpRight
+                        size={15}
+                        className="text-white/20 group-hover:text-white/60 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 shrink-0 mt-0.5 ml-2"
+                      />
                     </div>
 
                     {/* Description */}

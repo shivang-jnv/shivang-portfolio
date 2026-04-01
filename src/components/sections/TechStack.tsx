@@ -63,7 +63,7 @@ const categories: { label: string; items: TechItem[] }[] = [
       { name: 'PostgreSQL', src: `${DEVICONS}/postgresql/postgresql-original.svg` },
       { name: 'MongoDB',    src: `${DEVICONS}/mongodb/mongodb-original.svg` },
       { name: 'Redis',      src: `${DEVICONS}/redis/redis-original.svg` },
-      { name: 'Prisma',     src: `${SIMPLEICONS}/prisma/ffffff` },
+      { name: 'Prisma ORM', src: `${SIMPLEICONS}/prisma/ffffff` },
     ],
   },
   {
@@ -123,26 +123,25 @@ export default function TechStack() {
               className="flex flex-col lg:flex-row lg:flex-nowrap lg:items-center gap-3"
             >
               {/* Category label */}
-              <span className="text-sm font-bold uppercase tracking-[0.18em] text-gray-500 lg:w-36 shrink-0">
+              <span className="text-sm font-bold uppercase tracking-[0.18em] text-gray-500 lg:w-36 shrink-0 border-l-2 border-white/20 pl-3">
                 {cat.label}
               </span>
 
-              {/* Pills — wrap on mobile, nowrap on lg+ */}
+              {/* Pills */}
               <div className="flex flex-wrap lg:flex-nowrap gap-3">
                 {cat.items.map((tech) => (
                   <motion.div
                     key={tech.name}
                     variants={pillVariants}
-                    className={`flex items-center gap-2.5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-white/25 hover:bg-white/[0.08] transition-all duration-200 cursor-default ${tech.wide ? 'px-8' : 'px-5'}`}
+                    className={`group/pill flex items-center gap-2.5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/[0.10] transition-all duration-200 cursor-default ${tech.wide ? 'px-8' : 'px-5'}`}
                   >
                     {tech.icon ? (
                       tech.icon
                     ) : (
-                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={tech.src}
                         alt={tech.name}
-                        className="block shrink-0 h-[22px] w-[22px] object-contain opacity-90"
+                        className="block shrink-0 h-[22px] w-[22px] object-contain opacity-90 group-hover/pill:scale-110 transition-transform duration-200"
                         style={tech.invert ? { filter: 'invert(1)' } : undefined}
                       />
                     )}

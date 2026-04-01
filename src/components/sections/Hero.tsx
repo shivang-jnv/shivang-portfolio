@@ -20,28 +20,20 @@ export const Hero = () => {
     }
   }
 
+  const ease = [0.21, 0.47, 0.32, 0.98] as const
+
   return (
     <section className="min-h-screen relative overflow-hidden pt-16 w-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 min-h-screen items-center px-6 lg:px-16">
 
         {/* ── LEFT HALF ── */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          className="flex flex-col items-start z-10"
-        >
+        <div className="flex flex-col items-start z-10">
           {/* Name */}
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tight w-full text-center"
-            animate={{
-              textShadow: [
-                '0 0 0px rgba(255,255,255,0)',
-                '0 0 20px rgba(255,255,255,0.5)',
-                '0 0 0px rgba(255,255,255,0)',
-              ],
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
+            className="text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-4 tracking-tight w-full text-center whitespace-nowrap"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease }}
           >
             <span className="text-gradient">Shivang Kanaujia</span>
           </motion.h1>
@@ -49,9 +41,9 @@ export const Hero = () => {
           {/* Title — centered in left column */}
           <motion.div
             className="text-2xl md:text-3xl font-light mb-4 w-full text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25, ease }}
           >
             <span className="text-white/80">Full Stack Developer</span>
           </motion.div>
@@ -59,20 +51,18 @@ export const Hero = () => {
           {/* Tagline */}
           <motion.p
             className="text-lg text-gray-400 mb-12 w-full leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.35, ease }}
           >
-            Crafting digital experiences with modern technologies.
-            Passionate about creating beautiful, functional web applications
-            that solve real-world problems.
+            Software Engineer with 5+ months of production experience building and deploying AI-powered applications in a fast-paced startup. Skilled across full-stack development, cloud infrastructure (Docker, Kubernetes, AWS, Nginx, SSL), and modern AI systems (RAG, ChromaDB). Active open-source contributor with 7+ merged PRs.
           </motion.p>
 
           {/* Buttons — centered in left column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.45, ease }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 w-full"
           >
             <button
@@ -96,9 +86,9 @@ export const Hero = () => {
 
           {/* Social Icons — centered in left column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.0 }}
+            transition={{ duration: 0.5, delay: 0.55, ease }}
             className="flex items-center justify-center gap-6 w-full"
           >
             {[
@@ -121,7 +111,7 @@ export const Hero = () => {
               </Magnetic>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* ── RIGHT HALF ── */}
         <HeroExperience />
